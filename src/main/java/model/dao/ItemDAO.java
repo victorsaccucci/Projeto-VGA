@@ -26,7 +26,7 @@ public class ItemDAO {
 				novoItem.setId(resultado.getInt(1));
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao inserir um novo item!");
+			System.out.println("Erro ao inserir um novo item!" + e.getMessage());
 		} finally {
 			Banco.closeConnection(conn);
 			Banco.closePreparedStatement(stmt);
