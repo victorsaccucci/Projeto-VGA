@@ -16,9 +16,9 @@ public class ItemDAO {
 		try {
 			stmt.setString(1, novoItem.getTamanho());
 			stmt.setString(2, novoItem.getCor());
-			stmt.setString(5, novoItem.getTamanho());
 			stmt.setInt(3, novoItem.getQuantidade());
 			stmt.setDouble(4, novoItem.getPrecoUnitario());
+			stmt.setInt(5, novoItem.getIdProduto());						
 			stmt.execute();
 
 			ResultSet resultado = stmt.getGeneratedKeys();
