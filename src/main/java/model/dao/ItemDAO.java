@@ -28,8 +28,8 @@ public class ItemDAO {
 		} catch (SQLException e) {
 			System.out.println("Erro ao inserir um novo item!" + e.getMessage());
 		} finally {
-			Banco.closeConnection(conn);
 			Banco.closePreparedStatement(stmt);
+			Banco.closeConnection(conn);
 		}
 		return novoItem;
 	}
