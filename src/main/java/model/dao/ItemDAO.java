@@ -11,7 +11,7 @@ public class ItemDAO {
 
 	public ItemVO inserir(ItemVO novoItem) {
 		Connection conn = Banco.getConnection();
-		String sql = "INSER INTO ITEM (TAMANHO, COR, QUANTIDADE, PRECO_UNITARIO, IDPRODUTO) VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO ITEM (TAMANHO, COR, QUANTIDADE, PRECO_UNITARIO, IDPRODUTO) VALUES (?,?,?,?,?)";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql);
 		try {
 			stmt.setString(1, novoItem.getTamanho());
