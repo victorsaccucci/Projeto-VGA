@@ -63,7 +63,7 @@ public class ItemDAO {
 	public boolean excluir(int idItem) {
 		boolean excluiu = false;
 		Connection conn = Banco.getConnection();
-		String sql = " DELET * FROM ITEM " + " WHERE IDITEM = ? ";
+		String sql = " DELETE * FROM ITEM " + " WHERE IDITEM = ? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
 		try {
 			stmt.setInt(1, idItem);
@@ -72,6 +72,23 @@ public class ItemDAO {
 			
 		} catch (SQLException e) {
 			System.out.println("Erro ao atualizar item!" + "\n Causa: " + e.getMessage());
+		}
+		return excluiu;
+	}
+	
+	public boolean excluirItemPorIdProduto(int idProduto) {
+		boolean excluiu = false;
+		Connection conn = Banco.getConnection();
+		String sql = " DELETE * FROM ITEM " + " WHERE IDPRODUTO = ? ";
+		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
+		
+		try {
+			stmt.setInt(1, idProduto);
+			int atualizadas = stmt.executeUpdate();
+			excluiu = atualizadas > 0;
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao excluir item por id do produto!" + "\n Causa: " + e.getMessage());
 		}
 		return excluiu;
 	}
