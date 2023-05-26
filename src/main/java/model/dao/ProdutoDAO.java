@@ -122,7 +122,7 @@ public class ProdutoDAO {
 				produtoConsultado = converterResultSetParaEntidade(resultado);
 			}
 		}catch(SQLException e) {
-			System.out.println("Erro ao buscar produto com id: " +id
+			System.out.println("Erro ao buscar item com id: " + id
 								+"\n Causa: " +e.getMessage());
 		}finally {
 			Banco.closePreparedStatement(query);

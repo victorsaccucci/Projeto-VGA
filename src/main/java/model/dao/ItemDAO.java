@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.vo.ItemVO;
+import model.vo.ProdutoVO;
 
 public class ItemDAO {
 
@@ -69,27 +72,82 @@ public class ItemDAO {
 			stmt.setInt(1, idItem);
 			int atualizadas = stmt.executeUpdate();
 			excluiu = atualizadas > 0;
-			
+
 		} catch (SQLException e) {
 			System.out.println("Erro ao atualizar item!" + "\n Causa: " + e.getMessage());
 		}
 		return excluiu;
 	}
-	
+
 	public boolean excluirItemPorIdProduto(int idProduto) {
 		boolean excluiu = false;
 		Connection conn = Banco.getConnection();
 		String sql = " DELETE * FROM ITEM " + " WHERE IDPRODUTO = ? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
-		
+
 		try {
 			stmt.setInt(1, idProduto);
 			int atualizadas = stmt.executeUpdate();
 			excluiu = atualizadas > 0;
-			
+
 		} catch (SQLException e) {
 			System.out.println("Erro ao excluir item por id do produto!" + "\n Causa: " + e.getMessage());
 		}
 		return excluiu;
+	}
+
+	public List<ItemVO> consultarTodos() {
+		List<ItemVO> consultados = new ArrayList<ItemVO>();
+
+		Connection conn = Banco.getConnection();
+		String sql = " SELECT * FROM ITEM";
+		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
+
+		try {
+			ResultSet resultado = stmt.executeQuery();
+			while (resultado.next()) {
+				ItemVO itemConsultado = converterResultSetParaEntidade(resultado);
+				consultados.add(itemConsultado);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar todos os itens! \nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeConnection(conn);
+			Banco.closePreparedStatement(stmt);
+		}
+		return consultados;
+	}
+
+	public ItemVO consultarPorId(int id) {
+		ItemVO itemConsultado = null;
+		Connection conn = Banco.getConnection();
+		String sql = " SELECT * FROM ITEM WHERE ID = ? ";
+		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
+		try {
+			stmt.setInt(1, id);
+			ResultSet resultado = stmt.executeQuery();
+
+			if (resultado.next()) {
+				itemConsultado = converterResultSetParaEntidade(resultado);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar todos os itens! \nCausa: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return itemConsultado;
+	}
+
+	private ItemVO converterResultSetParaEntidade(ResultSet resultado) throws SQLException {
+		ItemVO itemConsultado = new ItemVO();
+		itemConsultado.setId(resultado.getInt("id"));
+		itemConsultado.setTamanho(resultado.getString("tamanho"));
+		itemConsultado.setCor(resultado.getString("cor"));
+		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
+		itemConsultado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
+		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
+
+		return itemConsultado;
 	}
 }

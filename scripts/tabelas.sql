@@ -38,4 +38,4 @@ CREATE TABLE `venda` (
   KEY `idusuario_idx` (`idusuario`),
   CONSTRAINT `iditem` FOREIGN KEY (`iditem`) REFERENCES `item` (`iditem`),
   CONSTRAINT `idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`)
-)
+);
