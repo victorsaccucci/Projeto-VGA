@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.vo.ProdutoVO;
 
@@ -81,6 +83,61 @@ public class ProdutoDAO {
 		}
 		
 		return atualizou;
+	}
+	
+	public List<ProdutoVO> consultarTodos(){
+		List<ProdutoVO> produtos = new ArrayList<ProdutoVO>();
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM PRODUTO ";
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		
+		try {
+			ResultSet resultado = query.executeQuery();
+			while(resultado.next()) {
+				ProdutoVO produtoConsultado = converterResultSetParaEntidade(resultado);
+				produtos.add(produtoConsultado);
+			}
+		} catch(SQLException e) {
+			System.out.println("Erro ao buscar todos produtos!"
+							  +"\n Causa: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		return produtos;
+	}
+	
+	public ProdutoVO consultarPorId(int id) {
+		ProdutoVO produtoConsultado = null;
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM PRODUTO "
+				   + " WHERE ID = ? ";
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		
+		try {
+			query.setInt(1, id);
+			ResultSet resultado = query.executeQuery();
+			
+			if(resultado.next()) {
+				produtoConsultado = converterResultSetParaEntidade(resultado);
+			}
+		}catch(SQLException e) {
+			System.out.println("Erro ao buscar produto com id: " +id
+								+"\n Causa: " +e.getMessage());
+		}finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		return produtoConsultado;
+	}
+
+	private ProdutoVO converterResultSetParaEntidade(ResultSet resultado) throws SQLException{
+		ProdutoVO produtoConsultado = new ProdutoVO();
+		produtoConsultado.setId(resultado.getInt("id"));
+		produtoConsultado.setMarca(resultado.getString("marca"));
+		produtoConsultado.setDescricao(resultado.getString("descricao"));
+		
+		return produtoConsultado;
 	}
 
 }
