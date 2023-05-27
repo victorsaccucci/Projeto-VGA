@@ -10,7 +10,6 @@ import java.util.List;
 
 import model.vo.UsuarioVO;
 
-
 public class UsuarioDAO {
 
 	public UsuarioVO inserir(UsuarioVO novoUsuario) {
@@ -23,10 +22,10 @@ public class UsuarioDAO {
 			stmt.setString(3, novoUsuario.getEmail());
 			stmt.setString(4, novoUsuario.getCpf());
 			stmt.execute();
-			
+
 			ResultSet resultado = stmt.getGeneratedKeys();
-			
-			if(resultado.next()) {
+
+			if (resultado.next()) {
 				novoUsuario.setId(resultado.getInt(1));
 			}
 		} catch (SQLException e) {
@@ -36,10 +35,10 @@ public class UsuarioDAO {
 			Banco.closePreparedStatement(stmt);
 			Banco.closeConnection(conn);
 		}
-		
+
 		return novoUsuario;
 	}
-	
+
 	public boolean atualizar(UsuarioVO usuarioAtualizado) {
 		Connection conn = Banco.getConnection();
 		String sql = "UPDATE USUARIO SET NOME=?, SENHA=?, EMAIL=?, CPF=? WHERE IDUSUARIO=?";
@@ -51,7 +50,7 @@ public class UsuarioDAO {
 			stmt.setString(3, usuarioAtualizado.getEmail());
 			stmt.setString(4, usuarioAtualizado.getCpf());
 			registrosAlterados = stmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			System.out.println("Erro ao atualizar usuario ");
 			System.out.println("Erro: " + e.getMessage());
@@ -61,12 +60,12 @@ public class UsuarioDAO {
 		}
 		return registrosAlterados > 0;
 	}
-	
+
 	public boolean excluir(int id) {
 		Connection conn = Banco.getConnection();
 		String sql = "DELETE FROM USUARIO WHERE IDUSUARIO= " + id;
 		Statement stmt = Banco.getStatement(conn);
-		
+
 		int quantidadesLinhasAfetadas = 0;
 		try {
 			quantidadesLinhasAfetadas = stmt.executeUpdate(sql);
@@ -74,24 +73,24 @@ public class UsuarioDAO {
 			System.out.println("Erro ao excluir usu�rio ");
 			System.out.println("Erro: " + e.getMessage());
 		}
-		
+
 		boolean excluiu = quantidadesLinhasAfetadas > 0;
-		
+
 		return excluiu;
 	}
-	
+
 	public UsuarioVO consultarClientePorId(int id) {
 		UsuarioVO usuarioBuscado = null;
 		Connection conn = Banco.getConnection();
 		String sql = "SELECT * FROM USUARIO WHERE IDUSUARIO = ?";
-		
+
 		PreparedStatement query = Banco.getPreparedStatement(conn, sql);
-		
+
 		try {
 			query.setInt(1, id);
 			ResultSet resultado = query.executeQuery();
-			
-			if(resultado.next()) {
+
+			if (resultado.next()) {
 				usuarioBuscado = montarUsuarioComResultadoDoBanco(resultado);
 			}
 		} catch (SQLException e) {
@@ -103,31 +102,30 @@ public class UsuarioDAO {
 		return usuarioBuscado;
 	}
 
-	
-	public List<UsuarioVO> consultarTodos() {
-		List<UsuarioVO> usuarios = new ArrayList<UsuarioVO>();
+	public ArrayList<UsuarioVO> consultarTodos() {
+		ArrayList<UsuarioVO> usuarios = new ArrayList<UsuarioVO>();
 		Connection conn = Banco.getConnection();
 		String sql = " select * from usuario ";
-		
+
 		PreparedStatement query = Banco.getPreparedStatement(conn, sql);
 		try {
 			ResultSet resultado = query.executeQuery();
-			
-			while(resultado.next()) {
+
+			while (resultado.next()) {
 				UsuarioVO usuarioBuscado = montarUsuarioComResultadoDoBanco(resultado);
 				usuarios.add(usuarioBuscado);
 			}
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			System.out.println("Erro ao buscar todos os usuarios. \n Causa:" + e.getMessage());
-		}finally {
+		} finally {
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conn);
 		}
-		
+
 		return usuarios;
 	}
-	
+
 	private UsuarioVO montarUsuarioComResultadoDoBanco(ResultSet resultado) throws SQLException {
 		UsuarioVO usuarioBuscado = new UsuarioVO();
 		usuarioBuscado.setId(resultado.getInt("idusuario"));
@@ -135,23 +133,22 @@ public class UsuarioDAO {
 		usuarioBuscado.setSenha(resultado.getString("senha"));
 		usuarioBuscado.setEmail(resultado.getString("email"));
 		usuarioBuscado.setCpf(resultado.getString("cpf"));
-		
+
 		return usuarioBuscado;
 	}
-	
-	public UsuarioVO realizarLogin(UsuarioVO usuarioVO){
+
+	public UsuarioVO realizarLogin(UsuarioVO usuarioVO) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
-		
-		String sql = " SELECT U.IDUSUARIO, U.NOME, U.SENHA, U.EMAIL, U.CPF "
-				+ " FROM	USUARIO U "
-				+ " WHERE	U.LOGIN LIKE '" + usuarioVO.getLogin() + "' "
-				+ " AND U.SENHA LIKE '" + usuarioVO.getSenha() + "' ";	
+
+		String sql = " SELECT U.IDUSUARIO, U.NOME, U.SENHA, U.EMAIL, U.CPF " + " FROM	USUARIO U "
+				+ " WHERE	U.LOGIN LIKE '" + usuarioVO.getLogin() + "' " + " AND U.SENHA LIKE '" + usuarioVO.getSenha()
+				+ "' ";
 		try {
 			resultado = stmt.executeQuery(sql);
-			if(resultado.next()) {
-				
+			if (resultado.next()) {
+
 				usuarioVO.setId(Integer.parseInt(resultado.getString(1)));
 				usuarioVO.setNome(resultado.getString(2));
 				usuarioVO.setEmail(resultado.getString(3));
@@ -159,30 +156,30 @@ public class UsuarioDAO {
 				usuarioVO.setLogin(resultado.getString(5));
 				usuarioVO.setSenha(resultado.getString(6));
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Erro ao realizar login! \nCausa: " + e.getMessage());
-		}finally {
+		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeConnection(conn);
 			Banco.closeStatement(stmt);
-		}		
+		}
 		return usuarioVO;
 	}
+
 	public UsuarioVO cadastrarUsuarioDAO(UsuarioVO usuarioVO) {
-		String query = "INSERT INTO usuario (nome, cpf, email, senha, "
-				+ " login) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO usuario (nome, cpf, email, senha, " + " login) VALUES (?, ?, ?, ?, ?)";
 		Connection conn = Banco.getConnection();
-		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
+		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, sql);
 		try {
 			pstmt.setString(1, usuarioVO.getNome());
 			pstmt.setString(2, usuarioVO.getCpf());
 			pstmt.setString(3, usuarioVO.getEmail());
 			pstmt.setString(4, usuarioVO.getSenha());
-			pstmt.setString(5, usuarioVO.getLogin());			
+			pstmt.setString(5, usuarioVO.getLogin());
 			pstmt.execute();
-			
+
 			ResultSet resultado = pstmt.getGeneratedKeys();
-			if(resultado.next()) {
+			if (resultado.next()) {
 				usuarioVO.setId(resultado.getInt(1));
 			}
 		} catch (SQLException e) {
@@ -193,28 +190,28 @@ public class UsuarioDAO {
 		}
 		return usuarioVO;
 	}
-	public boolean verificarLogin (int idUsuario) {
-		
+
+
+	public boolean verificarExistenciaLoginPorCpf(UsuarioVO usuarioVO) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
-		boolean retorno = false;
 		ResultSet resultado = null;
+		boolean verficacao = false;
 		
-		String query = "SELECT idUsuario FROM usuario WHERE idUsuario = " + idUsuario;
+		String sql = "SELECT cpf FROM usuario WHERE cpf = ? ";
 		try {
-			resultado = stmt.executeQuery(query);
-			if (resultado.next()){
-				retorno = true;
+			resultado = stmt.executeQuery(sql);
+			if(resultado.next()) {
+				verficacao = true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao verificar existência do longin! \nCausa: "  + e.getMessage());
+			System.out.println("Erro ao verificar existência de usário por CPF! \nCausa: " + e.getMessage());
+			System.out.println("Erro: " + e.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
 		}
-		return retorno;
+		return verficacao;
 	}
-	
 }
-
