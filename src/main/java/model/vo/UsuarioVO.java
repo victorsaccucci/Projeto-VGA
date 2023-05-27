@@ -4,30 +4,37 @@ public class UsuarioVO {
 
 	private int id;
 	private String nome;
-	private String senha;
 	private String email;
 	private String cpf;
+	
+	//login 
+	
+	private String senha;
+	private String login;
+	
 	
 	
 	public UsuarioVO() {
 		super();
 	}
 	
-	public UsuarioVO(String nome, String senha, String email, String cpf) {
+	public UsuarioVO(String nome, String senha, String email, String cpf, String login) {
 		super();
 		this.nome = nome;
 		this.senha = senha;
 		this.email = email;
 		this.cpf = cpf;
+		this.login = login;
 	}
 	
-	public UsuarioVO(int id, String nome, String senha, String email, String cpf) {
+	public UsuarioVO(int id, String nome, String senha, String email, String cpf, String login) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.senha = senha;
 		this.email = email;
 		this.cpf = cpf;
+		this.login = login;
 	}
 
 	public int getId() {
@@ -69,10 +76,18 @@ public class UsuarioVO {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
 	@Override
 	public String toString() {
-		return  id + " " + nome + " " + senha + " " + email + " " + cpf;
+		return  id + " " + nome + " " + senha + " " + email + " " + cpf + " " + login;
 	}
 	
 }
