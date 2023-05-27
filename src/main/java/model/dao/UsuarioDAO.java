@@ -30,7 +30,7 @@ public class UsuarioDAO {
 				novoUsuario.setId(resultado.getInt(1));
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao inserir um novo usuário ");
+			System.out.println("Erro ao inserir um novo usuï¿½rio ");
 			System.out.println("Erro: " + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(stmt);
@@ -71,7 +71,7 @@ public class UsuarioDAO {
 		try {
 			quantidadesLinhasAfetadas = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
-			System.out.println("Erro ao excluir usuário ");
+			System.out.println("Erro ao excluir usuï¿½rio ");
 			System.out.println("Erro: " + e.getMessage());
 		}
 		
@@ -137,6 +137,83 @@ public class UsuarioDAO {
 		usuarioBuscado.setCpf(resultado.getString("cpf"));
 		
 		return usuarioBuscado;
+	}
+	
+	public UsuarioVO realizarLogin(UsuarioVO usuarioVO){
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		ResultSet resultado = null;
+		
+		String sql = " SELECT U.IDUSUARIO, U.NOME, U.SENHA, U.EMAIL, U.CPF "
+				+ " FROM	USUARIO U "
+				+ " WHERE	U.LOGIN LIKE '" + usuarioVO.getLogin() + "' "
+				+ " AND U.SENHA LIKE '" + usuarioVO.getSenha() + "' ";	
+		try {
+			resultado = stmt.executeQuery(sql);
+			if(resultado.next()) {
+				
+				usuarioVO.setId(Integer.parseInt(resultado.getString(1)));
+				usuarioVO.setNome(resultado.getString(2));
+				usuarioVO.setEmail(resultado.getString(3));
+				usuarioVO.setCpf(resultado.getString(4));
+				usuarioVO.setLogin(resultado.getString(5));
+				usuarioVO.setSenha(resultado.getString(6));
+			}
+		}catch(SQLException e) {
+			System.out.println("Erro ao realizar login! \nCausa: " + e.getMessage());
+		}finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeConnection(conn);
+			Banco.closeStatement(stmt);
+		}		
+		return usuarioVO;
+	}
+	public UsuarioVO cadastrarUsuarioDAO(UsuarioVO usuarioVO) {
+		String query = "INSERT INTO usuario (nome, cpf, email, senha, "
+				+ " login) VALUES (?, ?, ?, ?, ?)";
+		Connection conn = Banco.getConnection();
+		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
+		try {
+			pstmt.setString(1, usuarioVO.getNome());
+			pstmt.setString(2, usuarioVO.getCpf());
+			pstmt.setString(3, usuarioVO.getEmail());
+			pstmt.setString(4, usuarioVO.getSenha());
+			pstmt.setString(5, usuarioVO.getLogin());			
+			pstmt.execute();
+			
+			ResultSet resultado = pstmt.getGeneratedKeys();
+			if(resultado.next()) {
+				usuarioVO.setId(resultado.getInt(1));
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao cadastrar usuÃ¡rio! \nCausa: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(pstmt);
+			Banco.closeConnection(conn);
+		}
+		return usuarioVO;
+	}
+	public boolean verificarLogin (int idUsuario) {
+		
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		boolean retorno = false;
+		ResultSet resultado = null;
+		
+		String query = "SELECT idUsuario FROM usuario WHERE idUsuario = " + idUsuario;
+		try {
+			resultado = stmt.executeQuery(query);
+			if (resultado.next()){
+				retorno = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar existÃªncia do longin! \nCausa: "  + e.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return retorno;
 	}
 	
 }
