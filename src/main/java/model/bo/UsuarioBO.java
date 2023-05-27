@@ -1,5 +1,7 @@
 package model.bo;
 
+import java.util.ArrayList;
+
 import model.dao.UsuarioDAO;
 import model.vo.UsuarioVO;
 
@@ -21,5 +23,30 @@ public class UsuarioBO {
 		}
 		return usuarioVO;
 	}
+	
+	//outra regra
+	
+	public ArrayList<UsuarioVO> consultarTodosUsuarioBO() {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		ArrayList<UsuarioVO> listaUsuariosVO = usuarioDAO.consultarTodos();
+		if(listaUsuariosVO.isEmpty()){
+			System.out.println("\nNenhum usário cadastrado!");
+		}
+		return listaUsuariosVO;
+	}
 
+	//verificar paramentro de consultarClientePorId
+	
+	public UsuarioVO consultarClientePorIdBO(UsuarioVO usuarioVO) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		return usuarioDAO.consultarClientePorId(usuarioVO.getId());
+	}
+
+	public boolean atualizarUsuarioBO(UsuarioVO usuarioVO) {
+		return false;
+	}
+
+	public boolean excluirUsuarioBO(UsuarioVO usuarioVO) {
+		return false;
+	}
 }
