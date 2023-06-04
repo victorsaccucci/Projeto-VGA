@@ -137,24 +137,27 @@ public class UsuarioDAO {
 		return usuarioBuscado;
 	}
 
-	public UsuarioVO realizarLogin(UsuarioVO usuarioVO) {
+	public UsuarioVO realizarLogin(String email, String senha) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
+		
+		UsuarioVO validacao = null;
 
 		String sql = " SELECT U.IDUSUARIO, U.NOME, U.SENHA, U.EMAIL, U.CPF " + " FROM	USUARIO U "
-				+ " WHERE	U.LOGIN LIKE '" + usuarioVO.getLogin() + "' " + " AND U.SENHA LIKE '" + usuarioVO.getSenha()
+				+ " WHERE	U.EMAIL LIKE '" + email + "' " + " AND U.SENHA LIKE '" + senha
 				+ "' ";
 		try {
 			resultado = stmt.executeQuery(sql);
 			if (resultado.next()) {
-
-				usuarioVO.setId(Integer.parseInt(resultado.getString(1)));
-				usuarioVO.setNome(resultado.getString(2));
-				usuarioVO.setEmail(resultado.getString(3));
-				usuarioVO.setCpf(resultado.getString(4));
-				usuarioVO.setLogin(resultado.getString(5));
-				usuarioVO.setSenha(resultado.getString(6));
+				
+				validacao = new UsuarioVO();
+				validacao.setId(Integer.parseInt(resultado.getString(1)));
+				validacao.setNome(resultado.getString(2));
+				validacao.setEmail(resultado.getString(3));
+				validacao.setCpf(resultado.getString(4));
+				validacao.setLogin(resultado.getString(5));
+				validacao.setSenha(resultado.getString(6));
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao realizar login! \nCausa: " + e.getMessage());
