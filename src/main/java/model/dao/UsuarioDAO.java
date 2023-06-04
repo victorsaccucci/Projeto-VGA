@@ -152,12 +152,12 @@ public class UsuarioDAO {
 			if (resultado.next()) {
 				
 				validacao = new UsuarioVO();
+				
 				validacao.setId(Integer.parseInt(resultado.getString(1)));
 				validacao.setNome(resultado.getString(2));
 				validacao.setEmail(resultado.getString(3));
 				validacao.setCpf(resultado.getString(4));
-				validacao.setLogin(resultado.getString(5));
-				validacao.setSenha(resultado.getString(6));
+				validacao.setSenha(resultado.getString(5));
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao realizar login! \nCausa: " + e.getMessage());
@@ -166,7 +166,7 @@ public class UsuarioDAO {
 			Banco.closeConnection(conn);
 			Banco.closeStatement(stmt);
 		}
-		return usuarioVO;
+		return validacao;
 	}
 
 	public UsuarioVO cadastrarUsuarioDAO(UsuarioVO usuarioVO) {

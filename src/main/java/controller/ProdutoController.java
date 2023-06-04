@@ -27,7 +27,7 @@ public class ProdutoController {
 		}
 		
 		if(p.getDescricao() == null) {
-			validacao += "Informe um model! \n";
+			validacao += "Informe um modelo! \n";
 		}
 		
 		if(!validacao.isEmpty()) {

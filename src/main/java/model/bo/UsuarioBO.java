@@ -2,20 +2,26 @@ package model.bo;
 
 import java.util.ArrayList;
 
+import model.ExceptionVGA;
 import model.dao.UsuarioDAO;
 import model.vo.UsuarioVO;
 
 public class UsuarioBO {
+	UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-	public UsuarioVO realizarLoginBO(UsuarioVO usuarioVO) {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		return usuarioDAO.realizarLogin(usuarioVO);
+	public UsuarioVO realizarLoginBO(String email, String senha) throws ExceptionVGA {
+		UsuarioVO usuarioAutenticado = usuarioDAO.realizarLogin(email, senha);
+		
+		if(usuarioAutenticado == null) {
+			throw new ExceptionVGA("Usuário não encontrado!");
+		}		
+		return usuarioAutenticado;
 	}
 	
 	//regras de negócios -> verificar a existência de um usuário por CPF
 	
 	public UsuarioVO cadastrarUsuarioBO(UsuarioVO usuarioVO) {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		
 		if(usuarioDAO.verificarExistenciaLoginPorCpf(usuarioVO)) {
 			System.out.println("\nUsuário já cadastrado!");
 		}else {
@@ -27,7 +33,6 @@ public class UsuarioBO {
 	//outra regra
 	
 	public ArrayList<UsuarioVO> consultarTodosUsuarioBO() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		ArrayList<UsuarioVO> listaUsuariosVO = usuarioDAO.consultarTodos();
 		if(listaUsuariosVO.isEmpty()){
 			System.out.println("\nNenhum usário cadastrado!");
@@ -38,7 +43,6 @@ public class UsuarioBO {
 	//verificar paramentro de consultarClientePorId
 	
 	public UsuarioVO consultarClientePorIdBO(UsuarioVO usuarioVO) {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		return usuarioDAO.consultarClientePorId(usuarioVO.getId());
 	}
 
