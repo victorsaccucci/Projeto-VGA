@@ -142,22 +142,27 @@ public class UsuarioDAO {
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
 		
-		UsuarioVO validacao = null;
+		UsuarioVO usuarioAutenticado = null;
 
-		String sql = " SELECT U.IDUSUARIO, U.NOME, U.SENHA, U.EMAIL, U.CPF " + " FROM	USUARIO U "
-				+ " WHERE	U.EMAIL LIKE '" + email + "' " + " AND U.SENHA LIKE '" + senha
-				+ "' ";
+		String sql = " select "
+				+ " usuario.idusuario, "
+			    + " usuario.nome, "
+			    + " usuario.senha, "
+			    + " usuario.cpf, "
+				+ " usuario.email "		   
+			+ " from usuario "
+			+ " where usuario.email like '" + email + "' "
+			+ " and usuario.senha like '" + senha + "' ";
 		try {
 			resultado = stmt.executeQuery(sql);
 			if (resultado.next()) {
 				
-				validacao = new UsuarioVO();
-				
-				validacao.setId(Integer.parseInt(resultado.getString(1)));
-				validacao.setNome(resultado.getString(2));
-				validacao.setEmail(resultado.getString(3));
-				validacao.setCpf(resultado.getString(4));
-				validacao.setSenha(resultado.getString(5));
+				usuarioAutenticado = new UsuarioVO();			
+				usuarioAutenticado.setId(Integer.parseInt(resultado.getString(1)));
+				usuarioAutenticado.setNome(resultado.getString(2));
+				usuarioAutenticado.setEmail(resultado.getString(3));
+				usuarioAutenticado.setCpf(resultado.getString(4));
+				usuarioAutenticado.setSenha(resultado.getString(5));
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao realizar login! \nCausa: " + e.getMessage());
@@ -166,7 +171,7 @@ public class UsuarioDAO {
 			Banco.closeConnection(conn);
 			Banco.closeStatement(stmt);
 		}
-		return validacao;
+		return usuarioAutenticado;
 	}
 
 	public UsuarioVO cadastrarUsuarioDAO(UsuarioVO usuarioVO) {
