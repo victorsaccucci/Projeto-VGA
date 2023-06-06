@@ -187,7 +187,7 @@ public class TelaLoginUsuario {
 		txtSenha.setBounds(71, 312, 347, 19);
 		painelCampos.add(txtSenha);
 		
-		JLabel lblNewLabel = new JLabel("USUARIO: TESTE SENHA: 1234");
+		JLabel lblNewLabel = new JLabel("EMAIL: TESTE SENHA: 1234");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel.setBounds(158, 203, 202, 17);
 		painelCampos.add(lblNewLabel);
