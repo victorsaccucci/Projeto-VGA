@@ -22,11 +22,8 @@ public class UsuarioBO {
 	
 	public UsuarioVO cadastrarUsuarioBO(UsuarioVO usuarioVO) {
 		
-		if(usuarioDAO.verificarExistenciaLoginPorCpf(usuarioVO)) {
-			System.out.println("\nUsuário já cadastrado!");
-		}else {
-			usuarioVO = usuarioDAO.cadastrarUsuarioDAO(usuarioVO);
-		}
+		usuarioVO = usuarioDAO.cadastrarUsuarioDAO(usuarioVO);
+		
 		return usuarioVO;
 	}
 	

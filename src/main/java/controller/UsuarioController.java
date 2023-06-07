@@ -27,7 +27,7 @@ public class UsuarioController {
 
 	}
 
-	public UsuarioVO cadastrarUsuarioController(UsuarioVO usuarioVO) throws ExceptionVGA {
+	public UsuarioVO cadastrarUsuarioController(UsuarioVO usuarioVO) throws ExceptionVGA {	
 		this.validarCamposObrigatorios(usuarioVO);
 		return usuarioBO.cadastrarUsuarioBO(usuarioVO);
 	}
@@ -50,39 +50,37 @@ public class UsuarioController {
 
 	private void validarCamposObrigatorios(UsuarioVO usuario) throws ExceptionVGA {
 		String validacao = "";
-
-		if (usuario.getNome() == null || usuario.getNome().trim().length() < 2) {
-			validacao += "Nome inválido \n";
+		
+		if (usuario.getEmail() == null || usuario.getEmail().trim().isEmpty()) {
+			validacao += "Informe um email.";
 		}
-
-		validacao += validarCpf(usuario);
-
-		if (usuario.getEmail() == null) {
-			validacao += "Informe um endereço \n";
+		if (usuario.getCpf() == null || usuario.getCpf().trim().isEmpty()) {
+			validacao += "\nInforme um cpf.";
 		}
-
-		if (usuario.getSenha() == null) {
-			validacao += "Informe uma senha! \n";
+		if (usuario.getNome() == null ||usuario.getNome().trim().isEmpty()) {
+			validacao += "\nInforme um nome.";
 		}
-
+		if (usuario.getSenha() == null || usuario.getSenha().trim().isEmpty()) {
+			validacao += "\nInforme uma senha.";
+		}
 		if (!validacao.isEmpty()) {
 			throw new ExceptionVGA(validacao);
 		}
 	}
 
-	private String validarCpf(UsuarioVO usuario) throws ExceptionVGA {
-		String validacao = "";
-
-		if (usuario.getCpf() == null) {
-			validacao += "Informe um CPF! \n";
-		} else {
-			String cpfSemMascara = usuario.getCpf().replace(".", "");
-			cpfSemMascara = usuario.getCpf().replace("-", "");
-			usuario.setCpf(cpfSemMascara);
-			if (usuario.getCpf().length() != 11) {
-				validacao += "CPF deve possuir 11 digitos! \n";
-			}
-		}
-		return validacao;
-	}
+//	private String validarCpf(UsuarioVO usuario) throws ExceptionVGA {
+//		String validacao = "";
+//
+//		if (usuario.getCpf() == null) {
+//			validacao += "Informe um CPF! \n";
+//		} else {
+//			String cpfSemMascara = usuario.getCpf().replace(".", "");
+//			cpfSemMascara = usuario.getCpf().replace("-", "");
+//			usuario.setCpf(cpfSemMascara);
+//			if (usuario.getCpf().length() != 11) {
+//				validacao += "CPF deve possuir 11 digitos! \n";
+//			}
+//		}
+//		return validacao;
+//	}
 }

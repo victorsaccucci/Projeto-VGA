@@ -175,7 +175,7 @@ public class UsuarioDAO {
 	}
 
 	public UsuarioVO cadastrarUsuarioDAO(UsuarioVO usuarioVO) {
-		String sql = "INSERT INTO usuario (nome, cpf, email, senha, " + " login) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO usuario (nome, cpf, email, senha) VALUES (?, ?, ?, ?)";
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, sql);
 		try {
@@ -183,7 +183,6 @@ public class UsuarioDAO {
 			pstmt.setString(2, usuarioVO.getCpf());
 			pstmt.setString(3, usuarioVO.getEmail());
 			pstmt.setString(4, usuarioVO.getSenha());
-			pstmt.setString(5, usuarioVO.getLogin());
 			pstmt.execute();
 
 			ResultSet resultado = pstmt.getGeneratedKeys();
