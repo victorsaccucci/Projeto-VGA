@@ -9,8 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import javax.swing.SwingConstants;
-
 import controller.UsuarioController;
 import model.ExceptionVGA;
 import model.vo.UsuarioVO;

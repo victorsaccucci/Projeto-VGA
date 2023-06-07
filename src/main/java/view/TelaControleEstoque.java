@@ -106,7 +106,7 @@ public class TelaControleEstoque {
 		JLabel lblVga = new JLabel("VGA");
 		lblVga.setForeground(new Color(0, 139, 139));
 		lblVga.setFont(new Font("Segoe UI", Font.BOLD, 30));
-		lblVga.setBounds(436, 0, 62, 41);
+		lblVga.setBounds(436, 0, 63, 41);
 		panel.add(lblVga);
 		
 		JLabel lblControle = new JLabel("Controle de Estoque");

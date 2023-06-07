@@ -10,13 +10,17 @@ import java.sql.Statement;
 import model.ExceptionVGA;
 
 public class Banco {
+	
+	
+	//////////////////////// MUDEM A SENHA DO BANCO SEMPREEEEEEEEEEEEEEEE DPS DO COMMIT 
+	
 
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver"; //MYSQL versÃ£o 8
 	private static final String BANCODADOS = "projetoVga";
 	private static final String CONEXAO = "jdbc:mysql://localhost:3306/" + BANCODADOS + 
 			"?useSSL=false&serverTimezone=UTC&useTimezone=true";
 	private static final String USER = "root";
-	private static final String PASSWORD = "1234";
+	private static final String PASSWORD = "admin";
 	
 	public static Connection getConnection(){
 		try {
