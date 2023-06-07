@@ -65,6 +65,7 @@ public class TelaControleEstoque {
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(0, 139, 139));
 		panel.setBounds(0, 0, 946, 585);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
@@ -75,8 +76,9 @@ public class TelaControleEstoque {
 		panel.add(lblVoltar);
 		
 		tblProdutos = new JTable();
+		tblProdutos.setBackground(new Color(213, 255, 255));
 		tblProdutos.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
-		tblProdutos.setBounds(0, 106, 946, 413);
+		tblProdutos.setBounds(0, 89, 956, 413);
 		panel.add(tblProdutos);
 		
 		JLabel lblSair = new JLabel("  X");
@@ -92,25 +94,25 @@ public class TelaControleEstoque {
 		panel.add(lblSair);
 		
 		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.setBounds(201, 523, 118, 30);
+		btnAdicionar.setBounds(200, 535, 118, 30);
 		panel.add(btnAdicionar);
 		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(420, 523, 118, 30);
+		btnEditar.setBounds(413, 535, 118, 30);
 		panel.add(btnEditar);
 		
 		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(640, 523, 118, 30);
+		btnExcluir.setBounds(628, 535, 118, 30);
 		panel.add(btnExcluir);
 		
 		JLabel lblVga = new JLabel("VGA");
-		lblVga.setForeground(new Color(0, 139, 139));
+		lblVga.setForeground(new Color(255, 255, 255));
 		lblVga.setFont(new Font("Segoe UI", Font.BOLD, 30));
 		lblVga.setBounds(436, 0, 63, 41);
 		panel.add(lblVga);
 		
 		JLabel lblControle = new JLabel("Controle de Estoque");
-		lblControle.setForeground(new Color(0, 139, 139));
+		lblControle.setForeground(new Color(255, 255, 255));
 		lblControle.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblControle.setBounds(378, 52, 191, 27);
 		panel.add(lblControle);
