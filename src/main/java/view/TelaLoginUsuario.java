@@ -126,7 +126,7 @@ public class TelaLoginUsuario {
 		painelCampos.add(lblSenha);
 
 		lblUsuarioImagem = new JLabel("");
-		lblUsuarioImagem.setIcon(new ImageIcon("D:\\Downloads\\.opera\\LoginForm\\src\\icon\\icons8_user_20px_1.png"));
+		lblUsuarioImagem.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8_user_20px_1.png")));
 		lblUsuarioImagem.setBounds(427, 239, 35, 23);
 		painelCampos.add(lblUsuarioImagem);
 
@@ -143,7 +143,7 @@ public class TelaLoginUsuario {
 				lblDisable.setEnabled(true);
 			}
 		});
-		lblMostrar.setIcon(new ImageIcon("D:\\Downloads\\.opera\\LoginForm\\src\\icon\\icons8_eye_20px_1.png"));
+		lblMostrar.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8_eye_20px_1.png")));
 		lblMostrar.setBounds(427, 312, 20, 20);
 		painelCampos.add(lblMostrar);
 
@@ -161,7 +161,7 @@ public class TelaLoginUsuario {
 
 			}
 		});
-		lblDisable.setIcon(new ImageIcon("D:\\Downloads\\.opera\\LoginForm\\src\\icon\\icons8_invisible_20px_1.png"));
+		lblDisable.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8_invisible_20px_1.png")));
 		lblDisable.setBounds(427, 312, 20, 20);
 		painelCampos.add(lblDisable);
 

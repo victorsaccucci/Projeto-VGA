@@ -20,4 +20,21 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/main/java/icones/icons8_eye_20px_1.png</name>
+			<type>1</type>
+			<location>D:/Downloads/.opera/LoginForm/src/icon/icons8_eye_20px_1.png</location>
+		</link>
+		<link>
+			<name>src/main/java/icones/icons8_invisible_20px_1.png</name>
+			<type>1</type>
+			<location>D:/Downloads/.opera/LoginForm/src/icon/icons8_invisible_20px_1.png</location>
+		</link>
+		<link>
+			<name>src/main/java/icones/icons8_user_20px_1.png</name>
+			<type>1</type>
+			<location>D:/Downloads/.opera/LoginForm/src/icon/icons8_user_20px_1.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>
