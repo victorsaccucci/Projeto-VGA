@@ -17,6 +17,8 @@ import model.vo.UsuarioVO;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -34,7 +36,17 @@ public class TelaLoginUsuario {
 	private JLabel lblMostrar;
 
 	private TelaMenuPrincipal telaMenuPrincipal;
+	private TelaCadastroUsuario telaCadastroUsuario;
 	private UsuarioController usuarioController;
+	private JLabel lblCadastrar;
+	private JLabel lblUsuarioImagem;
+	private JLabel lblSenha;
+	private JLabel lblEmail;
+	private JLabel lblVGA;
+	private JLabel lblSair;
+	private JPanel painelCampos;
+	private JPanel painelLogo;
+	private JLabel lblEsqueceuSenha;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -62,19 +74,19 @@ public class TelaLoginUsuario {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		JPanel painelLogo = new JPanel();
+		painelLogo = new JPanel();
 		painelLogo.setForeground(new Color(0, 128, 128));
 		painelLogo.setBackground(new Color(207, 243, 242));
 		painelLogo.setBounds(0, 0, 472, 585);
 		frame.getContentPane().add(painelLogo);
 
-		JPanel painelCampos = new JPanel();
+		painelCampos = new JPanel();
 		painelCampos.setBackground(new Color(0, 139, 139));
 		painelCampos.setLayout(null);
 		painelCampos.setBounds(474, 0, 472, 585);
 		frame.getContentPane().add(painelCampos);
 
-		JLabel lblSair = new JLabel("   X");
+		lblSair = new JLabel("   X");
 		lblSair.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -86,13 +98,13 @@ public class TelaLoginUsuario {
 		lblSair.setBounds(441, 0, 31, 30);
 		painelCampos.add(lblSair);
 
-		JLabel lblVGA = new JLabel("VGA");
+		lblVGA = new JLabel("VGA");
 		lblVGA.setFont(new Font("Yu Gothic Medium", Font.BOLD, 59));
 		lblVGA.setForeground(new Color(255, 255, 255));
 		lblVGA.setBounds(186, 51, 190, 169);
 		painelCampos.add(lblVGA);
 
-		JLabel lblEmail = new JLabel("E-mail");
+		lblEmail = new JLabel("E-mail");
 		lblEmail.setBackground(new Color(255, 255, 255));
 		lblEmail.setForeground(new Color(255, 255, 255));
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -109,13 +121,13 @@ public class TelaLoginUsuario {
 		txtEmail.setBounds(71, 239, 347, 19);
 		painelCampos.add(txtEmail);
 
-		JLabel lblSenha = new JLabel("Senha");
+		lblSenha = new JLabel("Senha");
 		lblSenha.setForeground(new Color(255, 255, 255));
 		lblSenha.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblSenha.setBounds(71, 285, 46, 17);
 		painelCampos.add(lblSenha);
 
-		JLabel lblUsuarioImagem = new JLabel("");
+		lblUsuarioImagem = new JLabel("");
 		lblUsuarioImagem.setIcon(new ImageIcon("D:\\Downloads\\.opera\\LoginForm\\src\\icon\\icons8_user_20px_1.png"));
 		lblUsuarioImagem.setBounds(427, 239, 35, 23);
 		painelCampos.add(lblUsuarioImagem);
@@ -178,7 +190,7 @@ public class TelaLoginUsuario {
 		});
 		btnEntrar.setForeground(new Color(0, 139, 139));
 		btnEntrar.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnEntrar.setBounds(195, 380, 114, 30);
+		btnEntrar.setBounds(158, 372, 190, 30);
 		painelCampos.add(btnEntrar);
 
 		txtSenha = new JPasswordField();
@@ -187,9 +199,40 @@ public class TelaLoginUsuario {
 		txtSenha.setBounds(71, 312, 347, 19);
 		painelCampos.add(txtSenha);
 		
-		JLabel lblNewLabel = new JLabel("EMAIL: TESTE SENHA: 1234");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(158, 203, 202, 17);
-		painelCampos.add(lblNewLabel);
+		lblCadastrar = new JLabel("Não possui cadastro?");
+		lblCadastrar.setForeground(new Color(255, 255, 255));
+		lblCadastrar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblCadastrar.setBounds(158, 425, 114, 14);
+		painelCampos.add(lblCadastrar);
+		
+		JLabel lblCadastrarse = new JLabel("Cadastrar-se");
+		lblCadastrarse.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					telaCadastroUsuario =  new TelaCadastroUsuario();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				telaCadastroUsuario.tornarVisivelForaDoFrame();
+				frame.setVisible(false);
+			}
+		});
+		lblCadastrarse.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblCadastrarse.setForeground(new Color(255, 255, 255));
+		lblCadastrarse.setBounds(282, 426, 103, 14);
+		painelCampos.add(lblCadastrarse);
+		
+		lblEsqueceuSenha = new JLabel("Esqueceu sua senha?");
+		lblEsqueceuSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblEsqueceuSenha.setForeground(new Color(255, 255, 255));
+		lblEsqueceuSenha.setBounds(322, 335, 110, 16);
+		painelCampos.add(lblEsqueceuSenha);
+	}
+
+	public void tornarVisivelForaDoFrame() {
+		frame.setVisible(true);
+		
 	}
 }
