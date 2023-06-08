@@ -33,9 +33,13 @@ public class TelaLoginUsuario {
 	private JLabel lblDisable;
 	private JLabel lblMostrar;
 
+	private UsuarioController usuarioController;
+	private UsuarioVO usuarioAutenticado;
+
+	private TelaControleEstoque telaControleEstoque;
 	private TelaMenuPrincipal telaMenuPrincipal;
 	private TelaCadastroUsuario telaCadastroUsuario;
-	private UsuarioController usuarioController;
+
 	private JLabel lblCadastrar;
 	private JLabel lblUsuarioImagem;
 	private JLabel lblSenha;
@@ -45,6 +49,7 @@ public class TelaLoginUsuario {
 	private JPanel painelCampos;
 	private JPanel painelLogo;
 	private JLabel lblEsqueceuSenha;
+	private JLabel lblNewLabel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -73,10 +78,19 @@ public class TelaLoginUsuario {
 		frame.getContentPane().setLayout(null);
 
 		painelLogo = new JPanel();
+		painelLogo.setLayout(null);
 		painelLogo.setForeground(new Color(0, 128, 128));
 		painelLogo.setBackground(new Color(207, 243, 242));
 		painelLogo.setBounds(0, 0, 472, 585);
 		frame.getContentPane().add(painelLogo);
+		
+		lblNewLabel = new JLabel("New label");
+		painelLogo.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/LogoVGA3.png")));
+		lblNewLabel_1.setBounds(95, 133, 243, 296);
+		painelLogo.add(lblNewLabel_1);
 
 		painelCampos = new JPanel();
 		painelCampos.setBackground(new Color(0, 139, 139));
@@ -174,11 +188,19 @@ public class TelaLoginUsuario {
 
 				telaMenuPrincipal = new TelaMenuPrincipal();
 				usuarioController = new UsuarioController();
+				telaControleEstoque = new TelaControleEstoque();
 
 				try {
-					UsuarioVO usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
-					frame.setVisible(false);
-					telaMenuPrincipal.tornarVisivelForaDoFrame();
+					if (usuarioController.realizarLoginController(email, senha).isAdm() == false) {
+
+						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
+						telaMenuPrincipal.tornarVisivelForaDoFrame();
+						frame.setVisible(false);
+
+					}else {
+						telaControleEstoque.tornarVisivelForaDoFrame();
+						frame.setVisible(false);
+					}
 
 				} catch (ExceptionVGA exception) {
 					JOptionPane.showConfirmDialog(null, exception.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
@@ -196,21 +218,20 @@ public class TelaLoginUsuario {
 		txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtSenha.setBounds(71, 312, 347, 19);
 		painelCampos.add(txtSenha);
-		
+
 		lblCadastrar = new JLabel("Não possui cadastro?");
 		lblCadastrar.setForeground(new Color(255, 255, 255));
 		lblCadastrar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblCadastrar.setBounds(158, 425, 114, 14);
 		painelCampos.add(lblCadastrar);
-		
+
 		JLabel lblCadastrarse = new JLabel("Cadastrar-se");
 		lblCadastrarse.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					telaCadastroUsuario =  new TelaCadastroUsuario();
+					telaCadastroUsuario = new TelaCadastroUsuario();
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				telaCadastroUsuario.tornarVisivelForaDoFrame();
@@ -221,7 +242,7 @@ public class TelaLoginUsuario {
 		lblCadastrarse.setForeground(new Color(255, 255, 255));
 		lblCadastrarse.setBounds(282, 426, 103, 14);
 		painelCampos.add(lblCadastrarse);
-		
+
 		lblEsqueceuSenha = new JLabel("Esqueceu sua senha?");
 		lblEsqueceuSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblEsqueceuSenha.setForeground(new Color(255, 255, 255));
@@ -231,6 +252,6 @@ public class TelaLoginUsuario {
 
 	public void tornarVisivelForaDoFrame() {
 		frame.setVisible(true);
-		
+
 	}
 }

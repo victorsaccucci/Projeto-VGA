@@ -14,13 +14,14 @@ public class UsuarioDAO {
 
 	public UsuarioVO inserir(UsuarioVO novoUsuario) {
 		Connection conn = Banco.getConnection();
-		String sql = "INSERT INTO USUARIO (NOME, SENHA, EMAIL, CPF) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO USUARIO (NOME, SENHA, EMAIL, CPF, ADM) VALUES (?, ?, ?, ?, ?)";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql);
 		try {
 			stmt.setString(1, novoUsuario.getNome());
 			stmt.setString(2, novoUsuario.getSenha());
 			stmt.setString(3, novoUsuario.getEmail());
 			stmt.setString(4, novoUsuario.getCpf());
+			stmt.setBoolean(5, novoUsuario.isAdm());
 			stmt.execute();
 
 			ResultSet resultado = stmt.getGeneratedKeys();
@@ -149,7 +150,8 @@ public class UsuarioDAO {
 			    + " usuario.nome, "
 			    + " usuario.senha, "
 			    + " usuario.cpf, "
-				+ " usuario.email "		   
+				+ " usuario.email, "
+			    + " usuario.adm "
 			+ " from usuario "
 			+ " where usuario.email like '" + email + "' "
 			+ " and usuario.senha like '" + senha + "' ";
@@ -163,6 +165,7 @@ public class UsuarioDAO {
 				usuarioAutenticado.setEmail(resultado.getString(3));
 				usuarioAutenticado.setCpf(resultado.getString(4));
 				usuarioAutenticado.setSenha(resultado.getString(5));
+				usuarioAutenticado.setAdm(resultado.getBoolean(6));
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao realizar login! \nCausa: " + e.getMessage());
@@ -175,7 +178,7 @@ public class UsuarioDAO {
 	}
 
 	public UsuarioVO cadastrarUsuarioDAO(UsuarioVO usuarioVO) {
-		String sql = "INSERT INTO usuario (nome, cpf, email, senha) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO usuario (nome, cpf, email, senha, adm) VALUES (?, ?, ?, ?, ?)";
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, sql);
 		try {
@@ -183,6 +186,7 @@ public class UsuarioDAO {
 			pstmt.setString(2, usuarioVO.getCpf());
 			pstmt.setString(3, usuarioVO.getEmail());
 			pstmt.setString(4, usuarioVO.getSenha());
+			pstmt.setBoolean(5, usuarioVO.isAdm() == true);
 			pstmt.execute();
 
 			ResultSet resultado = pstmt.getGeneratedKeys();

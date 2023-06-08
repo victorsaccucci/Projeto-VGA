@@ -117,4 +117,12 @@ public class TelaControleEstoque {
 		lblControle.setBounds(378, 52, 191, 27);
 		panel.add(lblControle);
 	}
+
+
+
+
+	public void tornarVisivelForaDoFrame() {
+		frame.setVisible(true);
+		
+	}
 }

@@ -22,6 +22,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>src/main/java/icones/LogoVGA3.png</name>
+			<type>1</type>
+			<location>D:/Downloads/.opera/LogoVGA3.png</location>
+		</link>
+		<link>
 			<name>src/main/java/icones/icons8_eye_20px_1.png</name>
 			<type>1</type>
 			<location>D:/Downloads/.opera/LoginForm/src/icon/icons8_eye_20px_1.png</location>
