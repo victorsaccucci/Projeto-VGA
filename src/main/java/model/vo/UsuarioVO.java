@@ -4,13 +4,12 @@ public class UsuarioVO {
 
 	private int id;
 	private String nome;
-	private String email;
 	private String cpf;
 	
 	//login 
-	
+	private String email;
 	private String senha;
-	private String login;
+	private boolean adm;
 	
 	
 	
@@ -18,23 +17,23 @@ public class UsuarioVO {
 		super();
 	}
 	
-	public UsuarioVO(String nome, String senha, String email, String cpf, String login) {
+	public UsuarioVO(String nome, String senha, String email, String cpf, boolean adm) {
 		super();
 		this.nome = nome;
 		this.senha = senha;
 		this.email = email;
 		this.cpf = cpf;
-		this.login = login;
+		this.adm = adm;
 	}
 	
-	public UsuarioVO(int id, String nome, String senha, String email, String cpf, String login) {
+	public UsuarioVO(int id, String nome, String senha, String email, String cpf, boolean adm) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.senha = senha;
 		this.email = email;
 		this.cpf = cpf;
-		this.login = login;
+		this.adm = adm;
 	}
 
 	public int getId() {
@@ -76,18 +75,19 @@ public class UsuarioVO {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
+	public boolean isAdm() {
+		return adm;
+	}
+
+	public void setAdm(boolean adm) {
+		this.adm = adm;
+	}
 	
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
 	@Override
 	public String toString() {
-		return  id + " " + nome + " " + senha + " " + email + " " + cpf + " " + login;
+		return  id + " " + nome + " " + senha + " " + email + " " + cpf + " " + adm;
 	}
+
 	
 }
