@@ -5,10 +5,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Point;
+
 import controller.UsuarioController;
 import model.ExceptionVGA;
 import model.vo.UsuarioVO;
@@ -21,8 +26,13 @@ import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import javax.swing.JRootPane;
+
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class TelaLoginUsuario {
 
@@ -50,6 +60,8 @@ public class TelaLoginUsuario {
 	private JPanel painelLogo;
 	private JLabel lblEsqueceuSenha;
 	private JLabel lblNewLabel;
+	private JLabel lblMaximizar;
+	private JLabel lblMinizar;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -72,8 +84,36 @@ public class TelaLoginUsuario {
 		// clean
 		frame = new JFrame();
 		frame.setUndecorated(true);
+		
+		//muganga para mover o frame 
+		MouseAdapter mouseAdapter = new MouseAdapter() {
+		    private Point initialClick;
 
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		        initialClick = e.getPoint();
+		        frame.getComponentAt(initialClick);
+		    }
+
+		    @Override
+		    public void mouseDragged(MouseEvent e) {
+		        int thisX = frame.getLocation().x;
+		        int thisY = frame.getLocation().y;
+
+		        int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
+		        int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
+
+		        int X = thisX + xMoved;
+		        int Y = thisY + yMoved;
+
+		        frame.setLocation(X, Y);
+		    }
+		};
+
+		frame.addMouseListener(mouseAdapter);
+		frame.addMouseMotionListener(mouseAdapter);
 		frame.setBounds(100, 100, 946, 585);
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -83,13 +123,13 @@ public class TelaLoginUsuario {
 		painelLogo.setBackground(new Color(207, 243, 242));
 		painelLogo.setBounds(0, 0, 472, 585);
 		frame.getContentPane().add(painelLogo);
-		
+
 		lblNewLabel = new JLabel("New label");
 		painelLogo.add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/LogoVGA3.png")));
-		lblNewLabel_1.setBounds(95, 133, 243, 296);
+		lblNewLabel_1.setBounds(99, 80, 300, 372);
 		painelLogo.add(lblNewLabel_1);
 
 		painelCampos = new JPanel();
@@ -107,7 +147,7 @@ public class TelaLoginUsuario {
 		});
 		lblSair.setForeground(new Color(255, 255, 255));
 		lblSair.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		lblSair.setBounds(441, 0, 31, 30);
+		lblSair.setBounds(441, 5, 22, 21);
 		painelCampos.add(lblSair);
 
 		lblVGA = new JLabel("VGA");
@@ -197,7 +237,7 @@ public class TelaLoginUsuario {
 						telaMenuPrincipal.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
 
-					}else {
+					} else {
 						telaControleEstoque.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
 					}
@@ -222,7 +262,7 @@ public class TelaLoginUsuario {
 		lblCadastrar = new JLabel("Não possui cadastro?");
 		lblCadastrar.setForeground(new Color(255, 255, 255));
 		lblCadastrar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		lblCadastrar.setBounds(158, 425, 114, 14);
+		lblCadastrar.setBounds(158, 408, 114, 14);
 		painelCampos.add(lblCadastrar);
 
 		JLabel lblCadastrarse = new JLabel("Cadastrar-se");
@@ -240,7 +280,7 @@ public class TelaLoginUsuario {
 		});
 		lblCadastrarse.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblCadastrarse.setForeground(new Color(255, 255, 255));
-		lblCadastrarse.setBounds(282, 426, 103, 14);
+		lblCadastrarse.setBounds(282, 408, 103, 14);
 		painelCampos.add(lblCadastrarse);
 
 		lblEsqueceuSenha = new JLabel("Esqueceu sua senha?");
@@ -248,6 +288,33 @@ public class TelaLoginUsuario {
 		lblEsqueceuSenha.setForeground(new Color(255, 255, 255));
 		lblEsqueceuSenha.setBounds(322, 335, 110, 16);
 		painelCampos.add(lblEsqueceuSenha);
+
+		lblMaximizar = new JLabel("  ");
+		lblMaximizar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (frame.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
+					frame.setExtendedState(JFrame.NORMAL);
+				} else {
+					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				}
+			}
+		});
+		lblMaximizar.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8-maximizar-15.png")));
+		lblMaximizar.setBounds(422, 5, 25, 24);
+		painelCampos.add(lblMaximizar);
+		
+		lblMinizar = new JLabel("  ");
+		lblMinizar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 frame.setExtendedState(JFrame.ICONIFIED);
+			}
+		});
+		lblMinizar.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8-menos-30.png")));
+		lblMinizar.setBounds(387, 3, 22, 30);
+		painelCampos.add(lblMinizar);
+
 	}
 
 	public void tornarVisivelForaDoFrame() {

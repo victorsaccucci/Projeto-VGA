@@ -8,6 +8,16 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.CardLayout;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.ImageIcon;
 
 public class TelaMenuPrincipal {
 
@@ -41,22 +51,28 @@ public class TelaMenuPrincipal {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setUndecorated(true);
+
 		frame.setBounds(100, 100, 946, 585);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("  X");
-		lblNewLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
-			}
-		});
-		lblNewLabel.setForeground(new Color(0, 128, 128));
-		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblNewLabel.setBounds(918, 0, 28, 27);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-carrinho-de-compras-30.png")));
+		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(891, Short.MAX_VALUE)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(35)
+					.addComponent(lblNewLabel)
+					.addContainerGap(520, Short.MAX_VALUE))
+		);
+		frame.getContentPane().setLayout(groupLayout);
 	}
 	
 	public void tornarVisivelForaDoFrame() {
