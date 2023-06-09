@@ -27,6 +27,26 @@
 			<location>D:/Downloads/.opera/LogoVGA3.png</location>
 		</link>
 		<link>
+			<name>src/main/java/icones/icons8-carrinho-de-compras-30.png</name>
+			<type>1</type>
+			<location>D:/Downloads/.opera/icons8-carrinho-de-compras-30.png</location>
+		</link>
+		<link>
+			<name>src/main/java/icones/icons8-carrinho-de-compras-50.png</name>
+			<type>1</type>
+			<location>D:/Downloads/.opera/icons8-carrinho-de-compras-50.png</location>
+		</link>
+		<link>
+			<name>src/main/java/icones/icons8-maximizar-15.png</name>
+			<type>1</type>
+			<location>D:/Downloads/.opera/LoginForm/src/icon/icons8-maximizar-15.png</location>
+		</link>
+		<link>
+			<name>src/main/java/icones/icons8-menos-30.png</name>
+			<type>1</type>
+			<location>D:/Downloads/.opera/icons8-menos-30.png</location>
+		</link>
+		<link>
 			<name>src/main/java/icones/icons8_eye_20px_1.png</name>
 			<type>1</type>
 			<location>D:/Downloads/.opera/LoginForm/src/icon/icons8_eye_20px_1.png</location>
