@@ -166,7 +166,7 @@ public class TelaCadastroUsuario {
 		txtSenha.setBounds(63, 397, 347, 19);
 		panel.add(txtSenha);
 		
-		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar = new JButton("Cadastrar-se");
 		btnCadastrar.addActionListener(new ActionListener() {
 	
 			public void actionPerformed(ActionEvent e) {
