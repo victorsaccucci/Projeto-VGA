@@ -48,6 +48,9 @@ public class TelaCadastroUsuario {
 	private JTextField txtEmail;
 	private JLabel lblNewLabel;
 	private TelaLoginUsuario telaLogin;
+	private JLabel lblLogo;
+	private JLabel lblMostrar;
+	private JLabel lblNaoMostrar;
 
 	/**
 	 * Launch the application.
@@ -211,7 +214,42 @@ public class TelaCadastroUsuario {
 		txtEmail.setBounds(63, 251, 347, 19);
 		panel.add(txtEmail);
 		
+		lblMostrar = new JLabel("");
+		lblMostrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtSenha.setEchoChar((char) 8226);
+
+				lblMostrar.setVisible(false);
+				lblMostrar.setEnabled(false);
+
+				lblNaoMostrar.setVisible(true);
+				lblNaoMostrar.setEnabled(true);
+			}
+		});
+		lblMostrar.setIcon(new ImageIcon(TelaCadastroUsuario.class.getResource("/icones/icons8_eye_20px_1.png")));
+		lblMostrar.setBounds(420, 397, 20, 20);
+		panel.add(lblMostrar);
+		
+		lblNaoMostrar = new JLabel("");
+		lblNaoMostrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtSenha.setEchoChar((char) 0);
+
+				lblMostrar.setVisible(true);
+				lblMostrar.setEnabled(true);
+
+				lblNaoMostrar.setVisible(false);
+				lblNaoMostrar.setEnabled(false);
+			}
+		});
+		lblNaoMostrar.setIcon(new ImageIcon(TelaCadastroUsuario.class.getResource("/icones/icons8_invisible_20px_1.png")));
+		lblNaoMostrar.setBounds(420, 397, 20, 20);
+		panel.add(lblNaoMostrar);
+		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(207, 243, 242));
 		panel_1.setBounds(0, 0, 475, 585);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
@@ -229,6 +267,13 @@ public class TelaCadastroUsuario {
 		lblNewLabel.setIcon(new ImageIcon(TelaCadastroUsuario.class.getResource("/icones/icons8-voltar-30.png")));
 		lblNewLabel.setBounds(0, 0, 48, 48);
 		panel_1.add(lblNewLabel);
+		
+		lblLogo = new JLabel("");
+		lblLogo.setIcon(new ImageIcon(TelaCadastroUsuario.class.getResource("/icones/LogoVGA3.png")));
+		lblLogo.setBounds(79, 78, 328, 411);
+		panel_1.add(lblLogo);
+		
+		
 	}
 
 	public void tornarVisivelForaDoFrame() {
