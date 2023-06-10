@@ -17,6 +17,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
@@ -25,7 +26,7 @@ public class TelaMenuAdm {
 
 	private JFrame frame;
 	private PainelListagemClientes painelListagemClientes;
-
+	private PainelAdmCadastroUsuarios painelAdmCadastroUsuarios;
 	/**
 	 * Launch the application.
 	 */
@@ -77,6 +78,18 @@ public class TelaMenuAdm {
 		menuUsuarios.add(menuItemConsultarUsuarios);
 
 		JMenuItem menuItemCadastrarUsuarios = new JMenuItem("Cadastrar");
+		menuItemCadastrarUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					painelAdmCadastroUsuarios = new PainelAdmCadastroUsuarios();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				painelAdmCadastroUsuarios.setVisible(true);
+				frame.setContentPane(painelAdmCadastroUsuarios);
+				frame.revalidate();
+			}
+		});
 		menuUsuarios.add(menuItemCadastrarUsuarios);
 
 		JMenu menuEstoque = new JMenu("Estoque");

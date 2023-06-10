@@ -134,6 +134,7 @@ public class UsuarioDAO {
 		usuarioBuscado.setSenha(resultado.getString("senha"));
 		usuarioBuscado.setEmail(resultado.getString("email"));
 		usuarioBuscado.setCpf(resultado.getString("cpf"));
+		usuarioBuscado.setAdm(resultado.getBoolean("adm"));
 
 		return usuarioBuscado;
 	}

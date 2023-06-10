@@ -18,16 +18,12 @@ public class UsuarioBO {
 		return usuarioAutenticado;
 	}
 	
-	//regras de negócios -> verificar a existência de um usuário por CPF
-	
 	public UsuarioVO cadastrarUsuarioBO(UsuarioVO usuarioVO) {
 		
 		usuarioVO = usuarioDAO.cadastrarUsuarioDAO(usuarioVO);
 		
 		return usuarioVO;
 	}
-	
-	//outra regra
 	
 	public ArrayList<UsuarioVO> consultarTodosUsuarioBO() {
 		ArrayList<UsuarioVO> listaUsuariosVO = usuarioDAO.consultarTodos();
@@ -36,8 +32,6 @@ public class UsuarioBO {
 		}
 		return listaUsuariosVO;
 	}
-
-	//verificar paramentro de consultarClientePorId
 	
 	public UsuarioVO consultarClientePorIdBO(UsuarioVO usuarioVO) {
 		return usuarioDAO.consultarClientePorId(usuarioVO.getId());

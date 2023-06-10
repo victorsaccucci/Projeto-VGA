@@ -3,19 +3,67 @@ package view;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.ArrayList;
+
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import controller.UsuarioController;
+import model.vo.UsuarioVO;
+
 import javax.swing.JTable;
 import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PainelListagemClientes extends JPanel {
+
+	private static final long serialVersionUID = -1185570684789843566L;
+
 	private JTextField txtNome;
 	private JTextField txtCpf;
 	private JTextField txtEmail;
-	private JTable table;
-	private JTable table_1;
+	
+	private JTable tabelaUsuarios;
+	private JButton btnBuscar;
+	private ArrayList<UsuarioVO> usuario;
+	private UsuarioController usuarioController;
+	
+	private String[] nomesColunas = {"Nome", "Email", "Cpf", "Administrador"};
+	private JButton btnBuscarTodos;
+	
+	private void limparTabela() {
+		tabelaUsuarios.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
+	}
+	
+	private void atualizarTabelaClientes() {
+		this.limparTabela();
+
+		DefaultTableModel model = (DefaultTableModel) tabelaUsuarios.getModel();
+
+		for (UsuarioVO vo : usuario) {
+			Object[] novaLinhaDaTabela = new Object[4];
+			novaLinhaDaTabela[0] = vo.getNome();
+			novaLinhaDaTabela[1] = vo.getEmail();
+			novaLinhaDaTabela[2] = vo.getCpf();
+			novaLinhaDaTabela[3] = vo.isAdm() ? "Sim" : "Não";
+			model.addRow(novaLinhaDaTabela);
+		}
+	}
+	
 
 	public PainelListagemClientes() {
+		setBackground(new Color(0, 139, 139));
 		setLayout(null);
+		
+		btnBuscar = new JButton("Buscar");
+//		btnBuscar.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				atualizarTabelaClientes();
+//			}
+//		});
+		btnBuscar.setBounds(651, 102, 85, 27);
+		add(btnBuscar);
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -47,15 +95,18 @@ public class PainelListagemClientes extends JPanel {
 		txtEmail.setBounds(97, 101, 519, 28);
 		add(txtEmail);
 		
-		table_1 = new JTable();
-		table_1.setBounds(23, 166, 902, 324);
-		add(table_1);
+		tabelaUsuarios = new JTable();
+		tabelaUsuarios.setBounds(23, 166, 902, 324);
+		add(tabelaUsuarios);
 		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(651, 102, 85, 27);
-		add(btnBuscar);
-		
-	
-
+		btnBuscarTodos = new JButton("Buscar todos");
+		btnBuscarTodos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				usuario = usuarioController.consultarTodosUsuariosController();
+				atualizarTabelaClientes();
+			}
+		});
+		btnBuscarTodos.setBounds(763, 102, 99, 27);
+		this.add(btnBuscarTodos);
 	}
 }
