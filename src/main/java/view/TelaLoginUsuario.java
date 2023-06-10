@@ -49,6 +49,7 @@ public class TelaLoginUsuario {
 	private TelaControleEstoque telaControleEstoque;
 	private TelaMenuPrincipal telaMenuPrincipal;
 	private TelaCadastroUsuario telaCadastroUsuario;
+	private TelaMenuAdm telaMenuAdm;
 
 	private JLabel lblCadastrar;
 	private JLabel lblUsuarioImagem;
@@ -85,7 +86,6 @@ public class TelaLoginUsuario {
 		frame = new JFrame();
 		frame.setUndecorated(true);
 		
-		//muganga para mover o frame 
 		MouseAdapter mouseAdapter = new MouseAdapter() {
 		    private Point initialClick;
 
@@ -127,10 +127,10 @@ public class TelaLoginUsuario {
 		lblNewLabel = new JLabel("New label");
 		painelLogo.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/LogoVGA3.png")));
-		lblNewLabel_1.setBounds(99, 80, 300, 372);
-		painelLogo.add(lblNewLabel_1);
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/LogoVGA3.png")));
+		lblLogo.setBounds(79, 78, 328, 411);
+		painelLogo.add(lblLogo);
 
 		painelCampos = new JPanel();
 		painelCampos.setBackground(new Color(0, 139, 139));
@@ -221,6 +221,7 @@ public class TelaLoginUsuario {
 
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 
 				String email = txtEmail.getText();
@@ -228,7 +229,7 @@ public class TelaLoginUsuario {
 
 				telaMenuPrincipal = new TelaMenuPrincipal();
 				usuarioController = new UsuarioController();
-				telaControleEstoque = new TelaControleEstoque();
+				telaMenuAdm = new TelaMenuAdm();
 
 				try {
 					if (usuarioController.realizarLoginController(email, senha).isAdm() == false) {
@@ -238,7 +239,7 @@ public class TelaLoginUsuario {
 						frame.setVisible(false);
 
 					} else {
-						telaControleEstoque.tornarVisivelForaDoFrame();
+						telaMenuAdm.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
 					}
 
