@@ -27,7 +27,7 @@ public class PainelListagemClientes extends JPanel {
 	private JTable tabelaUsuarios;
 	private JButton btnBuscar;
 	private ArrayList<UsuarioVO> usuario;
-	private UsuarioController usuarioController;
+	private UsuarioController usuarioController = new UsuarioController();
 	
 	private String[] nomesColunas = {"Nome", "Email", "Cpf", "Administrador"};
 	private JButton btnBuscarTodos;

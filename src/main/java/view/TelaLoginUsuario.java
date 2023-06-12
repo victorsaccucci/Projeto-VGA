@@ -121,7 +121,7 @@ public class TelaLoginUsuario {
 		painelLogo = new JPanel();
 		painelLogo.setLayout(null);
 		painelLogo.setForeground(new Color(0, 128, 128));
-		painelLogo.setBackground(new Color(207, 243, 242));
+		painelLogo.setBackground(new Color(255, 255, 255));
 		painelLogo.setBounds(0, 0, 472, 585);
 		frame.getContentPane().add(painelLogo);
 
