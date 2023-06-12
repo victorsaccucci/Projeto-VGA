@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 public class TelaCarrinho {
 
 	private JFrame frame;
-
+	private TelaDeProdutos telaDeProdutos;
 	/**
 	 * Launch the application.
 	 */
@@ -50,8 +50,8 @@ public class TelaCarrinho {
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal();
-				telaMenuPrincipal.tornarVisivelForaDoFrame();
+				telaDeProdutos = new TelaDeProdutos();
+				telaDeProdutos.tornarVisivelForaDoFrame();
 				frame.setVisible(false);
 				
 			}

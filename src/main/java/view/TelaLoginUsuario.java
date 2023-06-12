@@ -50,6 +50,7 @@ public class TelaLoginUsuario {
 	private TelaMenuPrincipal telaMenuPrincipal;
 	private TelaCadastroUsuario telaCadastroUsuario;
 	private TelaMenuAdm telaMenuAdm;
+	private TelaDeProdutos telaDeProdutos;
 
 	private JLabel lblCadastrar;
 	private JLabel lblUsuarioImagem;
@@ -222,6 +223,7 @@ public class TelaLoginUsuario {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 
+
 			public void actionPerformed(ActionEvent e) {
 
 				String email = txtEmail.getText();
@@ -230,12 +232,13 @@ public class TelaLoginUsuario {
 				telaMenuPrincipal = new TelaMenuPrincipal();
 				usuarioController = new UsuarioController();
 				telaMenuAdm = new TelaMenuAdm();
+				telaDeProdutos = new TelaDeProdutos();
 
 				try {
 					if (usuarioController.realizarLoginController(email, senha).isAdm() == false) {
 
 						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
-						telaMenuPrincipal.tornarVisivelForaDoFrame();
+						telaDeProdutos.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
 
 					} else {
