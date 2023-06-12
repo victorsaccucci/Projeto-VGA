@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -51,6 +52,10 @@ public class TelaCadastroUsuario {
 	private JLabel lblLogo;
 	private JLabel lblMostrar;
 	private JLabel lblNaoMostrar;
+	private JLabel lblMaximizar;
+	private JLabel lblMinimizar;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
 
 	/**
 	 * Launch the application.
@@ -83,6 +88,32 @@ public class TelaCadastroUsuario {
 	private void initialize() throws ParseException {
 		frame = new JFrame();
 		frame.setUndecorated(true);
+		
+		MouseAdapter mouseAdapter = new MouseAdapter() {
+		    private Point initialClick;
+
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		        initialClick = e.getPoint();
+		        frame.getComponentAt(initialClick);
+		    }
+
+		    @Override
+		    public void mouseDragged(MouseEvent e) {
+		        int thisX = frame.getLocation().x;
+		        int thisY = frame.getLocation().y;
+
+		        int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
+		        int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
+
+		        int X = thisX + xMoved;
+		        int Y = thisY + yMoved;
+
+		        frame.setLocation(X, Y);
+		    }
+		};
+		frame.addMouseListener(mouseAdapter);
+		frame.addMouseMotionListener(mouseAdapter);
 		frame.setBounds(100, 100, 946, 585);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -104,6 +135,44 @@ public class TelaCadastroUsuario {
 		lblFechar.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		lblFechar.setBounds(449, 0, 26, 22);
 		panel.add(lblFechar);
+		
+		lblMaximizar = new JLabel("  ");
+		lblMaximizar.setBounds(881, 534, 25, 24);
+		frame.getContentPane().add(lblMaximizar);
+
+		lblMinimizar = new JLabel("  ");
+		lblMinimizar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 frame.setExtendedState(JFrame.ICONIFIED);
+			}
+		});
+		lblMinimizar.setForeground(new Color(255, 255, 255));
+		lblMinimizar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblMinimizar.setBackground(new Color(255, 255, 255));
+		lblMinimizar.setBounds(700, 522, 8, 20);
+		frame.getContentPane().add(lblMinimizar);
+
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-maximizar-10.png")));
+		lblNewLabel_1.setBounds(896, 6, 15, 15);
+		frame.getContentPane().add(lblNewLabel_1);
+
+		lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 frame.setExtendedState(JFrame.ICONIFIED);
+			}
+		});
+		lblNewLabel_2.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-minimizar-15.png")));
+		lblNewLabel_2.setBounds(867, 0, 16, 27);
+		frame.getContentPane().add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(new ImageIcon(TelaCadastroUsuario.class.getResource("/icones/icons8-minimizar-15.png")));
+		lblNewLabel_3.setBounds(402, 8, 20, 14);
+		panel.add(lblNewLabel_3);
 		
 		mascaraCpf = new MaskFormatter("###.###.###-##");
 		mascaraCpf.setValueContainsLiteralCharacters(false);
