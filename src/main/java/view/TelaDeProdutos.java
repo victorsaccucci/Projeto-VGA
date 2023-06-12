@@ -205,12 +205,12 @@ public class TelaDeProdutos {
 		frame.getContentPane().add(lblMinizar);
 
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-maximizar-15.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-maximizar-10.png")));
 		lblNewLabel_1.setBounds(896, 6, 15, 15);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-menos-30.png")));
+		lblNewLabel_2.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-minimizar-15.png")));
 		lblNewLabel_2.setBounds(867, 0, 16, 27);
 		frame.getContentPane().add(lblNewLabel_2);
 
@@ -223,7 +223,7 @@ public class TelaDeProdutos {
 				frame.setVisible(false);
 			}
 		});
-		lblNewLabel_3.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-sacola-de-compras-50.png")));
+		lblNewLabel_3.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-sacola-de-compras-40.png")));
 		lblNewLabel_3.setBounds(32, 24, 50, 50);
 		frame.getContentPane().add(lblNewLabel_3);
 		

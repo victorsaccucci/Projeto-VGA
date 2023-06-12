@@ -304,7 +304,7 @@ public class TelaLoginUsuario {
 				}
 			}
 		});
-		lblMaximizar.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8-maximizar-15.png")));
+		lblMaximizar.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8-maximizar-10.png")));
 		lblMaximizar.setBounds(422, 5, 25, 24);
 		painelCampos.add(lblMaximizar);
 		
@@ -315,7 +315,7 @@ public class TelaLoginUsuario {
 				 frame.setExtendedState(JFrame.ICONIFIED);
 			}
 		});
-		lblMinizar.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8-menos-30.png")));
+		lblMinizar.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8-minimizar-15.png")));
 		lblMinizar.setBounds(387, 3, 22, 30);
 		painelCampos.add(lblMinizar);
 

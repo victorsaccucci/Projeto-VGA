@@ -264,7 +264,7 @@ public class TelaCadastroUsuario {
 				frame.setVisible(false);
 			}
 		});
-		lblNewLabel.setIcon(new ImageIcon(TelaCadastroUsuario.class.getResource("/icones/icons8-voltar-30.png")));
+		lblNewLabel.setIcon(new ImageIcon(TelaCadastroUsuario.class.getResource("/icones/icons8-voltar-40.png")));
 		lblNewLabel.setBounds(0, 0, 48, 48);
 		panel_1.add(lblNewLabel);
 		

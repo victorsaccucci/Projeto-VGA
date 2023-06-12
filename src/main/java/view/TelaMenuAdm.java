@@ -63,7 +63,7 @@ public class TelaMenuAdm {
 		frame.setJMenuBar(menuBar);
 
 		JMenu menuUsuarios = new JMenu("Usuários");
-		menuUsuarios.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-usuário-30.png")));
+		menuUsuarios.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-usuario-30 (1).png")));
 		menuBar.add(menuUsuarios);
 
 		JMenuItem menuItemConsultarUsuarios = new JMenuItem("Listar");
@@ -93,7 +93,7 @@ public class TelaMenuAdm {
 		menuUsuarios.add(menuItemCadastrarUsuarios);
 
 		JMenu menuEstoque = new JMenu("Estoque");
-		menuEstoque.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-caixa-30.png")));
+		menuEstoque.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-vender-estoque-30.png")));
 		menuBar.add(menuEstoque);
 
 		JMenuItem menuItemConsultarEstoque = new JMenuItem("Consultar");

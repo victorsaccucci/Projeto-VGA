@@ -56,7 +56,7 @@ public class TelaCarrinho {
 				
 			}
 		});
-		lblNewLabel.setIcon(new ImageIcon(TelaCarrinho.class.getResource("/icones/icons8-voltar-30.png")));
+		lblNewLabel.setIcon(new ImageIcon(TelaCarrinho.class.getResource("/icones/icons8-voltar-40.png")));
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
