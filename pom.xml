@@ -32,11 +32,5 @@
 			<version>10.3.1</version>
 		</dependency>
 
-
-		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>VictorSaccucci</artifactId>
-			<version>1.0.0</version>
-		</dependency>
 	</dependencies>
 </project>
