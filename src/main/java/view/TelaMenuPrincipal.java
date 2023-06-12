@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import com.jgoodies.forms.layout.FormLayout;
