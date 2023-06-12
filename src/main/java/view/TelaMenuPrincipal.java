@@ -92,7 +92,9 @@ public class TelaMenuPrincipal {
 		});
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 10));
 		lblNewLabel.setIcon(
-				new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-carrinho-de-compras-30.png")));
+				new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-carrinho-40.png")));
+		
+		JLabel lblNewLabel_1 = new JLabel("");
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -100,13 +102,19 @@ public class TelaMenuPrincipal {
 					.addContainerGap(891, Short.MAX_VALUE)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(126)
+					.addComponent(lblNewLabel_1)
+					.addContainerGap(774, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(40)
 					.addComponent(lblNewLabel)
-					.addContainerGap(515, Short.MAX_VALUE))
+					.addGap(69)
+					.addComponent(lblNewLabel_1)
+					.addContainerGap(462, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}

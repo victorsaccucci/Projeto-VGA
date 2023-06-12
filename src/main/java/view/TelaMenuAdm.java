@@ -27,6 +27,9 @@ public class TelaMenuAdm {
 	private JFrame frame;
 	private PainelListagemClientes painelListagemClientes;
 	private PainelAdmCadastroUsuarios painelAdmCadastroUsuarios;
+	private PainelListagemItens listagemItens;
+	private PainelCadastroItem painelCadastroItem;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -97,6 +100,28 @@ public class TelaMenuAdm {
 		menuBar.add(menuEstoque);
 
 		JMenuItem menuItemConsultarEstoque = new JMenuItem("Consultar");
+		menuItemConsultarEstoque.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				listagemItens = new PainelListagemItens();
+				listagemItens.setVisible(true);
+				frame.setContentPane(listagemItens);
+				frame.revalidate();
+			}
+		});
+		
+		JMenuItem CadastrarItem = new JMenuItem("Cadastrar Item");
+		CadastrarItem.addActionListener(new ActionListener() {
+			
+
+			public void actionPerformed(ActionEvent e) {
+				painelCadastroItem = new PainelCadastroItem();
+				painelCadastroItem.setVisible(true);
+				frame.setContentPane(painelCadastroItem);
+				frame.revalidate();
+			}
+		});
+		menuEstoque.add(CadastrarItem);
 		menuEstoque.add(menuItemConsultarEstoque);
 
 		JMenu mnNewMenu_2 = new JMenu("");
