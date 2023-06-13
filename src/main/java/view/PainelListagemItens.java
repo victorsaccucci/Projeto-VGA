@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 
 public class PainelListagemItens extends JPanel {
 
+	private static final long serialVersionUID = -826234024317345122L;
 	public String[] nomeColunas = {"IdProduto", "Tamanho", "Cor", "Qtd", "Preço"};
 	private JTable tabelaItens;
 	private ProdutoVO[] produto;

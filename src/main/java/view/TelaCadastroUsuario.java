@@ -256,7 +256,7 @@ public class TelaCadastroUsuario {
 			
 			try {
 				usuarioController.cadastrarUsuarioController(novoUsuario);
-				JOptionPane.showMessageDialog(null, "Usuario salvo com sucesso!", 
+				JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!", 
 						"Sucesso", JOptionPane.INFORMATION_MESSAGE);
 				telaLogin = new TelaLoginUsuario();
 				telaLogin.tornarVisivelForaDoFrame();

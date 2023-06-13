@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 public class TelaMenuAdm {
 
@@ -29,6 +30,7 @@ public class TelaMenuAdm {
 	private PainelAdmCadastroUsuarios painelAdmCadastroUsuarios;
 	private PainelListagemItens listagemItens;
 	private PainelCadastroItem painelCadastroItem;
+	protected PainelCadastroDeProduto painelCadastroProduto;
 	
 	/**
 	 * Launch the application.
@@ -110,8 +112,8 @@ public class TelaMenuAdm {
 			}
 		});
 		
-		JMenuItem CadastrarItem = new JMenuItem("Cadastrar Item");
-		CadastrarItem.addActionListener(new ActionListener() {
+		JMenuItem menuItemCadastrarItem = new JMenuItem("Cadastrar Item");
+		menuItemCadastrarItem.addActionListener(new ActionListener() {
 			
 
 			public void actionPerformed(ActionEvent e) {
@@ -121,8 +123,19 @@ public class TelaMenuAdm {
 				frame.revalidate();
 			}
 		});
-		menuEstoque.add(CadastrarItem);
+		menuEstoque.add(menuItemCadastrarItem);
 		menuEstoque.add(menuItemConsultarEstoque);
+		
+		JMenuItem menuItemCadastrarProduto = new JMenuItem("Cadastrar Produto");
+		menuItemCadastrarProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelCadastroProduto = new PainelCadastroDeProduto();
+				painelCadastroProduto.setVisible(true);
+				frame.setContentPane(painelCadastroProduto);
+				frame.revalidate();
+			}
+		});
+		menuEstoque.add(menuItemCadastrarProduto);
 
 		JMenu mnNewMenu_2 = new JMenu("");
 		menuBar.add(mnNewMenu_2);
@@ -141,6 +154,7 @@ public class TelaMenuAdm {
 		menuBar.add(mnNewMenu_4);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(0, 139, 139));
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(panel,
 				GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE));
