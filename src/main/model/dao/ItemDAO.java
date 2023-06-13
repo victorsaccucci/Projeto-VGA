@@ -106,7 +106,7 @@ public class ItemDAO {
 		try {
 			ResultSet resultado = stmt.executeQuery();
 			while (resultado.next()) {
-				ItemVO itemConsultado = converterResultSetParaEntidadeSemId(resultado);
+				ItemVO itemConsultado = converterResultSetParaEntidade(resultado);
 				consultados.add(itemConsultado);
 			}
 		} catch (SQLException e) {
@@ -142,17 +142,6 @@ public class ItemDAO {
 	private ItemVO converterResultSetParaEntidade(ResultSet resultado) throws SQLException {
 		ItemVO itemConsultado = new ItemVO();
 		itemConsultado.setId(resultado.getInt("id"));
-		itemConsultado.setTamanho(resultado.getString("tamanho"));
-		itemConsultado.setCor(resultado.getString("cor"));
-		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
-		itemConsultado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
-		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
-
-		return itemConsultado;
-	}
-	
-	private ItemVO converterResultSetParaEntidadeSemId(ResultSet resultado) throws SQLException {
-		ItemVO itemConsultado = new ItemVO();
 		itemConsultado.setTamanho(resultado.getString("tamanho"));
 		itemConsultado.setCor(resultado.getString("cor"));
 		itemConsultado.setQuantidade(resultado.getInt("quantidade"));

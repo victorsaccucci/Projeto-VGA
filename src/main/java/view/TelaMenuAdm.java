@@ -129,6 +129,7 @@ public class TelaMenuAdm {
 
 		JMenu mnNewMenu_3 = new JMenu(
 				"                                                                                                                                                                                                                               ");
+		mnNewMenu_3.setEnabled(false);
 		menuBar.add(mnNewMenu_3);
 
 		JMenu mnNewMenu_4 = new JMenu("X   ");

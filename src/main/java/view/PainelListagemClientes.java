@@ -62,7 +62,7 @@ public class PainelListagemClientes extends JPanel {
 //				atualizarTabelaClientes();
 //			}
 //		});
-		btnBuscar.setBounds(651, 102, 85, 27);
+		btnBuscar.setBounds(643, 98, 99, 34);
 		add(btnBuscar);
 		
 		JLabel lblNome = new JLabel("Nome:");
@@ -106,7 +106,7 @@ public class PainelListagemClientes extends JPanel {
 				atualizarTabelaClientes();
 			}
 		});
-		btnBuscarTodos.setBounds(763, 102, 99, 27);
+		btnBuscarTodos.setBounds(755, 98, 123, 34);
 		this.add(btnBuscarTodos);
 	}
 }

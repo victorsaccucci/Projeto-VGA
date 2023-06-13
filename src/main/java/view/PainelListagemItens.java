@@ -8,19 +8,35 @@ import javax.swing.table.DefaultTableModel;
 import controller.ItemController;
 import model.vo.ItemVO;
 import model.vo.ProdutoVO;
-import model.vo.UsuarioVO;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
 
 public class PainelListagemItens extends JPanel {
 
-	public String[] nomeColunas = {"IdProduto", "Tamanho", "Cor", "Qtd", "Preço"};
-	private JTable tabelaItens;
+	private static final long serialVersionUID = -1032580702582422724L;
+	
+	private String[] nomeColunas = {"IdProduto", "Tamanho", "Cor", "Qtd", "Preço"};
 	private ProdutoVO[] produto;
 	private List<ItemVO> item;
 	private ItemController itemController;
+	private JTextField txtMarca;
+	private JTextField txtModelo;
+	private JTextField txtTamanho;
+	private JTextField txtCor;
+	private JTable tabelaItens;
+	private JLabel lblMarca;
+	private JLabel lblModelo;
+	private JLabel lblTamanho;
+	private JLabel lblCor;
+	private JButton btnBuscar;
+	private JButton btnBuscarTodos;
+	
 	
 	/**
 	 * Create the panel.
@@ -30,12 +46,11 @@ public class PainelListagemItens extends JPanel {
 		tabelaItens.setModel(new DefaultTableModel(new Object[][] { nomeColunas, }, nomeColunas));
 	}
 	
-	private void atualizarTabelaClientes() {
+	private void atualizarTabelaItens() {
 		this.limparTabela();
 
 		DefaultTableModel model = (DefaultTableModel) tabelaItens.getModel();
 		
-			
 			for( ItemVO vo : item) {
 				Object[] novaLinhaDaTabela = new Object[5];
 				novaLinhaDaTabela[0] = vo.getIdProduto();
@@ -45,8 +60,6 @@ public class PainelListagemItens extends JPanel {
 				novaLinhaDaTabela[4] = vo.getPrecoUnitario();
 				model.addRow(novaLinhaDaTabela);
 			}
-		
-		
 	}
 	
 	public PainelListagemItens() {
@@ -54,21 +67,64 @@ public class PainelListagemItens extends JPanel {
 		setForeground(new Color(0, 139, 139));
 		setLayout(null);
 		
-		tabelaItens = new JTable();
-		tabelaItens.setBounds(57, 365, 554, -229);
-		add(tabelaItens);
+		lblMarca = new JLabel("Marca:");
+		lblMarca.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblMarca.setBounds(57, 61, 43, 26);
+		add(lblMarca);
 		
-		JButton btnBuscarTodos = new JButton("Buscar Todos");
+		lblModelo = new JLabel("Modelo:");
+		lblModelo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblModelo.setBounds(57, 132, 67, 26);
+		add(lblModelo);
+		
+		lblTamanho = new JLabel("Tamanho:");
+		lblTamanho.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblTamanho.setBounds(366, 61, 67, 26);
+		add(lblTamanho);
+		
+		lblCor = new JLabel("Cor:");
+		lblCor.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblCor.setBounds(390, 132, 43, 26);
+		add(lblCor);
+		
+		txtMarca = new JTextField();
+		txtMarca.setBounds(116, 61, 174, 31);
+		add(txtMarca);
+		txtMarca.setColumns(10);
+		
+		txtModelo = new JTextField();
+		txtModelo.setColumns(10);
+		txtModelo.setBounds(116, 132, 174, 31);
+		add(txtModelo);
+		
+		txtTamanho = new JTextField();
+		txtTamanho.setColumns(10);
+		txtTamanho.setBounds(443, 61, 55, 31);
+		add(txtTamanho);
+		
+		txtCor = new JTextField();
+		txtCor.setColumns(10);
+		txtCor.setBounds(443, 132, 165, 31);
+		add(txtCor);
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(648, 132, 89, 31);
+		add(btnBuscar);
+		
+		btnBuscarTodos = new JButton("Buscar Todos");
 		btnBuscarTodos.addActionListener(new ActionListener() {
-			
-
 			public void actionPerformed(ActionEvent e) {
+				itemController = new ItemController();
 				item = itemController.consultarTodos();
-				atualizarTabelaClientes();
+				atualizarTabelaItens();
 			}
 		});
-		btnBuscarTodos.setBounds(507, 41, 97, 23);
-		add(btnBuscarTodos);
+		btnBuscarTodos.setBounds(759, 132, 128, 31);
+		this.add(btnBuscarTodos);
+		
+		tabelaItens = new JTable();
+		tabelaItens.setBounds(57, 193, 830, 340);
+		add(tabelaItens);
 
 		
 		
