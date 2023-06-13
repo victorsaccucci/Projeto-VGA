@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class PainelAdmCadastroUsuarios extends JPanel {
 	
@@ -46,10 +47,12 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 	 * @throws ParseException 
 	 */
 	public PainelAdmCadastroUsuarios() throws ParseException {
+		setBackground(new Color(0, 139, 139));
 		setLayout(null);
 		
 		lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblNome.setForeground(new Color(255, 255, 255));
+		lblNome.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblNome.setBounds(256, 92, 45, 13);
 		add(lblNome);
 		
@@ -59,7 +62,8 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 		txtNome.setColumns(10);
 		
 		lblEmail = new JLabel("Email:");
-		lblEmail.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblEmail.setForeground(new Color(255, 255, 255));
+		lblEmail.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblEmail.setBounds(256, 146, 45, 13);
 		add(lblEmail);
 		
@@ -72,7 +76,8 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 		mascaraCpf.setValueContainsLiteralCharacters(false);
 		
 		lblCpf = new JLabel("CPF:");
-		lblCpf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblCpf.setForeground(new Color(255, 255, 255));
+		lblCpf.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblCpf.setBounds(256, 205, 45, 13);
 		add(lblCpf);
 		
@@ -82,12 +87,15 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 		add(txtCpf);
 		
 		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblSenha.setBounds(256, 263, 45, 13);
+		lblSenha.setForeground(new Color(255, 255, 255));
+		lblSenha.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblSenha.setBounds(256, 263, 46, 20);
 		add(lblSenha);
 		
 		cbAdmSimNao = new Checkbox("Administrador");
-		cbAdmSimNao.setBounds(311, 302, 99, 21);
+		cbAdmSimNao.setForeground(new Color(255, 255, 255));
+		cbAdmSimNao.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		cbAdmSimNao.setBounds(311, 302, 116, 22);
 		add(cbAdmSimNao);
 		
 		btnCadastrar = new JButton("Cadastrar");
