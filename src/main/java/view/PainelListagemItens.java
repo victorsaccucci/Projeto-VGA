@@ -19,9 +19,11 @@ import javax.swing.JTextField;
 
 public class PainelListagemItens extends JPanel {
 
-	private static final long serialVersionUID = -1032580702582422724L;
 	
-	private String[] nomeColunas = {"IdProduto", "Tamanho", "Cor", "Qtd", "Preço"};
+	private static final long serialVersionUID = -826234024317345122L;
+	
+	public String[] nomeColunas = {"IdProduto", "Tamanho", "Cor", "Qtd", "Preço"};
+	private JTable tabelaItens;
 	private ProdutoVO[] produto;
 	private List<ItemVO> item;
 	private ItemController itemController;
@@ -29,7 +31,6 @@ public class PainelListagemItens extends JPanel {
 	private JTextField txtModelo;
 	private JTextField txtTamanho;
 	private JTextField txtCor;
-	private JTable tabelaItens;
 	private JLabel lblMarca;
 	private JLabel lblModelo;
 	private JLabel lblTamanho;

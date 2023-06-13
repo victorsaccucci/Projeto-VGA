@@ -20,11 +20,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class PainelCadastroItem extends JPanel {
-	private JTextField txtTam;
+
+	private static final long serialVersionUID = -3449651366973850921L;
+	private JTextField txtTamanho;
 	private JTextField txtCor;
-	private JTextField txtQtd;
+	private JTextField txtQuantidade;
 	private JTextField txtPreco;
 	private JLabel lblProduto;
 	private JLabel lblTamanho;
@@ -33,95 +36,107 @@ public class PainelCadastroItem extends JPanel {
 	private JButton btnCadastrar;
 	private JComboBox cbProduto;
 	private JLabel lblPreco;
+	
 	private ItemController itemController;
-	private ItemVO novoItem;
-	private JButton btnCadastrar1;
+	private ProdutoController produtoController;
+	protected ItemVO novoItem;
 
 	/**
 	 * Create the panel.
 	 */
 	public PainelCadastroItem() {
+		setBackground(new Color(0, 139, 139));
 		setLayout(null);
 		
 		lblProduto = new JLabel("Produto:");
-		lblProduto.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblProduto.setBounds(186, 26, 53, 20);
+		lblProduto.setForeground(new Color(255, 255, 255));
+		lblProduto.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblProduto.setBounds(213, 91, 59, 20);
 		add(lblProduto);
 		
 		
 		
-		ProdutoController controller = new ProdutoController();
-		cbProduto = new JComboBox(controller.consultarTodosProdutosController().toArray());
-		cbProduto.setBounds(278, 27, 358, 22);
+		produtoController = new ProdutoController();
+		cbProduto = new JComboBox(produtoController.consultarTodosProdutosController().toArray());
+		
+		cbProduto.setForeground(new Color(0, 139, 139));
+		cbProduto.setBounds(305, 89, 358, 28);
 		add(cbProduto);
 		
 		lblPreco = new JLabel("Preço:");
-		lblPreco.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblPreco.setBounds(186, 257, 75, 20);
+		lblPreco.setForeground(new Color(255, 255, 255));
+		lblPreco.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblPreco.setBounds(213, 322, 75, 20);
 		add(lblPreco);
 		
-		txtQtd = new JTextField();
-		txtQtd.setColumns(10);
-		txtQtd.setBounds(278, 199, 358, 28);
-		add(txtQtd);
+		txtQuantidade = new JTextField();
+		txtQuantidade.setForeground(new Color(0, 139, 139));
+		txtQuantidade.setColumns(10);
+		txtQuantidade.setBounds(305, 264, 358, 28);
+		add(txtQuantidade);
 		
 		txtPreco = new JTextField();
+		txtPreco.setForeground(new Color(0, 139, 139));
 		txtPreco.setColumns(10);
-		txtPreco.setBounds(278, 259, 358, 28);
+		txtPreco.setBounds(305, 324, 358, 28);
 		add(txtPreco);
 		
 		lblTamanho = new JLabel("Tamanho:");
-		lblTamanho.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblTamanho.setBounds(186, 80, 60, 20);
+		lblTamanho.setForeground(new Color(255, 255, 255));
+		lblTamanho.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblTamanho.setBounds(213, 145, 68, 20);
 		add(lblTamanho);
 		
-		txtTam = new JTextField();
-		txtTam.setColumns(10);
-		txtTam.setBounds(278, 78, 358, 28);
-		add(txtTam);
+		txtTamanho = new JTextField();
+		txtTamanho.setForeground(new Color(0, 139, 139));
+		txtTamanho.setColumns(10);
+		txtTamanho.setBounds(305, 143, 358, 28);
+		add(txtTamanho);
 		
 		txtCor = new JTextField();
+		txtCor.setForeground(new Color(0, 139, 139));
 		txtCor.setColumns(10);
-		txtCor.setBounds(278, 133, 358, 28);
+		txtCor.setBounds(305, 198, 358, 28);
 		add(txtCor);
 		
 		lblCor = new JLabel("Cor:");
-		lblCor.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblCor.setBounds(186, 139, 45, 13);
+		lblCor.setForeground(new Color(255, 255, 255));
+		lblCor.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblCor.setBounds(213, 204, 45, 13);
 		add(lblCor);
 		
 		lblQtd = new JLabel("Quantidade:");
-		lblQtd.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblQtd.setBounds(186, 197, 75, 20);
+		lblQtd.setForeground(new Color(255, 255, 255));
+		lblQtd.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblQtd.setBounds(213, 262, 84, 20);
 		add(lblQtd);
 		
-		btnCadastrar1 = new JButton("Cadastrar");
-		btnCadastrar1.setBounds(347, 338, 155, 39);
-		add(btnCadastrar1);
-		btnCadastrar1.addActionListener(new ActionListener() {
+		JButton btnCadastrarItem = new JButton("Cadastrar");
+		btnCadastrarItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				itemController = new ItemController();
 				novoItem = new ItemVO();
 				
-				ProdutoVO produtoSelecionado = (ProdutoVO) cbProduto.getSelectedItem();
-				novoItem.setIdProduto(produtoSelecionado.getId());
-				novoItem.setTamanho(txtTam.getText());
 				novoItem.setCor(txtCor.getText());
-				novoItem.setQuantidade(Integer.parseInt(txtQtd.getText()));
+				novoItem.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
 				novoItem.setPrecoUnitario(Double.parseDouble(txtPreco.getText()));
+				novoItem.setTamanho(txtTamanho.getText());
+				novoItem.setIdProduto(cbProduto.getSelectedIndex());
 				
 				try {
 					itemController.inserirItem(novoItem);
-					JOptionPane.showMessageDialog(null, "Item salvo com sucesso!", 
+					JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!", 
 							"Sucesso", JOptionPane.INFORMATION_MESSAGE);
-				} catch (ExceptionVGA e1) {
+				}catch(ExceptionVGA e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), 
 							"Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		btnCadastrar1.setBounds(381, 357, 126, 28);
-		add(btnCadastrar1);
+		btnCadastrarItem.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		btnCadastrarItem.setForeground(new Color(0, 139, 139));
+		btnCadastrarItem.setBounds(438, 381, 91, 27);
+		add(btnCadastrarItem);
 		
 		
 		

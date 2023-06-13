@@ -106,7 +106,7 @@ public class ItemDAO {
 		try {
 			ResultSet resultado = stmt.executeQuery();
 			while (resultado.next()) {
-				ItemVO itemConsultado = converterResultSetParaEntidadeSemId(resultado);
+				ItemVO itemConsultado = converterResultSetParaEntidade(resultado);
 				consultados.add(itemConsultado);
 			}
 		} catch (SQLException e) {

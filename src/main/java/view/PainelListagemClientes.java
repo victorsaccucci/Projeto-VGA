@@ -27,7 +27,7 @@ public class PainelListagemClientes extends JPanel {
 	private JTable tabelaUsuarios;
 	private JButton btnBuscar;
 	private ArrayList<UsuarioVO> usuario;
-	private UsuarioController usuarioController = new UsuarioController();
+	private UsuarioController usuarioController;
 	
 	private String[] nomesColunas = {"Nome", "Email", "Cpf", "Administrador"};
 	private JButton btnBuscarTodos;
@@ -102,10 +102,12 @@ public class PainelListagemClientes extends JPanel {
 		btnBuscarTodos = new JButton("Buscar todos");
 		btnBuscarTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				usuarioController = new UsuarioController();
 				usuario = usuarioController.consultarTodosUsuariosController();
 				atualizarTabelaClientes();
 			}
 		});
+
 		btnBuscarTodos.setBounds(755, 98, 123, 34);
 		this.add(btnBuscarTodos);
 	}

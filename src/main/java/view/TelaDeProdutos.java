@@ -58,7 +58,6 @@ public class TelaDeProdutos {
 	int posicao = 0;
 	private JLabel lblNewLabel;
 	private JLabel lblComprar;
-	private JLabel lblValorfalso;
 	private JLabel lblValorVerdadeiro;
 	private JLabel lblSair;
 	private JLabel lblMaximizar;
@@ -95,7 +94,7 @@ public class TelaDeProdutos {
 		frame.getContentPane().setLayout(null);
 
 		lblExemplares = new JLabel("                      ");
-		lblExemplares.setBounds(287, 100, 400, 375);
+		lblExemplares.setBounds(297, 64, 400, 375);
 		frame.getContentPane().add(lblExemplares);
 
 		lblVoltar = new JLabel("");
@@ -152,27 +151,11 @@ public class TelaDeProdutos {
 		lblAvancar.setBounds(867, 208, 69, 181);
 		frame.getContentPane().add(lblAvancar);
 
-		JTextArea txtrTenisTeste = new JTextArea();
-		txtrTenisTeste.setBackground(null); // Define o fundo como transparente
-		txtrTenisTeste.setOpaque(false); // Define a opacidade como false
-		txtrTenisTeste.setBackground(new Color(0, 139, 139));
-		txtrTenisTeste.setForeground(new Color(255, 255, 255));
-		txtrTenisTeste.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
-		txtrTenisTeste.setText("tenis teste");
-		txtrTenisTeste.setBounds(403, 51, 196, 40);
-		frame.getContentPane().add(txtrTenisTeste);
-
-		lblComprar = new JLabel("Comprar");
+		lblComprar = new JLabel("Adicionar ao carrinho");
 		lblComprar.setForeground(new Color(255, 255, 255));
 		lblComprar.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		lblComprar.setBounds(483, 485, 82, 27);
+		lblComprar.setBounds(383, 498, 201, 27);
 		frame.getContentPane().add(lblComprar);
-
-		lblValorfalso = new JLabel("Valor:");
-		lblValorfalso.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		lblValorfalso.setForeground(new Color(255, 255, 255));
-		lblValorfalso.setBounds(297, 485, 55, 27);
-		frame.getContentPane().add(lblValorfalso);
 
 		lblValorVerdadeiro = new JLabel("");
 		lblValorVerdadeiro.setFont(new Font("Segoe UI", Font.BOLD, 20));
