@@ -14,7 +14,7 @@ public class ItemDAO {
 
 	public ItemVO inserir(ItemVO novoItem) {
 		Connection conn = Banco.getConnection();
-		String sql = "INSERT INTO ITEM (TAMANHO, COR, QUANTIDADE, PRECO_UNITARIO, IDPRODUTO) VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO ITEM (TAMANHO, COR, QUANTIDADE, PRECOUNITARIO, IDPRODUTO) VALUES (?,?,?,?,?)";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql);
 		try {
 			stmt.setString(1, novoItem.getTamanho());
@@ -40,7 +40,7 @@ public class ItemDAO {
 	public boolean atualizar(ItemVO itemVO) {
 		boolean atualizou = false;
 		Connection conn = Banco.getConnection();
-		String slq = " UPDATE ITEM SET TAMANHO=?, COR=?, QUANTIDADE=?, PRECO_UNITARIO=?, IDPRODUTO=? "
+		String slq = " UPDATE ITEM SET TAMANHO=?, COR=?, QUANTIDADE=?, PRECOUNITARIO=?, IDPRODUTO=? "
 				+ " WHERE IDITEM=? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, slq);
 
@@ -106,7 +106,7 @@ public class ItemDAO {
 		try {
 			ResultSet resultado = stmt.executeQuery();
 			while (resultado.next()) {
-				ItemVO itemConsultado = converterResultSetParaEntidadeSemId(resultado);
+				ItemVO itemConsultado = converterResultSetParaEntidadeComId(resultado);
 				consultados.add(itemConsultado);
 			}
 		} catch (SQLException e) {
@@ -141,22 +141,14 @@ public class ItemDAO {
 
 	private ItemVO converterResultSetParaEntidadeComId(ResultSet resultado) throws SQLException {
 		ItemVO itemConsultado = new ItemVO();
-		itemConsultado.setId(resultado.getInt("id"));
+		itemConsultado.setId(resultado.getInt("IDITEM"));
 		itemConsultado.setTamanho(resultado.getString("tamanho"));
 		itemConsultado.setCor(resultado.getString("cor"));
 		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
 		itemConsultado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
-		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
+		itemConsultado.setIdProduto(resultado.getInt("idProduto"));
 
 		return itemConsultado;
 	}
 	
-	private ItemVO converterResultSetParaEntidadeSemId(ResultSet resultado) throws SQLException {
-		ItemVO itemConsultado = new ItemVO();
-		itemConsultado.setTamanho(resultado.getString("tamanho"));
-		itemConsultado.setCor(resultado.getString("cor"));
-		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
-		itemConsultado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
-		return itemConsultado;
-	}
 }
