@@ -57,7 +57,7 @@ public class PainelListagemItens extends JPanel {
 				novaLinhaDaTabela[0] = vo.getTamanho();
 				novaLinhaDaTabela[1] = vo.getCor();
 				novaLinhaDaTabela[2] = vo.getQuantidade();
-				novaLinhaDaTabela[4] = vo.getPrecoUnitario();
+				novaLinhaDaTabela[3] = vo.getPrecoUnitario();
 				model.addRow(novaLinhaDaTabela);
 			}
 	}
