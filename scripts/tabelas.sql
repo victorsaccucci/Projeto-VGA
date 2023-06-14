@@ -3,7 +3,7 @@ CREATE TABLE `item` (
   `tamanho` char(2) NOT NULL,
   `cor` varchar(45) NOT NULL,
   `quantidade` int NOT NULL,
-  `preco_unitario` float NOT NULL,
+  `preco_unitario` double NOT NULL,
   `idproduto` int NOT NULL,
   PRIMARY KEY (`iditem`),
   KEY `idproduto_idx` (`idproduto`),

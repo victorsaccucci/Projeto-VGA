@@ -106,7 +106,7 @@ public class ItemDAO {
 		try {
 			ResultSet resultado = stmt.executeQuery();
 			while (resultado.next()) {
-				ItemVO itemConsultado = converterResultSetParaEntidade(resultado);
+				ItemVO itemConsultado = converterResultSetParaEntidadeSemId(resultado);
 				consultados.add(itemConsultado);
 			}
 		} catch (SQLException e) {
@@ -128,7 +128,7 @@ public class ItemDAO {
 			ResultSet resultado = stmt.executeQuery();
 
 			if (resultado.next()) {
-				itemConsultado = converterResultSetParaEntidade(resultado);
+				itemConsultado = converterResultSetParaEntidadeComId(resultado);
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao consultar todos os itens! \nCausa: " + e.getMessage());
@@ -139,7 +139,7 @@ public class ItemDAO {
 		return itemConsultado;
 	}
 
-	private ItemVO converterResultSetParaEntidade(ResultSet resultado) throws SQLException {
+	private ItemVO converterResultSetParaEntidadeComId(ResultSet resultado) throws SQLException {
 		ItemVO itemConsultado = new ItemVO();
 		itemConsultado.setId(resultado.getInt("id"));
 		itemConsultado.setTamanho(resultado.getString("tamanho"));
@@ -157,8 +157,6 @@ public class ItemDAO {
 		itemConsultado.setCor(resultado.getString("cor"));
 		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
 		itemConsultado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
-		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
-
 		return itemConsultado;
 	}
 }

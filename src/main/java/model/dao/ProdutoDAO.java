@@ -14,10 +14,10 @@ public class ProdutoDAO {
 	public ProdutoVO inserir(ProdutoVO novoProduto) {
 		
 		Connection conn = Banco.getConnection();
-		String sql = "INSERT INTO PRODUTO (DESCRICAO, MARCA) VALUES (?,?)";
+		String sql = "INSERT INTO PRODUTO (MODELO, MARCA) VALUES (?,?)";
 		PreparedStatement query = Banco.getPreparedStatementWithPk(conn, sql);
 		try {
-			query.setString(1,novoProduto.getDescricao());
+			query.setString(1,novoProduto.getModelo());
 			query.setString(2, novoProduto.getMarca());
 			query.execute();
 			
@@ -63,11 +63,11 @@ public class ProdutoDAO {
 		
 		Connection conexao = Banco.getConnection();
 		String sql = " UPDATE PRODUTO "
-				   + " SET DESCRICAO = ?, MARCA = ? "
+				   + " SET MODELO = ?, MARCA = ? "
 				   + " WHERE ID = ? ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
-			query.setString(1, produtoEditado.getDescricao());
+			query.setString(1, produtoEditado.getModelo());
 			query.setString(2, produtoEditado.getMarca());
 			query.setInt(3, produtoEditado.getId());
 			
@@ -135,14 +135,14 @@ public class ProdutoDAO {
 		ProdutoVO produtoConsultado = new ProdutoVO();
 		produtoConsultado.setId(resultado.getInt("id"));
 		produtoConsultado.setMarca(resultado.getString("marca"));
-		produtoConsultado.setDescricao(resultado.getString("descricao"));		
+		produtoConsultado.setModelo(resultado.getString("modelo"));		
 		return produtoConsultado;
 	}
 	
 	private ProdutoVO converterResultSetParaEntidadeSemId(ResultSet resultado) throws SQLException{
 		ProdutoVO produtoConsultado = new ProdutoVO();
 		produtoConsultado.setMarca(resultado.getString("marca"));
-		produtoConsultado.setDescricao(resultado.getString("descricao"));		
+		produtoConsultado.setModelo(resultado.getString("modelo"));		
 		return produtoConsultado;
 	}
 

@@ -9,8 +9,7 @@ public class ItemBO {
 
 	ItemDAO dao = new ItemDAO();
 	
-	public List<ItemVO> consultarTodos() {
-		
+	public List<ItemVO> consultarTodos() {		
 		return dao.consultarTodos();
 	}
 

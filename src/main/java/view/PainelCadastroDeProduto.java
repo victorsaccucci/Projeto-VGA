@@ -63,7 +63,7 @@ public class PainelCadastroDeProduto extends JPanel {
 				novoProduto = new ProdutoVO();
 				produtoController = new ProdutoController();
 				
-				novoProduto.setDescricao(txtModelo.getText());
+				novoProduto.setModelo(txtModelo.getText());
 				novoProduto.setMarca(txtMarca.getText());
 				
 				try {

@@ -26,7 +26,7 @@ public class ProdutoController {
 			validacao += "Informe uma marca! \n";
 		}
 		
-		if(p.getDescricao() == null) {
+		if(p.getModelo() == null) {
 			validacao += "Informe um modelo! \n";
 		}
 		

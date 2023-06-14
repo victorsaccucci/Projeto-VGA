@@ -3,23 +3,23 @@ package model.vo;
 public class ProdutoVO {
 
 	private int id;
-	private String descricao;
+	private String modelo;
 	private String marca;
 
 	public ProdutoVO() {
 		super();
 	}
 
-	public ProdutoVO(String descricao, String marca) {
+	public ProdutoVO(String modelo, String marca) {
 		super();
-		this.descricao = descricao;
+		this.modelo = modelo;
 		this.marca = marca;
 	}
 
-	public ProdutoVO(int id, String descricao, String marca) {
+	public ProdutoVO(int id, String modelo, String marca) {
 		super();
 		this.id = id;
-		this.descricao = descricao;
+		this.modelo = modelo;
 		this.marca = marca;
 	}
 
@@ -31,12 +31,12 @@ public class ProdutoVO {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getModelo() {
+		return modelo;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
 	}
 
 	public String getMarca() {
@@ -49,7 +49,7 @@ public class ProdutoVO {
 
 	@Override
 	public String toString() {
-		return "Modelo: " + this.getDescricao() + " Marca: " + this.getMarca();
+		return "Modelo: " + this.getModelo() + " Marca: " + this.getMarca();
 	}
 
 }
