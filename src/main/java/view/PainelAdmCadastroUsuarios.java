@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
 import controller.UsuarioController;
@@ -23,9 +24,6 @@ import java.awt.Color;
 
 public class PainelAdmCadastroUsuarios extends JPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5562228851751479011L;
 	private JTextField txtNome;
 	private JTextField txtEmail;
@@ -36,17 +34,28 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 	private Checkbox cbAdmSimNao;
 	private JButton btnCadastrar;
 	
+	private UsuarioVO usuario;
+	
 	private UsuarioController usuarioController;
 	private UsuarioVO novoUsuario;
 	private JPasswordField txtSenha;
 	
 	private MaskFormatter mascaraCpf;
+	private JLabel lblTitulo;
+
 
 	/**
 	 * Create the panel.
 	 * @throws ParseException 
 	 */
-	public PainelAdmCadastroUsuarios() throws ParseException {
+	public PainelAdmCadastroUsuarios(UsuarioVO usuarioParaEditar) throws ParseException {
+		
+		if(usuarioParaEditar != null) {
+			this.usuario = usuarioParaEditar;
+		}else {
+			this.usuario = new UsuarioVO();
+		}
+		
 		setBackground(new Color(0, 139, 139));
 		setLayout(null);
 		
@@ -141,6 +150,10 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 		txtSenha = new JPasswordField();
 		txtSenha.setBounds(311, 258, 358, 28);
 		add(txtSenha);
-
+		
+		lblTitulo = new JLabel(usuario.getId() == null ? "NOVO CLIENTE" : "EDIÇÃO DE CLIENTE");
+		lblTitulo.setBounds(438, 36, 231, 13);
+		add(lblTitulo);
+		
 	}
 }

@@ -24,7 +24,7 @@ public class PainelListagemItens extends JPanel {
 	
 	public String[] nomeColunas = {"Tamanho", "Cor", "Qtd", "Preço"};
 	private JTable tabelaItens;
-	private ProdutoVO[] produto;
+	private List<ProdutoVO> produto;
 	private List<ItemVO> item;
 	private ItemController itemController;
 	private JTextField txtMarca;

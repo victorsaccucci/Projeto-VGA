@@ -77,21 +77,6 @@ public class TelaMenuPrincipal {
 		frame.setBounds(100, 100, 946, 585);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
-
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				TelaCarrinho telaCarrinho = new TelaCarrinho();
-				telaCarrinho.tornarVisivelForaDoFrame();
-				frame.setVisible(false);
-			}
-		});
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblNewLabel.setIcon(
-				new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-carrinho-40.png")));
-		
 		JLabel lblNewLabel_1 = new JLabel("");
 		
 		JLabel lblSair = new JLabel(" X");
@@ -101,21 +86,17 @@ public class TelaMenuPrincipal {
 				System.exit(0);
 			}
 		});
-		lblSair.setForeground(new Color(255, 255, 255));
+		lblSair.setForeground(new Color(0, 139, 139));
 		lblSair.setFont(new Font("Tahoma", Font.BOLD, 15));
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(891, Short.MAX_VALUE)
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(126)
 					.addComponent(lblNewLabel_1)
 					.addContainerGap(820, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(890, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(921, Short.MAX_VALUE)
 					.addComponent(lblSair)
 					.addContainerGap())
 		);
@@ -124,11 +105,9 @@ public class TelaMenuPrincipal {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblSair)
-					.addGap(15)
-					.addComponent(lblNewLabel)
-					.addGap(69)
+					.addGap(124)
 					.addComponent(lblNewLabel_1)
-					.addContainerGap(436, Short.MAX_VALUE))
+					.addContainerGap(432, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
