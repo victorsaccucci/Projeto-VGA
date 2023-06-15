@@ -44,8 +44,8 @@ public class UsuarioController {
 		return usuarioBO.atualizarUsuarioBO(usuarioVO);
 	}
 
-	public boolean excluirUsuarioController(UsuarioVO usuarioVO) {
-		return usuarioBO.excluirUsuarioBO(usuarioVO);
+	public boolean excluirUsuarioController(int id) throws ExceptionVGA {
+		return usuarioBO.excluirUsuarioBO(id);
 	}
 
 	private void validarCamposObrigatorios(UsuarioVO usuario) throws ExceptionVGA {

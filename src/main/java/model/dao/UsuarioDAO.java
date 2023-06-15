@@ -62,9 +62,9 @@ public class UsuarioDAO {
 		return registrosAlterados > 0;
 	}
 
-	public boolean excluir(int id) {
+	public boolean excluir(Integer id) {
 		Connection conn = Banco.getConnection();
-		String sql = "DELETE FROM USUARIO WHERE IDUSUARIO= " + id;
+		String sql = "DELETE FROM USUARIO WHERE IDUSUARIO = " + id;
 		Statement stmt = Banco.getStatement(conn);
 
 		int quantidadesLinhasAfetadas = 0;
@@ -80,7 +80,7 @@ public class UsuarioDAO {
 		return excluiu;
 	}
 
-	public UsuarioVO consultarClientePorId(int id) {
+	public UsuarioVO consultarClientePorId(Integer id) {
 		UsuarioVO usuarioBuscado = null;
 		Connection conn = Banco.getConnection();
 		String sql = "SELECT * FROM USUARIO WHERE IDUSUARIO = ?";
