@@ -59,6 +59,7 @@ public class PainelCadastroItem extends JPanel {
 		produtoController = new ProdutoController();
 		cbProduto = new JComboBox(produtoController.consultarTodosProdutosController().toArray());
 		
+		
 		cbProduto.setForeground(new Color(0, 139, 139));
 		cbProduto.setBounds(305, 89, 358, 28);
 		add(cbProduto);
@@ -121,8 +122,7 @@ public class PainelCadastroItem extends JPanel {
 				novoItem.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
 				novoItem.setPrecoUnitario(Double.parseDouble(txtPreco.getText()));
 				novoItem.setTamanho(txtTamanho.getText());
-				novoItem.setIdProduto(cbProduto.getSelectedIndex());
-				
+				novoItem.setIdProduto(cbProduto.getSelectedIndex() + 1);				
 				try {
 					itemController.inserirItem(novoItem);
 					JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!", 
