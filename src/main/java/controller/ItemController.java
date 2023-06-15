@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.ExceptionVGA;
 import model.bo.ItemBO;
+import model.seletor.SeletorItem;
 import model.vo.ItemVO;
 
 public class ItemController {
@@ -45,6 +46,10 @@ public class ItemController {
 		if(!validacao.isEmpty()) {
 			throw new ExceptionVGA(validacao);
 		}
+	}
+	
+	public List<ItemVO> consultarComFiltros(SeletorItem seletor){
+		return bo.consultarComFiltros(seletor);
 	}
 	
 }
