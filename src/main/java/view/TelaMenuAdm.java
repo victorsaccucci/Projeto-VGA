@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.EventQueue;
+import java.awt.Point;
 
 import javax.swing.JFrame;
 import com.jgoodies.forms.layout.FormLayout;
@@ -63,6 +64,31 @@ public class TelaMenuAdm {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setUndecorated(true);
+		MouseAdapter mouseAdapter = new MouseAdapter() {
+		    private Point initialClick;
+
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		        initialClick = e.getPoint();
+		        frame.getComponentAt(initialClick);
+		    }
+
+		    @Override
+		    public void mouseDragged(MouseEvent e) {
+		        int thisX = frame.getLocation().x;
+		        int thisY = frame.getLocation().y;
+
+		        int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
+		        int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
+
+		        int X = thisX + xMoved;
+		        int Y = thisY + yMoved;
+
+		        frame.setLocation(X, Y);
+		    }
+		};
+		frame.addMouseListener(mouseAdapter);
+		frame.addMouseMotionListener(mouseAdapter);
 		frame.setBounds(100, 100, 946, 585);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
