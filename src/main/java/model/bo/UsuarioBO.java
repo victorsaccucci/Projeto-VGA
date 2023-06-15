@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.ExceptionVGA;
 import model.dao.UsuarioDAO;
+import model.seletor.SeletorItem;
 import model.vo.UsuarioVO;
 
 public class UsuarioBO {
@@ -43,5 +44,9 @@ public class UsuarioBO {
 
 	public boolean excluirUsuarioBO(int id) throws ExceptionVGA {
 		return usuarioDAO.excluir(id);
+	}
+
+	public ArrayList<UsuarioVO> consultarComFiltros(SeletorItem seletor) {
+		return null;
 	}
 }
