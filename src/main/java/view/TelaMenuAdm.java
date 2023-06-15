@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.ImageIcon;
@@ -28,10 +29,11 @@ public class TelaMenuAdm {
 	private JFrame frame;
 	private PainelListagemClientes painelListagemClientes;
 	private PainelAdmCadastroUsuarios painelAdmCadastroUsuarios;
+	
 	private PainelListagemItens listagemItens;
 	private PainelCadastroItem painelCadastroItem;
 	protected PainelCadastroDeProduto painelCadastroProduto;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -86,7 +88,7 @@ public class TelaMenuAdm {
 		menuItemCadastrarUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					painelAdmCadastroUsuarios = new PainelAdmCadastroUsuarios();
+					painelAdmCadastroUsuarios = new PainelAdmCadastroUsuarios(null);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
@@ -163,6 +165,24 @@ public class TelaMenuAdm {
 				GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE));
 		panel.setLayout(new BorderLayout(0, 0));
 
+	}
+	
+	protected void registrarCliqueBotaoEditarDoPainelListagemCliente() {
+		
+		painelListagemClientes.getBtnEditar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					painelAdmCadastroUsuarios =  new PainelAdmCadastroUsuarios(painelListagemClientes.getUsuarioSelecionado());
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}		
+				painelAdmCadastroUsuarios.setVisible(true);
+				frame.setContentPane(painelAdmCadastroUsuarios);
+				frame.revalidate();
+			}
+		});
+		
 	}
 
 	public void tornarVisivelForaDoFrame() {
