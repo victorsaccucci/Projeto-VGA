@@ -1,9 +1,9 @@
 package controller;
 
 import java.util.ArrayList;
-
 import model.ExceptionVGA;
 import model.bo.UsuarioBO;
+import model.seletor.SeletorItem;
 import model.vo.UsuarioVO;
 
 public class UsuarioController {
@@ -68,19 +68,7 @@ public class UsuarioController {
 		}
 	}
 
-//	private String validarCpf(UsuarioVO usuario) throws ExceptionVGA {
-//		String validacao = "";
-//
-//		if (usuario.getCpf() == null) {
-//			validacao += "Informe um CPF! \n";
-//		} else {
-//			String cpfSemMascara = usuario.getCpf().replace(".", "");
-//			cpfSemMascara = usuario.getCpf().replace("-", "");
-//			usuario.setCpf(cpfSemMascara);
-//			if (usuario.getCpf().length() != 11) {
-//				validacao += "CPF deve possuir 11 digitos! \n";
-//			}
-//		}
-//		return validacao;
-//	}
+	public ArrayList<UsuarioVO> consultarComFiltros(SeletorItem seletor) {	
+		return usuarioBO.consultarComFiltros(seletor);
+	}
 }
