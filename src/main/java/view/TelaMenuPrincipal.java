@@ -13,6 +13,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class TelaMenuPrincipal {
 
@@ -47,6 +49,7 @@ public class TelaMenuPrincipal {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(0, 139, 139));
 		frame.setUndecorated(true);
 		MouseAdapter mouseAdapter = new MouseAdapter() {
 		    private Point initialClick;
@@ -78,38 +81,21 @@ public class TelaMenuPrincipal {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(434, 153, 0, 0);
 		
 		JLabel lblSair = new JLabel(" X");
+		lblSair.setBounds(923, 9, 15, 19);
 		lblSair.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.exit(0);
 			}
 		});
-		lblSair.setForeground(new Color(0, 139, 139));
+		lblSair.setForeground(new Color(255, 255, 255));
 		lblSair.setFont(new Font("Tahoma", Font.BOLD, 15));
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(126)
-					.addComponent(lblNewLabel_1)
-					.addContainerGap(820, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(921, Short.MAX_VALUE)
-					.addComponent(lblSair)
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblSair)
-					.addGap(124)
-					.addComponent(lblNewLabel_1)
-					.addContainerGap(432, Short.MAX_VALUE))
-		);
-		frame.getContentPane().setLayout(groupLayout);
+		frame.getContentPane().setLayout(null);
+		frame.getContentPane().add(lblNewLabel_1);
+		frame.getContentPane().add(lblSair);
 	}
 
 	public void tornarVisivelForaDoFrame() {
