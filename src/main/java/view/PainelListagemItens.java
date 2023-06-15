@@ -27,8 +27,10 @@ public class PainelListagemItens extends JPanel {
 
 	public String[] nomeColunas = { "Tamanho", "Cor", "Qtd", "Preço" };
 	private JTable tabelaItens;
+	
 	private List<ProdutoVO> produto;
 	private List<ItemVO> item;
+	
 	private ItemController itemController;
 	private JTextField txtMenorPreco;
 	private JTextField txtMaiorPreco;
@@ -40,12 +42,10 @@ public class PainelListagemItens extends JPanel {
 	private JLabel lblCor;
 	private JButton btnBuscar;
 	private JButton btnBuscarTodos;
-
+	
+	//Seletor
 	private SeletorItem seletor;
-
-	/**
-	 * Create the panel.
-	 */
+	private ItemController itemControllerSeletor;
 
 	private void limparTabela() {
 		tabelaItens.setModel(new DefaultTableModel(new Object[][] { nomeColunas, }, nomeColunas));
@@ -172,16 +172,15 @@ public class PainelListagemItens extends JPanel {
 	}
 
 	protected void buscarItensComFiltro() {
+		itemControllerSeletor = new ItemController();
+		
 		seletor = new SeletorItem();
 		seletor.setCor(txtCor.getText());
-
-		int tamanho = Integer.parseInt(txtTamanho.getText());
-		seletor.setTamanho(tamanho);
-
+		seletor.setTamanho(Integer.parseInt(txtTamanho.getText()));
 		seletor.setPrecoInicial(txtMenorPreco.getText());
 		seletor.setPrecoFinal(txtMaiorPreco.getText());
-		ItemController itemController2 = new ItemController();
-		item = (List<ItemVO>) itemController2.consultarComFiltros(seletor);
+
+		item = (List<ItemVO>) itemControllerSeletor.consultarComFiltros(seletor);
 		atualizarTabelaItens();
 
 	}
