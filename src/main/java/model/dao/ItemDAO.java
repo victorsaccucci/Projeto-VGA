@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ExceptionVGA;
+import model.seletor.SeletorItem;
 import model.vo.ItemVO;
+import model.vo.ProdutoVO;
 
 
 public class ItemDAO {
@@ -121,7 +124,7 @@ public class ItemDAO {
 	public ItemVO consultarPorId(int id) {
 		ItemVO itemConsultado = null;
 		Connection conn = Banco.getConnection();
-		String sql = " SELECT * FROM ITEM WHERE ID = ? ";
+		String sql = " SELECT * FROM ITEM WHERE IDITEM = ? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
 		try {
 			stmt.setInt(1, id);
@@ -149,6 +152,123 @@ public class ItemDAO {
 		itemConsultado.setIdProduto(resultado.getInt("idProduto"));
 
 		return itemConsultado;
+	}
+	
+	private ItemVO montarItemComResultadoDoBanco(ResultSet resultado) throws ExceptionVGA, SQLException{
+		ItemVO itemBuscado = new ItemVO();
+		itemBuscado.setId(resultado.getInt("iditem"));
+		itemBuscado.setCor(resultado.getString("cor"));
+		itemBuscado.setTamanho(resultado.getString("tamanho"));
+		itemBuscado.setQuantidade(resultado.getInt("quantidade"));
+		itemBuscado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
+		
+	//  int idProdutoDoItem = resultado.getInt("idProduto");
+	//	ProdutoDAO produtoDAO = new ProdutoDAO();
+	//	ProdutoVO produto = produtoDAO.consultarPorId(idProdutoDoItem);
+		
+		
+		
+		return itemBuscado;
+		
+	}
+	
+	public List<ItemVO> consultarComFiltros(SeletorItem seletor){
+		List<ItemVO> itens = new ArrayList<ItemVO>();
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM ITEM ";
+		
+		if(seletor.temFiltro()) {
+			sql = preencherFiltros(sql, seletor);
+		}
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			ResultSet resultado = query.executeQuery();
+			while(resultado.next()) {
+				ItemVO itemBuscado = montarItemComResultadoDoBanco(resultado);
+				itens.add(itemBuscado);
+			}
+		}catch(Exception e) {
+			System.out.println("Erro ao buscar os itens! \n Causa:" + e.getMessage());
+		}finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		
+		return itens;
+	}
+	
+
+	private String preencherFiltros(String sql, SeletorItem seletor) {
+		double precoInicial = Double.parseDouble(seletor.getPrecoInicial());
+		double precoFinal = Double.parseDouble(seletor.getPrecoFinal());
+		
+		boolean primeiro = true;
+		if(seletor.getCor() != null && !seletor.getCor().trim().isEmpty()) {
+			if(primeiro) {
+				sql += " WHERE ";
+			}else {
+				sql += " AND ";
+			}
+			
+			sql += " cor LIKE '%" + seletor.getCor() + "%'";
+			primeiro = false;
+		}
+		
+		if(seletor.getQuantidade() > 0 ) {
+			if(primeiro) {
+				sql += " WHERE ";
+			}else {
+				sql += " AND ";
+			}
+			
+			sql += " quantidade LIKE '%" + seletor.getQuantidade() + "%'";
+			primeiro = false; 
+		}
+		
+		if(seletor.getTamanho() > 0) {
+			if(primeiro) {
+				sql += " WHERE ";
+			}else {
+				sql += " AND ";
+			}
+			
+			sql += " tamanho LIKE '%" + seletor.getTamanho() + "%'";
+			primeiro = false; 
+		}
+		
+		if(precoInicial > 0 && precoFinal > 0) {		
+			if(primeiro) {	
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			sql += " precoUnitario BETWEEN '" 
+					+ precoInicial + "' " 
+					+ " AND '" + precoFinal + "' ";
+				primeiro = false;
+		}else {
+			if (precoInicial > 0) {
+				if(primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				sql += " precoUnitario >= '" + precoInicial + "' "; 
+				primeiro = false;
+			}
+			
+			if (precoFinal > 0) {
+				if(primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				sql += " precoUnitario <= '" + precoFinal + "' "; 
+				primeiro = false;
+			}
+		}
+		return sql;
 	}
 	
 }
