@@ -2,7 +2,7 @@ package model.vo;
 
 public class UsuarioVO {
 
-	private int id;
+	private Integer id;
 	private String nome;
 	private String cpf;
 	
@@ -26,7 +26,7 @@ public class UsuarioVO {
 		this.adm = adm;
 	}
 	
-	public UsuarioVO(int id, String nome, String senha, String email, String cpf, boolean adm) {
+	public UsuarioVO(Integer id, String nome, String senha, String email, String cpf, boolean adm) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -36,11 +36,11 @@ public class UsuarioVO {
 		this.adm = adm;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
