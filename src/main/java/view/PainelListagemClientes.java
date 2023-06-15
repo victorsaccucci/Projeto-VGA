@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.UsuarioController;
 import model.ExceptionVGA;
+import model.seletor.SeletorItem;
 import model.vo.UsuarioVO;
 
 import javax.swing.JTable;
@@ -30,25 +31,27 @@ public class PainelListagemClientes extends JPanel {
 	private JTextField txtNome;
 	private JTextField txtCpf;
 	private JTextField txtEmail;
-	
 	private JTable tabelaUsuarios;
 	private JButton btnBuscar;
+
 	private ArrayList<UsuarioVO> usuarios;
+
 	private UsuarioController usuarioController;
-	
-	private String[] nomesColunas = {"Nome", "Email", "Cpf", "Administrador"};
+	private String[] nomesColunas = { "Nome", "Email", "Cpf", "Administrador" };
 	private JButton btnBuscarTodos;
-
 	private JButton btnEditar;
-
 	private UsuarioVO usuarioSelecionado;
-
 	private JButton btnExcluir;
-	
+
+	// Seletor
+	private ArrayList<UsuarioVO> usuario;
+	private SeletorItem seletor;
+	private UsuarioController usuarioControllerSeletor;
+
 	private void limparTabela() {
 		tabelaUsuarios.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
 	}
-	
+
 	private void atualizarTabelaClientes() {
 		this.limparTabela();
 
@@ -63,53 +66,55 @@ public class PainelListagemClientes extends JPanel {
 			model.addRow(novaLinhaDaTabela);
 		}
 	}
-	
 
 	public PainelListagemClientes() {
 		setBackground(new Color(0, 139, 139));
 		setLayout(null);
-		
+
 		btnBuscar = new JButton("Buscar");
+		btnBuscar.setEnabled(false);
 		btnBuscar.setForeground(new Color(0, 139, 139));
 		btnBuscar.setFont(new Font("Segoe UI", Font.BOLD, 14));
-//		btnBuscar.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				atualizarTabelaClientes();
-//			}
-//		});
+
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscarItensComFiltro();
+				atualizarTabelaClientes();
+			}
+		});
 		btnBuscar.setBounds(666, 98, 123, 34);
 		add(btnBuscar);
-		
+
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		lblNome.setBounds(42, 49, 45, 13);
 		add(lblNome);
-		
+
 		txtNome = new JTextField();
 		txtNome.setBounds(97, 44, 283, 28);
 		add(txtNome);
 		txtNome.setColumns(10);
-		
+
 		JLabel lblNewLabel = new JLabel("CPF:");
 		lblNewLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		lblNewLabel.setBounds(418, 45, 45, 20);
 		add(lblNewLabel);
-		
+
 		txtCpf = new JTextField();
 		txtCpf.setColumns(10);
 		txtCpf.setBounds(456, 44, 196, 28);
 		add(txtCpf);
-		
+
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		lblEmail.setBounds(42, 102, 45, 13);
 		add(lblEmail);
-		
+
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
 		txtEmail.setBounds(97, 101, 555, 28);
 		add(txtEmail);
-		
+
 		tabelaUsuarios = new JTable();
 		tabelaUsuarios.addMouseListener(new MouseAdapter() {
 			@Override
@@ -128,7 +133,7 @@ public class PainelListagemClientes extends JPanel {
 		});
 		tabelaUsuarios.setBounds(23, 166, 902, 314);
 		add(tabelaUsuarios);
-		
+
 		btnBuscarTodos = new JButton("Buscar todos");
 		btnBuscarTodos.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnBuscarTodos.setForeground(new Color(0, 139, 139));
@@ -142,26 +147,26 @@ public class PainelListagemClientes extends JPanel {
 
 		btnBuscarTodos.setBounds(802, 98, 123, 34);
 		this.add(btnBuscarTodos);
-		
+
 		btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnEditar.setForeground(new Color(0, 139, 139));
 		btnEditar.setBounds(666, 490, 123, 34);
 		add(btnEditar);
-		
+
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				int opcaoSelecionada = JOptionPane.showConfirmDialog(null,
 						"Confirmar a exclusão do usuário selecionado?");
-				
-				if(opcaoSelecionada == JOptionPane.YES_OPTION) {
+
+				if (opcaoSelecionada == JOptionPane.YES_OPTION) {
 					try {
 						usuarioController.excluirUsuarioController(usuarioSelecionado.getId());
 						JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
 						usuarios = usuarioController.consultarTodosUsuariosController();
-						
+
 						atualizarTabelaClientes();
 					} catch (ExceptionVGA e1) {
 						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
@@ -174,6 +179,17 @@ public class PainelListagemClientes extends JPanel {
 		btnExcluir.setBounds(802, 490, 123, 34);
 		add(btnExcluir);
 	}
+
+	protected void buscarItensComFiltro() {
+		seletor = new SeletorItem();
+		seletor.setCor(txtNome.getText());
+		seletor.setCor(txtEmail.getText());
+
+		usuario = usuarioControllerSeletor.consultarComFiltros(seletor);
+		atualizarTabelaClientes();
+
+	}
+
 	public JButton getBtnEditar() {
 		return this.btnEditar;
 	}
