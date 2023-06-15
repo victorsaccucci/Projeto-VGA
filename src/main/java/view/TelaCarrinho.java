@@ -12,6 +12,8 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTable;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class TelaCarrinho {
 
@@ -22,6 +24,7 @@ public class TelaCarrinho {
 	private JLabel lblMinimizar;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
+	private JTable table;
 	
 	
 	/**
@@ -52,6 +55,7 @@ public class TelaCarrinho {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(0, 139, 139));
 		frame.setUndecorated(true);
 		frame.setBounds(100, 100, 946, 585);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,21 +70,28 @@ public class TelaCarrinho {
 				
 			}
 		});
-		lblNewLabel.setIcon(new ImageIcon(TelaCarrinho.class.getResource("/icones/icons8-voltar-40.png")));
+		lblNewLabel.setIcon(new ImageIcon(TelaCarrinho.class.getResource("/icones/icons8-voltar-50 (1).png")));
+		
+		table = new JTable();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(891, Short.MAX_VALUE))
+					.addContainerGap(139, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(144, Short.MAX_VALUE)
+					.addComponent(table, GroupLayout.PREFERRED_SIZE, 684, GroupLayout.PREFERRED_SIZE)
+					.addGap(118))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblNewLabel)
-					.addContainerGap(545, Short.MAX_VALUE))
+					.addGap(35)
+					.addComponent(table, GroupLayout.PREFERRED_SIZE, 405, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(85, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 		
