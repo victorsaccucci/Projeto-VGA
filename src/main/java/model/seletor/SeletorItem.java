@@ -4,15 +4,17 @@ public class SeletorItem extends SeletorBase{
 	
 	private int tamanho;
 	private int quantidade;
-	private double precoInicial;
-	private double precoFinal;
+	private String cor;
+	private String precoInicial;
+	private String precoFinal;
 	
 	@Override
 	public boolean temFiltro() {
 		return (this.tamanho > 0)
 				|| (this.quantidade > 0)
-				|| this.precoInicial != 0
-				|| this.precoFinal != 0;
+				|| this.precoInicial != null
+				|| this.precoFinal != null
+				|| this.cor != null;
 	}
 	
 	
@@ -28,17 +30,27 @@ public class SeletorItem extends SeletorBase{
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
-	public double getPrecoInicial() {
+	public String getPrecoInicial() {
 		return precoInicial;
 	}
-	public void setPrecoInicial(double precoInicial) {
-		this.precoInicial = precoInicial;
+	public void setPrecoInicial(String string) {
+		this.precoInicial = string;
 	}
-	public double getPrecoFinal() {
+	public String getPrecoFinal() {
 		return precoFinal;
 	}
-	public void setPrecoFinal(double precoFinal) {
+	public void setPrecoFinal(String precoFinal) {
 		this.precoFinal = precoFinal;
+	}
+
+
+	public String getCor() {
+		return cor;
+	}
+
+
+	public void setCor(String cor) {
+		this.cor = cor;
 	}
 	
 	
