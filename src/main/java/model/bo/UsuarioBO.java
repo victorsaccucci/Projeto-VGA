@@ -41,7 +41,7 @@ public class UsuarioBO {
 		return false;
 	}
 
-	public boolean excluirUsuarioBO(UsuarioVO usuarioVO) {
-		return false;
+	public boolean excluirUsuarioBO(int id) throws ExceptionVGA {
+		return usuarioDAO.excluir(id);
 	}
 }
