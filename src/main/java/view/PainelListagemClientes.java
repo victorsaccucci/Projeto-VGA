@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +14,10 @@ import javax.swing.table.DefaultTableModel;
 import controller.UsuarioController;
 import model.ExceptionVGA;
 import model.seletor.SeletorItem;
+import model.seletor.SeletorUsuario;
+import model.vo.ItemVO;
 import model.vo.UsuarioVO;
+
 
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -21,6 +25,9 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -34,8 +41,8 @@ public class PainelListagemClientes extends JPanel {
 	private JTable tabelaUsuarios;
 	private JButton btnBuscar;
 
-	private ArrayList<UsuarioVO> usuarios;
-
+	private List<UsuarioVO> usuarios;
+	
 	private UsuarioController usuarioController;
 	private String[] nomesColunas = { "Nome", "Email", "Cpf", "Administrador" };
 	private JButton btnBuscarTodos;
@@ -43,10 +50,9 @@ public class PainelListagemClientes extends JPanel {
 	private UsuarioVO usuarioSelecionado;
 	private JButton btnExcluir;
 
-	// Seletor
-	private ArrayList<UsuarioVO> usuario;
-	private SeletorItem seletor;
-	private UsuarioController usuarioControllerSeletor;
+	// Seletor	
+	private SeletorUsuario seletor;
+
 
 	private void limparTabela() {
 		tabelaUsuarios.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
@@ -78,7 +84,7 @@ public class PainelListagemClientes extends JPanel {
 
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buscarItensComFiltro();
+				buscarUsuariosComFiltro();
 				atualizarTabelaClientes();
 			}
 		});
@@ -178,14 +184,43 @@ public class PainelListagemClientes extends JPanel {
 		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnExcluir.setBounds(802, 490, 123, 34);
 		add(btnExcluir);
+		
+		txtNome.getDocument().addDocumentListener(new MyDocumentListener());
+		txtEmail.getDocument().addDocumentListener(new MyDocumentListener());
+		txtCpf.getDocument().addDocumentListener(new MyDocumentListener());
+	}
+	
+	private class MyDocumentListener implements DocumentListener {
+        public void insertUpdate(DocumentEvent e) {
+            checarCampos();
+        }
+
+        public void removeUpdate(DocumentEvent e) {
+            checarCampos();
+        }
+
+        public void changedUpdate(DocumentEvent e) {
+            checarCampos();
+        }
+    }
+	
+	private void checarCampos() {
+		if (!txtNome.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtCpf.getText().isEmpty()) {
+			btnBuscar.setEnabled(true);
+		} else {
+			btnBuscar.setEnabled(false);
+		}
 	}
 
-	protected void buscarItensComFiltro() {
-		seletor = new SeletorItem();
-		seletor.setCor(txtNome.getText());
-		seletor.setCor(txtEmail.getText());
+	protected void buscarUsuariosComFiltro() {
+		usuarioController =  new UsuarioController();
+		
+		seletor = new SeletorUsuario();
+		seletor.setNome(txtNome.getText());
+		seletor.setEmail(txtEmail.getText());
+		seletor.setCpf(txtNome.getText());
 
-		usuario = usuarioControllerSeletor.consultarComFiltros(seletor);
+		usuarios = (List<UsuarioVO>) usuarioController.consultarComFiltros(seletor);
 		atualizarTabelaClientes();
 
 	}
