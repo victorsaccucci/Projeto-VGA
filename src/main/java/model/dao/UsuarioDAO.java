@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.seletor.SeletorItem;
+import model.seletor.SeletorUsuario;
+import model.vo.ItemVO;
 import model.vo.UsuarioVO;
 
 public class UsuarioDAO {
@@ -143,24 +146,17 @@ public class UsuarioDAO {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
-		
+
 		UsuarioVO usuarioAutenticado = null;
 
-		String sql = " select "
-				+ " usuario.idusuario, "
-			    + " usuario.nome, "
-			    + " usuario.senha, "
-			    + " usuario.cpf, "
-				+ " usuario.email, "
-			    + " usuario.adm "
-			+ " from usuario "
-			+ " where usuario.email like '" + email + "' "
-			+ " and usuario.senha like '" + senha + "' ";
+		String sql = " select " + " usuario.idusuario, " + " usuario.nome, " + " usuario.senha, " + " usuario.cpf, "
+				+ " usuario.email, " + " usuario.adm " + " from usuario " + " where usuario.email like '" + email + "' "
+				+ " and usuario.senha like '" + senha + "' ";
 		try {
 			resultado = stmt.executeQuery(sql);
 			if (resultado.next()) {
-				
-				usuarioAutenticado = new UsuarioVO();			
+
+				usuarioAutenticado = new UsuarioVO();
 				usuarioAutenticado.setId(Integer.parseInt(resultado.getString(1)));
 				usuarioAutenticado.setNome(resultado.getString(2));
 				usuarioAutenticado.setEmail(resultado.getString(3));
@@ -203,17 +199,16 @@ public class UsuarioDAO {
 		return usuarioVO;
 	}
 
-
 	public boolean verificarExistenciaLoginPorCpf(UsuarioVO usuarioVO) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
 		boolean verficacao = false;
-		
+
 		String sql = "SELECT cpf FROM usuario WHERE cpf = ? ";
 		try {
 			resultado = stmt.executeQuery(sql);
-			if(resultado.next()) {
+			if (resultado.next()) {
 				verficacao = true;
 			}
 		} catch (SQLException e) {
@@ -225,5 +220,65 @@ public class UsuarioDAO {
 			Banco.closeConnection(conn);
 		}
 		return verficacao;
+	}
+
+	public List<UsuarioVO> consultarComFiltros(SeletorUsuario seletor) {
+
+		List<UsuarioVO> usuarios = new ArrayList<UsuarioVO>();
+		Connection conexao = Banco.getConnection();
+		String sql = " SELECT * FROM USUARIO ";
+
+		if (seletor.temFiltro()) {
+			sql = preencherFiltros(sql, seletor);
+		}
+
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			ResultSet resultado = query.executeQuery();
+			while (resultado.next()) {
+				UsuarioVO usuarioBuscado = montarUsuarioComResultadoDoBanco(resultado);
+				usuarios.add(usuarioBuscado);
+			}
+		} catch (Exception e) {
+			System.out.println("Erro ao buscar os usuários! \n Causa:" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+
+		return usuarios;
+	}
+
+	private String preencherFiltros(String sql, SeletorUsuario seletor) {
+		boolean primeiro = true;
+		if (seletor.getNome() != null && !seletor.getNome().trim().isEmpty()) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			sql += " nome LIKE '%" + seletor.getNome() + "%'";
+			primeiro = false;
+		}
+		if (seletor.getEmail() != null && !seletor.getEmail().trim().isEmpty()) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			sql += " email LIKE '%" + seletor.getEmail() + "%'";
+			primeiro = false;
+		}
+		if (seletor.getCpf() != null && !seletor.getCpf().trim().isEmpty()) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			sql += " cpf LIKE '%" + seletor.getCpf() + "%'";
+			primeiro = false;
+		}
+		return sql;
+
 	}
 }
