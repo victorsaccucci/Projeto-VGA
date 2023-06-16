@@ -1,10 +1,11 @@
 package model.bo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.ExceptionVGA;
 import model.dao.UsuarioDAO;
-import model.seletor.SeletorItem;
+import model.seletor.SeletorUsuario;
 import model.vo.UsuarioVO;
 
 public class UsuarioBO {
@@ -46,7 +47,7 @@ public class UsuarioBO {
 		return usuarioDAO.excluir(id);
 	}
 
-	public ArrayList<UsuarioVO> consultarComFiltros(SeletorItem seletor) {
-		return null;
+	public List<UsuarioVO> consultarComFiltros(SeletorUsuario seletor) {
+		return usuarioDAO.consultarComFiltros(seletor);
 	}
 }
