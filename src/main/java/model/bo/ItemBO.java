@@ -8,18 +8,18 @@ import model.vo.ItemVO;
 
 public class ItemBO {
 
-	ItemDAO dao = new ItemDAO();
+	ItemDAO itemDAO = new ItemDAO();
 	
 	public List<ItemVO> consultarTodos() {		
-		return dao.consultarTodos();
+		return itemDAO.consultarTodos();
 	}
 
 	public ItemVO inserirItem(ItemVO novoItem) {
-		return dao.inserir(novoItem);
+		return itemDAO.inserir(novoItem);
 	}
 	
 	public List<ItemVO> consultarComFiltros(SeletorItem seletor){
-		return dao.consultarComFiltros(seletor);
+		return itemDAO.consultarComFiltros(seletor);
 	}
 	
 }
