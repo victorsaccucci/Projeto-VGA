@@ -1,9 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import model.ExceptionVGA;
 import model.bo.UsuarioBO;
-import model.seletor.SeletorItem;
+import model.seletor.SeletorUsuario;
 import model.vo.UsuarioVO;
 
 public class UsuarioController {
@@ -68,7 +70,7 @@ public class UsuarioController {
 		}
 	}
 
-	public ArrayList<UsuarioVO> consultarComFiltros(SeletorItem seletor) {	
+	public List<UsuarioVO> consultarComFiltros(SeletorUsuario seletor) {	
 		return usuarioBO.consultarComFiltros(seletor);
 	}
 }
