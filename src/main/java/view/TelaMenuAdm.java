@@ -94,39 +94,12 @@ public class TelaMenuAdm {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(new Color(255, 255, 255));
 		frame.setJMenuBar(menuBar);
 
 		JMenu menuUsuarios = new JMenu("Usuários");
 		menuUsuarios.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-usuario-30 (1).png")));
 		menuBar.add(menuUsuarios);
-
-		JMenuItem menuItemConsultarUsuarios = new JMenuItem("Listar");
-		menuItemConsultarUsuarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				painelListagemClientes = new PainelListagemClientes();
-				painelListagemClientes.getBtnEditar().addActionListener(new ActionListener() {
-					
-
-					public void actionPerformed(ActionEvent e) {
-						try {
-							painelCadastroUsuarios = new PainelAdmCadastroUsuarios(painelListagemClientes.getUsuarioSelecionado());
-							painelCadastroUsuarios.setVisible(true);
-							frame.setContentPane(painelCadastroUsuarios);
-							frame.revalidate();
-							registrarCliqueBotaoEditarDoPainelListagemCliente();
-						} catch (ParseException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						
-					}
-				});
-				painelListagemClientes.setVisible(true);
-				frame.setContentPane(painelListagemClientes);
-				frame.revalidate();
-			}
-		});
-		menuUsuarios.add(menuItemConsultarUsuarios);
 
 		JMenuItem menuItemCadastrarUsuarios = new JMenuItem("Cadastrar");
 		menuItemCadastrarUsuarios.addActionListener(new ActionListener() {
@@ -142,21 +115,38 @@ public class TelaMenuAdm {
 			}
 		});
 		menuUsuarios.add(menuItemCadastrarUsuarios);
+		
+				JMenuItem menuItemConsultarUsuarios = new JMenuItem("Consultar");
+				menuItemConsultarUsuarios.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						painelListagemClientes = new PainelListagemClientes();
+						painelListagemClientes.getBtnEditar().addActionListener(new ActionListener() {
+							
+
+							public void actionPerformed(ActionEvent e) {
+								try {
+									painelCadastroUsuarios = new PainelAdmCadastroUsuarios(painelListagemClientes.getUsuarioSelecionado());
+									painelCadastroUsuarios.setVisible(true);
+									frame.setContentPane(painelCadastroUsuarios);
+									frame.revalidate();
+									registrarCliqueBotaoEditarDoPainelListagemCliente();
+								} catch (ParseException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								
+							}
+						});
+						painelListagemClientes.setVisible(true);
+						frame.setContentPane(painelListagemClientes);
+						frame.revalidate();
+					}
+				});
+				menuUsuarios.add(menuItemConsultarUsuarios);
 
 		JMenu menuEstoque = new JMenu("Estoque");
 		menuEstoque.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-vender-estoque-30.png")));
 		menuBar.add(menuEstoque);
-
-		JMenuItem menuItemConsultarEstoque = new JMenuItem("Consultar");
-		menuItemConsultarEstoque.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				listagemItens = new PainelListagemItens();
-				listagemItens.setVisible(true);
-				frame.setContentPane(listagemItens);
-				frame.revalidate();
-			}
-		});
 		
 		JMenuItem menuItemCadastrarItem = new JMenuItem("Cadastrar Item");
 		menuItemCadastrarItem.addActionListener(new ActionListener() {
@@ -170,7 +160,6 @@ public class TelaMenuAdm {
 			}
 		});
 		menuEstoque.add(menuItemCadastrarItem);
-		menuEstoque.add(menuItemConsultarEstoque);
 		
 		JMenuItem menuItemCadastrarProduto = new JMenuItem("Cadastrar Produto");
 		menuItemCadastrarProduto.addActionListener(new ActionListener() {
@@ -182,6 +171,18 @@ public class TelaMenuAdm {
 			}
 		});
 		menuEstoque.add(menuItemCadastrarProduto);
+		
+				JMenuItem menuItemConsultarEstoque = new JMenuItem("Consultar");
+				menuItemConsultarEstoque.addActionListener(new ActionListener() {
+
+					public void actionPerformed(ActionEvent e) {
+						listagemItens = new PainelListagemItens();
+						listagemItens.setVisible(true);
+						frame.setContentPane(listagemItens);
+						frame.revalidate();
+					}
+				});
+				menuEstoque.add(menuItemConsultarEstoque);
 
 		JMenu mnNewMenu_2 = new JMenu("");
 		menuBar.add(mnNewMenu_2);
@@ -191,7 +192,7 @@ public class TelaMenuAdm {
 		mnNewMenu_3.setEnabled(false);
 		menuBar.add(mnNewMenu_3);
 
-		JMenu mnNewMenu_4 = new JMenu("X   ");
+		JMenu mnNewMenu_4 = new JMenu("  X  ");
 		mnNewMenu_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
