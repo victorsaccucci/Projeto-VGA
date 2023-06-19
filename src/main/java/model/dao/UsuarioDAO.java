@@ -259,6 +259,8 @@ public class UsuarioDAO {
 			}
 			sql += " nome LIKE '%" + seletor.getNome() + "%'";
 			primeiro = false;
+		}else {
+			
 		}
 		if (seletor.getEmail() != null && !seletor.getEmail().trim().isEmpty()) {
 			if (primeiro) {
@@ -268,6 +270,8 @@ public class UsuarioDAO {
 			}
 			sql += " email LIKE '%" + seletor.getEmail() + "%'";
 			primeiro = false;
+		}else {
+			
 		}
 		if (seletor.getCpf() != null && !seletor.getCpf().trim().isEmpty()) {
 			if (primeiro) {
@@ -277,6 +281,8 @@ public class UsuarioDAO {
 			}
 			sql += " cpf LIKE '%" + seletor.getCpf() + "%'";
 			primeiro = false;
+		}else {
+			
 		}
 		return sql;
 

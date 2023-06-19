@@ -8,8 +8,8 @@ public class SeletorUsuario extends SeletorBase{
 	
 	@Override
 	public boolean temFiltro() {
-		return  this.email != null
-				|| this.nome != null
+		return  (this.email != null)
+				|| (this.nome != null)
 				|| this.cpf != null;
 	}
 
