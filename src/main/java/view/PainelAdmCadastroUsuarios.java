@@ -151,9 +151,21 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 		txtSenha.setBounds(311, 258, 358, 28);
 		add(txtSenha);
 		
-		lblTitulo = new JLabel(usuario.getId() == null ? "NOVO CLIENTE" : "EDIÇÃO DE CLIENTE");
+		lblTitulo = new JLabel(usuario.getId() == 0 ? "NOVO CLIENTE" : "EDIÇÃO DE CLIENTE");
 		lblTitulo.setBounds(438, 36, 231, 13);
 		add(lblTitulo);
 		
+		
+		if(this.usuario.getId() != 0) {
+			preencherCamposDaTela();
+		}
+		
+	}
+	
+	private void preencherCamposDaTela() {
+		this.txtNome.setText(this.usuario.getNome());
+		this.txtEmail.setText(this.usuario.getEmail());
+		this.txtCpf.setText(this.usuario.getCpf());
+		this.txtSenha.setText(this.usuario.getSenha());
 	}
 }

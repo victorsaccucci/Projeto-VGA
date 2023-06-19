@@ -158,7 +158,8 @@ public class PainelListagemClientes extends JPanel {
 		btnEditar.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnEditar.setForeground(new Color(0, 139, 139));
 		btnEditar.setBounds(666, 490, 123, 34);
-		add(btnEditar);
+		btnEditar.setEnabled(false);
+		this.add(btnEditar);
 
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
@@ -226,7 +227,7 @@ public class PainelListagemClientes extends JPanel {
 	}
 
 	public JButton getBtnEditar() {
-		return this.btnEditar;
+		return btnEditar;
 	}
 
 	public UsuarioVO getUsuarioSelecionado() {

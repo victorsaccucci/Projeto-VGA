@@ -34,6 +34,7 @@ public class TelaMenuAdm {
 	private PainelListagemItens listagemItens;
 	private PainelCadastroItem painelCadastroItem;
 	protected PainelCadastroDeProduto painelCadastroProduto;
+	private PainelAdmCadastroUsuarios painelCadastroUsuarios;
 
 	/**
 	 * Launch the application.
@@ -103,6 +104,23 @@ public class TelaMenuAdm {
 		menuItemConsultarUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				painelListagemClientes = new PainelListagemClientes();
+				painelListagemClientes.getBtnEditar().addActionListener(new ActionListener() {
+					
+
+					public void actionPerformed(ActionEvent e) {
+						try {
+							painelCadastroUsuarios = new PainelAdmCadastroUsuarios(painelListagemClientes.getUsuarioSelecionado());
+							painelCadastroUsuarios.setVisible(true);
+							frame.setContentPane(painelCadastroUsuarios);
+							frame.revalidate();
+							registrarCliqueBotaoEditarDoPainelListagemCliente();
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+					}
+				});
 				painelListagemClientes.setVisible(true);
 				frame.setContentPane(painelListagemClientes);
 				frame.revalidate();
