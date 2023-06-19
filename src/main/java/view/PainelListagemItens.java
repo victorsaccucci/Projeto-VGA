@@ -72,33 +72,37 @@ public class PainelListagemItens extends JPanel {
 		setLayout(null);
 
 		lblMenorPreco = new JLabel("Menor Preço:");
-		lblMenorPreco.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblMenorPreco.setBounds(57, 61, 89, 26);
+		lblMenorPreco.setForeground(new Color(255, 255, 255));
+		lblMenorPreco.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblMenorPreco.setBounds(57, 61, 118, 26);
 		add(lblMenorPreco);
 
 		lblMaiorPreco = new JLabel("Maior Preço:");
-		lblMaiorPreco.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblMaiorPreco.setBounds(57, 132, 92, 26);
+		lblMaiorPreco.setForeground(new Color(255, 255, 255));
+		lblMaiorPreco.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblMaiorPreco.setBounds(57, 132, 118, 26);
 		add(lblMaiorPreco);
 
 		lblTamanho = new JLabel("Tamanho:");
-		lblTamanho.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblTamanho.setBounds(366, 61, 67, 26);
+		lblTamanho.setForeground(new Color(255, 255, 255));
+		lblTamanho.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblTamanho.setBounds(366, 61, 77, 26);
 		add(lblTamanho);
 
 		lblCor = new JLabel("Cor:");
-		lblCor.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblCor.setBounds(390, 132, 43, 26);
+		lblCor.setForeground(new Color(255, 255, 255));
+		lblCor.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblCor.setBounds(390, 132, 53, 26);
 		add(lblCor);
 
 		txtMenorPreco = new JTextField();
-		txtMenorPreco.setBounds(147, 61, 99, 31);
+		txtMenorPreco.setBounds(156, 61, 99, 31);
 		add(txtMenorPreco);
 		txtMenorPreco.setColumns(10);
 
 		txtMaiorPreco = new JTextField();
 		txtMaiorPreco.setColumns(10);
-		txtMaiorPreco.setBounds(147, 132, 99, 31);
+		txtMaiorPreco.setBounds(156, 132, 99, 31);
 		add(txtMaiorPreco);
 
 		txtTamanho = new JTextField();
@@ -139,7 +143,8 @@ public class PainelListagemItens extends JPanel {
 		add(tabelaItens);
 
 		JLabel lblAte = new JLabel("Até");
-		lblAte.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblAte.setForeground(new Color(255, 255, 255));
+		lblAte.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblAte.setBounds(57, 98, 36, 26);
 		add(lblAte);
 		
