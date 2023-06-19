@@ -206,7 +206,7 @@ public class PainelListagemClientes extends JPanel {
     }
 	
 	private void checarCampos() {
-		if (!txtNome.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtCpf.getText().isEmpty()) {
+		if (!txtNome.getText().isEmpty() || !txtEmail.getText().isEmpty() || !txtCpf.getText().isEmpty()) {
 			btnBuscar.setEnabled(true);
 		} else {
 			btnBuscar.setEnabled(false);
@@ -219,7 +219,7 @@ public class PainelListagemClientes extends JPanel {
 		seletor = new SeletorUsuario();
 		seletor.setNome(txtNome.getText());
 		seletor.setEmail(txtEmail.getText());
-		seletor.setCpf(txtNome.getText());
+		seletor.setCpf(txtCpf.getText());
 
 		usuarios = (List<UsuarioVO>) usuarioController.consultarComFiltros(seletor);
 		atualizarTabelaClientes();
