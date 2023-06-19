@@ -15,6 +15,10 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.FormSpecs;
 
 public class TelaMenuPrincipal {
 
@@ -81,10 +85,8 @@ public class TelaMenuPrincipal {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(434, 153, 0, 0);
 		
 		JLabel lblSair = new JLabel(" X");
-		lblSair.setBounds(923, 9, 15, 19);
 		lblSair.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -93,9 +95,59 @@ public class TelaMenuPrincipal {
 		});
 		lblSair.setForeground(new Color(255, 255, 255));
 		lblSair.setFont(new Font("Tahoma", Font.BOLD, 15));
-		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(lblNewLabel_1);
-		frame.getContentPane().add(lblSair);
+		frame.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("200px"),
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("200px"),
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("200px"),
+				ColumnSpec.decode("right:15px"),},
+			new RowSpec[] {
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				RowSpec.decode("19px"),
+				RowSpec.decode("150px"),
+				RowSpec.decode("1px"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("150px"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("150px"),}));
+		
+		JLabel lblNewLabel_4_2 = new JLabel("New label");
+		frame.getContentPane().add(lblNewLabel_4_2, "3, 3, center, default");
+		
+		JLabel lblNewLabel_4_3 = new JLabel("New label");
+		frame.getContentPane().add(lblNewLabel_4_3, "6, 3, center, default");
+		
+		JLabel lblNewLabel_4_4 = new JLabel("New label");
+		frame.getContentPane().add(lblNewLabel_4_4, "9, 3, center, default");
+		frame.getContentPane().add(lblNewLabel_1, "6, 4, left, top");
+		frame.getContentPane().add(lblSair, "10, 2, fill, top");
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		frame.getContentPane().add(lblNewLabel_4, "3, 8, center, default");
+		
+		JLabel lblNewLabel_4_1 = new JLabel("New label");
+		frame.getContentPane().add(lblNewLabel_4_1, "6, 8, center, default");
+		
+		JLabel lblNewLabel_4_1_1 = new JLabel("New label");
+		frame.getContentPane().add(lblNewLabel_4_1_1, "9, 8, center, default");
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		frame.getContentPane().add(lblNewLabel, "3, 12, center, default");
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		frame.getContentPane().add(lblNewLabel_2, "6, 12, center, default");
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		frame.getContentPane().add(lblNewLabel_3, "9, 12, center, default");
 	}
 
 	public void tornarVisivelForaDoFrame() {
