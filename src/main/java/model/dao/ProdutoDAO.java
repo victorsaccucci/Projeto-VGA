@@ -40,7 +40,7 @@ public class ProdutoDAO {
 		boolean excluiu = false;
 		
 		Connection conexao = Banco.getConnection();
-		String sql = " DELETE FROM PRODUTO WHERE ID = ? ";
+		String sql = " DELETE FROM PRODUTO WHERE IDPRODUTO = ? ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
 			query.setInt(1, id);
@@ -64,7 +64,7 @@ public class ProdutoDAO {
 		Connection conexao = Banco.getConnection();
 		String sql = " UPDATE PRODUTO "
 				   + " SET MODELO = ?, MARCA = ? "
-				   + " WHERE ID = ? ";
+				   + " WHERE IDPRODUTO = ? ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
 			query.setString(1, produtoEditado.getModelo());
@@ -111,7 +111,7 @@ public class ProdutoDAO {
 		ProdutoVO produtoConsultado = null;
 		Connection conexao = Banco.getConnection();
 		String sql = " SELECT * FROM PRODUTO "
-				   + " WHERE ID = ? ";
+				   + " WHERE IDPRODUTO = ? ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		
 		try {
@@ -122,7 +122,7 @@ public class ProdutoDAO {
 				produtoConsultado = converterResultSetParaEntidadeComId(resultado);
 			}
 		}catch(SQLException e) {
-			System.out.println("Erro ao buscar item com id: " + id
+			System.out.println("Erro ao buscar produto com id: " + id
 								+"\n Causa: " +e.getMessage());
 		}finally {
 			Banco.closePreparedStatement(query);
@@ -133,7 +133,7 @@ public class ProdutoDAO {
 
 	private ProdutoVO converterResultSetParaEntidadeComId(ResultSet resultado) throws SQLException{
 		ProdutoVO produtoConsultado = new ProdutoVO();
-		produtoConsultado.setId(resultado.getInt("id"));
+		produtoConsultado.setId(resultado.getInt("idproduto"));
 		produtoConsultado.setMarca(resultado.getString("marca"));
 		produtoConsultado.setModelo(resultado.getString("modelo"));		
 		return produtoConsultado;

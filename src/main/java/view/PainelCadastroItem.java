@@ -122,7 +122,7 @@ public class PainelCadastroItem extends JPanel {
 				novoItem.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
 				novoItem.setPrecoUnitario(Double.parseDouble(txtPreco.getText()));
 				novoItem.setTamanho(txtTamanho.getText());
-				novoItem.setIdProduto(cbProduto.getSelectedIndex() + 1);				
+				novoItem.setProduto((ProdutoVO)cbProduto.getSelectedItem());				
 				try {
 					itemController.inserirItem(novoItem);
 					JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!", 

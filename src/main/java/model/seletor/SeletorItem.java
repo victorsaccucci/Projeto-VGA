@@ -2,6 +2,7 @@ package model.seletor;
 
 public class SeletorItem extends SeletorBase{
 	
+	//TODO incluir filtro para o carrinho
 	private int tamanho;
 	private int quantidade;
 	private String cor;

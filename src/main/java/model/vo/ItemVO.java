@@ -3,7 +3,7 @@ package model.vo;
 public class ItemVO {
 
 	private int id;
-	private int idProduto;
+	private ProdutoVO produto;
 	private String cor;
 	private String tamanho;
 	private int quantidade;
@@ -22,10 +22,10 @@ public class ItemVO {
 		this.precoUnitario = precoUnitario;
 	}
 	
-	public ItemVO(int id, int idProduto, String cor, String tamanho, int quantidade, double precoUnitario) {
+	public ItemVO(int id, ProdutoVO produto, String cor, String tamanho, int quantidade, double precoUnitario) {
 		super();
 		this.id = id;
-		this.idProduto = idProduto;
+		this.produto = produto;
 		this.cor = cor;
 		this.tamanho = tamanho;
 		this.quantidade = quantidade;
@@ -40,12 +40,12 @@ public class ItemVO {
 		this.id = id;
 	}
 
-	public int getIdProduto() {
-		return idProduto;
+	public ProdutoVO getProduto() {
+		return produto;
 	}
 
-	public void setIdProduto(int idProduto) {
-		this.idProduto = idProduto;
+	public void setProduto(ProdutoVO produto) {
+		this.produto = produto;
 	}
 
 	public String getCor() {
@@ -82,7 +82,7 @@ public class ItemVO {
 
 	@Override
 	public String toString() {
-		return id + " " + idProduto + " " + cor + " " + tamanho + " " + quantidade + " " + precoUnitario;
+		return id + " " + produto.getId() + " " + cor + " " + tamanho + " " + quantidade + " " + precoUnitario;
 	}
 
 

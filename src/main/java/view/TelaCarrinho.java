@@ -12,8 +12,19 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableModel;
+
+import controller.ItemController;
+import model.seletor.SeletorItem;
+import model.vo.ItemVO;
+import model.vo.ProdutoVO;
+import model.vo.UsuarioVO;
+
+import javax.swing.JButton;
 
 public class TelaCarrinho {
 
@@ -24,8 +35,12 @@ public class TelaCarrinho {
 	private JLabel lblMinimizar;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
-	private JTable table;
+	private JTable tabelaCarrinho;
 	
+	private String[] nomesColunas = { "Modelo", "Marca", "Cor", "Tamanho", "Quantidade", "Valor", "Total" };
+	private List<ItemVO> itens;
+	
+	private ItemController controllerCarrinho;
 	
 	/**
 	 * Launch the application.
@@ -43,16 +58,34 @@ public class TelaCarrinho {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+	
 	public TelaCarrinho() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	private void limparTabela() {
+		tabelaCarrinho.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
+	}
+	
+	private void atualizarTabelaCarrinho() {
+	    this.limparTabela();
+
+	    DefaultTableModel model = (DefaultTableModel) tabelaCarrinho.getModel();
+	    itens = controllerCarrinho.consultarTodos();
+		
+		
+	    for (ItemVO itemVO : itens) {
+	        Object[] novaLinhaDaTabela = new Object[6];
+	        novaLinhaDaTabela[0] = itemVO.getCor();
+	        novaLinhaDaTabela[1] = itemVO.getTamanho();
+	        novaLinhaDaTabela[2] = itemVO.getQuantidade();
+	        novaLinhaDaTabela[3] = itemVO.getPrecoUnitario();
+	        novaLinhaDaTabela[4] = itemVO.getProduto().getMarca(); 
+	        novaLinhaDaTabela[5] = itemVO.getProduto().getModelo(); 
+	        model.addRow(novaLinhaDaTabela);
+	    }
+	}
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 139, 139));
@@ -72,26 +105,51 @@ public class TelaCarrinho {
 		});
 		lblNewLabel.setIcon(new ImageIcon(TelaCarrinho.class.getResource("/icones/icons8-voltar-50 (1).png")));
 		
-		table = new JTable();
+		tabelaCarrinho =  new JTable();
+		tabelaCarrinho.addMouseListener(new MouseAdapter() {
+			
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controllerCarrinho = new ItemController();
+				
+				//TODO preencher o idCarrinho
+				SeletorItem seletor = new SeletorItem();
+				
+				
+				controllerCarrinho.consultarComFiltros(seletor);
+				atualizarTabelaCarrinho();
+			}
+		});
+		
+		JButton btnFinalizar = new JButton("Finalizar comprar");
+		btnFinalizar.setForeground(new Color(0, 139, 139));
+		btnFinalizar.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(139, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(144, Short.MAX_VALUE)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, 684, GroupLayout.PREFERRED_SIZE)
-					.addGap(118))
+					.addContainerGap(901, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(203, Short.MAX_VALUE)
+					.addComponent(tabelaCarrinho, GroupLayout.PREFERRED_SIZE, 684, GroupLayout.PREFERRED_SIZE)
+					.addGap(125))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(473, Short.MAX_VALUE)
+					.addComponent(btnFinalizar)
+					.addGap(388))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblNewLabel)
-					.addGap(35)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, 405, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(85, Short.MAX_VALUE))
+					.addGap(25)
+					.addComponent(tabelaCarrinho, GroupLayout.PREFERRED_SIZE, 405, GroupLayout.PREFERRED_SIZE)
+					.addGap(32)
+					.addComponent(btnFinalizar)
+					.addContainerGap(34, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 		
@@ -140,6 +198,7 @@ public class TelaCarrinho {
 		lblNewLabel_2.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-minimizar-15.png")));
 		lblNewLabel_2.setBounds(867, 0, 16, 27);
 		frame.getContentPane().add(lblNewLabel_2);
+
 	}
 	
 	
