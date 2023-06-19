@@ -65,7 +65,7 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 		lblNome.setBounds(256, 92, 45, 13);
 		add(lblNome);
 		
-		txtNome = new JTextField();
+		txtNome = new JTextField(); 
 		txtNome.setBounds(311, 87, 358, 28);
 		add(txtNome);
 		txtNome.setColumns(10);
@@ -131,7 +131,14 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 				}
 				
 				try {
-					usuarioController.cadastrarUsuarioController(novoUsuario);
+					
+					//TODO verficar o id -> se tiver (atualizar), senão (cadastrar)
+					if(usuario.getId() == 0) {
+						usuarioController.cadastrarUsuarioController(usuario);
+					} else {
+						usuarioController.atualizarUsuarioController(usuario);
+					}
+					
 					JOptionPane.showMessageDialog(null, "Usuario salvo com sucesso!", 
 							"Sucesso", JOptionPane.INFORMATION_MESSAGE);
 					
@@ -167,5 +174,7 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 		this.txtEmail.setText(this.usuario.getEmail());
 		this.txtCpf.setText(this.usuario.getCpf());
 		this.txtSenha.setText(this.usuario.getSenha());
+		this.btnCadastrar.setLabel("Salvar");
+		
 	}
 }
