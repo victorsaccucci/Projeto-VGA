@@ -24,7 +24,7 @@ public class ItemDAO {
 			stmt.setString(2, novoItem.getCor());
 			stmt.setInt(3, novoItem.getQuantidade());
 			stmt.setDouble(4, novoItem.getPrecoUnitario());
-			stmt.setInt(5, novoItem.getIdProduto());
+			stmt.setInt(5, novoItem.getProduto().getId());
 			stmt.execute();
 
 			ResultSet resultado = stmt.getGeneratedKeys();
@@ -52,7 +52,7 @@ public class ItemDAO {
 			stmt.setString(2, itemVO.getCor());
 			stmt.setInt(3, itemVO.getQuantidade());
 			stmt.setDouble(4, itemVO.getPrecoUnitario());
-			stmt.setInt(5, itemVO.getIdProduto());
+			stmt.setInt(5, itemVO.getProduto().getId());
 
 			int atualizados = stmt.executeUpdate();
 			atualizou = atualizados > 0;
@@ -120,6 +120,7 @@ public class ItemDAO {
 		}
 		return consultados;
 	}
+	
 
 	public ItemVO consultarPorId(int id) {
 		ItemVO itemConsultado = null;
@@ -144,32 +145,17 @@ public class ItemDAO {
 
 	private ItemVO converterResultSetParaEntidadeComId(ResultSet resultado) throws SQLException {
 		ItemVO itemConsultado = new ItemVO();
-		itemConsultado.setId(resultado.getInt("IDITEM"));
+		itemConsultado.setId(resultado.getInt("iditem"));
 		itemConsultado.setTamanho(resultado.getString("tamanho"));
 		itemConsultado.setCor(resultado.getString("cor"));
 		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
 		itemConsultado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
-		itemConsultado.setIdProduto(resultado.getInt("idProduto"));
+
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		ProdutoVO produto = produtoDAO.consultarPorId(resultado.getInt("idProduto"));
+		itemConsultado.setProduto(produto);
 
 		return itemConsultado;
-	}
-	
-	private ItemVO montarItemComResultadoDoBanco(ResultSet resultado) throws ExceptionVGA, SQLException{
-		ItemVO itemBuscado = new ItemVO();
-		itemBuscado.setId(resultado.getInt("iditem"));
-		itemBuscado.setCor(resultado.getString("cor"));
-		itemBuscado.setTamanho(resultado.getString("tamanho"));
-		itemBuscado.setQuantidade(resultado.getInt("quantidade"));
-		itemBuscado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
-		
-	//  int idProdutoDoItem = resultado.getInt("idProduto");
-	//	ProdutoDAO produtoDAO = new ProdutoDAO();
-	//	ProdutoVO produto = produtoDAO.consultarPorId(idProdutoDoItem);
-		
-		
-		
-		return itemBuscado;
-		
 	}
 	
 	public List<ItemVO> consultarComFiltros(SeletorItem seletor){
@@ -185,7 +171,7 @@ public class ItemDAO {
 		try {
 			ResultSet resultado = query.executeQuery();
 			while(resultado.next()) {
-				ItemVO itemBuscado = montarItemComResultadoDoBanco(resultado);
+				ItemVO itemBuscado = converterResultSetParaEntidadeComId(resultado);
 				itens.add(itemBuscado);
 			}
 		}catch(Exception e) {
