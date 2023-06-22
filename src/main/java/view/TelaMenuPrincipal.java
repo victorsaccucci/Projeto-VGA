@@ -88,25 +88,57 @@ public class TelaMenuPrincipal {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JLabel lblNewLabel_1 = new JLabel("");
-
-		JLabel lblSair = new JLabel(" X");
-		lblSair.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
-			}
-		});
-		lblSair.setForeground(new Color(255, 255, 255));
-		lblSair.setFont(new Font("Tahoma", Font.BOLD, 15));
-		frame.getContentPane().setLayout(new FormLayout(
-				new ColumnSpec[] { FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("200px"),
-						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("200px"),
-						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("200px"),
-						ColumnSpec.decode("right:15px"), },
-				new RowSpec[] { FormSpecs.UNRELATED_GAP_ROWSPEC, RowSpec.decode("19px"), RowSpec.decode("150px"),
-						RowSpec.decode("1px"), FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("150px"), FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("150px"), }));
+		frame.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("200px"),
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("200px"),
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("200px"),
+				ColumnSpec.decode("right:15px"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,},
+			new RowSpec[] {
+				FormSpecs.UNRELATED_GAP_ROWSPEC,
+				RowSpec.decode("19px"),
+				RowSpec.decode("150px"),
+				RowSpec.decode("1px"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("150px"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("150px"),}));
+		
+				JLabel lblSair_1 = new JLabel(" X");
+				lblSair_1.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						System.exit(0);
+					}
+				});
+				lblSair_1.setForeground(new Color(255, 255, 255));
+				lblSair_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+				frame.getContentPane().add(lblSair_1, "26, 2, fill, top");
 
 		JLabel lblNewLabel_4_2 = new JLabel("New label");
 		frame.getContentPane().add(lblNewLabel_4_2, "3, 3, center, default");
@@ -117,7 +149,6 @@ public class TelaMenuPrincipal {
 		JLabel lblNewLabel_4_4 = new JLabel("New label");
 		frame.getContentPane().add(lblNewLabel_4_4, "9, 3, center, default");
 		frame.getContentPane().add(lblNewLabel_1, "6, 4, left, top");
-		frame.getContentPane().add(lblSair, "10, 2, fill, top");
 
 		JLabel lblNewLabel_4 = new JLabel("New label");
 		frame.getContentPane().add(lblNewLabel_4, "3, 8, center, default");
