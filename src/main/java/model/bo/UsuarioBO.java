@@ -13,17 +13,20 @@ public class UsuarioBO {
 
 	public UsuarioVO realizarLoginBO(String email, String senha) throws ExceptionVGA {
 		UsuarioVO usuarioAutenticado = usuarioDAO.realizarLogin(email, senha);
-		
 		if(usuarioAutenticado == null) {
 			throw new ExceptionVGA("Usuário não encontrado!");
 		}		
+		
 		return usuarioAutenticado;
+		
 	}
 	
-	public UsuarioVO cadastrarUsuarioBO(UsuarioVO usuarioVO) {
-		
-		usuarioVO = usuarioDAO.cadastrarUsuarioDAO(usuarioVO);
-		
+	public UsuarioVO cadastrarUsuarioBO(UsuarioVO usuarioVO) throws ExceptionVGA {
+		if(usuarioDAO.verificarExistenciaCpfeEmail(usuarioVO.getCpf())) {
+			throw new ExceptionVGA("CPF já cadastrado");
+		} else {
+			usuarioVO = usuarioDAO.cadastrarUsuarioDAO(usuarioVO);
+		}
 		return usuarioVO;
 	}
 	

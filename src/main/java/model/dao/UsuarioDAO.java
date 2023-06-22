@@ -199,27 +199,28 @@ public class UsuarioDAO {
 		return usuarioVO;
 	}
 
-	public boolean verificarExistenciaLoginPorCpf(UsuarioVO usuarioVO) {
-		Connection conn = Banco.getConnection();
-		Statement stmt = Banco.getStatement(conn);
-		ResultSet resultado = null;
-		boolean verficacao = false;
-
-		String sql = "SELECT cpf FROM usuario WHERE cpf = ? ";
+	public boolean verificarExistenciaCpfeEmail(String cpfBuscado) {
+		boolean cpfJaUtilizado = false;
+		Connection conexao = Banco.getConnection();
+		String sql = " select count(*) from usuario "
+				   + " where cpf = ? ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
-			resultado = stmt.executeQuery(sql);
-			if (resultado.next()) {
-				verficacao = true;
+			query.setString(1, cpfBuscado);
+			ResultSet resultado = query.executeQuery();
+			
+			if(resultado.next()) {
+				cpfJaUtilizado = resultado.getInt(1) > 0;
 			}
-		} catch (SQLException e) {
-			System.out.println("Erro ao verificar existência de usário por CPF! \nCausa: " + e.getMessage());
-			System.out.println("Erro: " + e.getMessage());
-		} finally {
-			Banco.closeResultSet(resultado);
-			Banco.closeStatement(stmt);
-			Banco.closeConnection(conn);
+		}catch (Exception e) {
+			System.out.println("Erro ao verificar uso do CPF " + cpfBuscado 
+					+ "\n Causa:" + e.getMessage());
+		}finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
 		}
-		return verficacao;
+		return cpfJaUtilizado;
 	}
 
 	public List<UsuarioVO> consultarComFiltros(SeletorUsuario seletor) {

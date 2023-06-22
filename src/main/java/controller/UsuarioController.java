@@ -5,11 +5,13 @@ import java.util.List;
 
 import model.ExceptionVGA;
 import model.bo.UsuarioBO;
+import model.dao.UsuarioDAO;
 import model.seletor.SeletorUsuario;
 import model.vo.UsuarioVO;
 
 public class UsuarioController {
 	UsuarioBO usuarioBO = new UsuarioBO();
+	private UsuarioDAO dao;
 
 	public UsuarioVO realizarLoginController(String email, String senha) throws ExceptionVGA {
 
@@ -73,4 +75,6 @@ public class UsuarioController {
 	public List<UsuarioVO> consultarComFiltros(SeletorUsuario seletor) {	
 		return usuarioBO.consultarComFiltros(seletor);
 	}
+	
+	
 }
