@@ -27,6 +27,7 @@ import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FlowLayout;
 
 public class TelaMenuAdm {
 
@@ -235,7 +236,12 @@ public class TelaMenuAdm {
 				GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE));
 		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(panel,
 				GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE));
-		panel.setLayout(new BorderLayout(0, 0));
+		panel.setLayout(null);
+		
+		JLabel lblVga = new JLabel("");
+		lblVga.setBounds(317, 67, 412, 397);
+		lblVga.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/LogoVGA3.png")));
+		panel.add(lblVga);
 
 	}
 	
