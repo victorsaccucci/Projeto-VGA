@@ -27,7 +27,7 @@ public class ItemDAO {
 			stmt.setInt(5, novoItem.getProduto().getId());
 			stmt.setBytes(6, novoItem.getImagem());
 			stmt.execute();
-
+					
 			ResultSet resultado = stmt.getGeneratedKeys();
 			if (resultado.next()) {
 				novoItem.setId(resultado.getInt(1));
