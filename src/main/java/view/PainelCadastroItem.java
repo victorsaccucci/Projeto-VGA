@@ -14,17 +14,29 @@ import model.vo.ItemVO;
 import model.vo.ProdutoVO;
 
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 public class PainelCadastroItem extends JPanel {
 
 	private static final long serialVersionUID = -3449651366973850921L;
+	private JFrame frame;
 	private JTextField txtTamanho;
 	private JTextField txtCor;
 	private JTextField txtQuantidade;
@@ -40,6 +52,7 @@ public class PainelCadastroItem extends JPanel {
 	private ItemController itemController;
 	private ProdutoController produtoController;
 	protected ItemVO novoItem;
+	private JButton btnAddImagem;
 
 	/**
 	 * Create the panel.
@@ -113,6 +126,7 @@ public class PainelCadastroItem extends JPanel {
 		add(lblQtd);
 		
 		JButton btnCadastrarItem = new JButton("Cadastrar");
+		btnCadastrarItem.setBackground(new Color(255, 255, 255));
 		btnCadastrarItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				itemController = new ItemController();
@@ -143,8 +157,35 @@ public class PainelCadastroItem extends JPanel {
 		});
 		btnCadastrarItem.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		btnCadastrarItem.setForeground(new Color(0, 139, 139));
-		btnCadastrarItem.setBounds(438, 381, 91, 27);
+		btnCadastrarItem.setBounds(430, 381, 109, 27);
 		add(btnCadastrarItem);
+		
+		btnAddImagem = new JButton("+");
+		btnAddImagem.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			    JFileChooser fileChooser = new JFileChooser();
+		        int result = fileChooser.showOpenDialog(frame);
+		        if (result == JFileChooser.APPROVE_OPTION) {
+		            File selectedFile = fileChooser.getSelectedFile();
+		            String destinationPath = "src/main/java/imagensTenis/";
+
+		            try {
+		                // Copia o arquivo para o diretório de destino
+		                Path destination = Paths.get(destinationPath, selectedFile.getName());
+		                Files.copy(selectedFile.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
+		            } catch (IOException ex) {
+		                ex.printStackTrace();
+		            }
+		        }
+			}
+		});
+		btnAddImagem.setBackground(new Color(255, 255, 255));
+		btnAddImagem.setToolTipText("Selecione uma imagem para este tênis.");
+		btnAddImagem.setForeground(new Color(0, 139, 139));
+		btnAddImagem.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		btnAddImagem.setBounds(305, 382, 43, 28);
+		add(btnAddImagem);
 		
 		
 		

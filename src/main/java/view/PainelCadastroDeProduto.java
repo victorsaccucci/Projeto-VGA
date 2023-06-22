@@ -57,6 +57,7 @@ public class PainelCadastroDeProduto extends JPanel {
 		add(txtMarca);
 		
 		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setBackground(new Color(255, 255, 255));
 		btnCadastrar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {

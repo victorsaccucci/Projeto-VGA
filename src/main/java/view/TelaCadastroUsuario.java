@@ -236,6 +236,7 @@ public class TelaCadastroUsuario {
 		panel.add(txtSenha);
 		
 		btnCadastrar = new JButton("Cadastrar-se");
+		btnCadastrar.setBackground(new Color(255, 255, 255));
 		btnCadastrar.addActionListener(new ActionListener() {
 	
 			public void actionPerformed(ActionEvent e) {
@@ -270,7 +271,7 @@ public class TelaCadastroUsuario {
 		});
 		btnCadastrar.setForeground(new Color(1, 139, 139));
 		btnCadastrar.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnCadastrar.setBounds(184, 457, 141, 23);
+		btnCadastrar.setBounds(184, 457, 141, 29);
 		panel.add(btnCadastrar);
 		
 		txtEmail = new JTextField();

@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 
 public class TelaMenuAdm {
 
@@ -191,14 +192,16 @@ public class TelaMenuAdm {
 				menuEstoque.add(menuItemConsultarEstoque);
 
 		JMenu mnNewMenu_2 = new JMenu("");
+		mnNewMenu_2.setEnabled(false);
 		menuBar.add(mnNewMenu_2);
 
 		JMenu mnNewMenu_3 = new JMenu(
-				"                                                                                                                                                                                                                               ");
+				"                                                                                                                                                                                                                                          ");
 		mnNewMenu_3.setEnabled(false);
 		menuBar.add(mnNewMenu_3);
 
 		JMenu mnNewMenu_4 = new JMenu("  X  ");
+		mnNewMenu_4.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		mnNewMenu_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

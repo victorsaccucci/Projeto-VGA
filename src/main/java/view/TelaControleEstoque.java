@@ -94,15 +94,24 @@ public class TelaControleEstoque {
 		panel.add(lblSair);
 		
 		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.setBounds(200, 535, 118, 30);
+		btnAdicionar.setBackground(new Color(255, 255, 255));
+		btnAdicionar.setForeground(new Color(0, 139, 139));
+		btnAdicionar.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		btnAdicionar.setBounds(200, 535, 136, 30);
 		panel.add(btnAdicionar);
 		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(413, 535, 118, 30);
+		btnEditar.setBackground(new Color(255, 255, 255));
+		btnEditar.setForeground(new Color(0, 139, 139));
+		btnEditar.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		btnEditar.setBounds(401, 535, 136, 30);
 		panel.add(btnEditar);
 		
 		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(628, 535, 118, 30);
+		btnExcluir.setBackground(new Color(255, 255, 255));
+		btnExcluir.setForeground(new Color(0, 139, 139));
+		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		btnExcluir.setBounds(610, 535, 136, 30);
 		panel.add(btnExcluir);
 		
 		JLabel lblVga = new JLabel("VGA");
