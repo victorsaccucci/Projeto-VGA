@@ -78,6 +78,7 @@ public class PainelListagemClientes extends JPanel {
 		setLayout(null);
 
 		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBackground(new Color(255, 255, 255));
 		btnBuscar.setEnabled(false);
 		btnBuscar.setForeground(new Color(0, 139, 139));
 		btnBuscar.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -141,6 +142,7 @@ public class PainelListagemClientes extends JPanel {
 		add(tabelaUsuarios);
 
 		btnBuscarTodos = new JButton("Buscar todos");
+		btnBuscarTodos.setBackground(new Color(255, 255, 255));
 		btnBuscarTodos.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnBuscarTodos.setForeground(new Color(0, 139, 139));
 		btnBuscarTodos.addActionListener(new ActionListener() {
@@ -155,6 +157,7 @@ public class PainelListagemClientes extends JPanel {
 		this.add(btnBuscarTodos);
 
 		btnEditar = new JButton("Editar");
+		btnEditar.setBackground(new Color(255, 255, 255));
 		btnEditar.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnEditar.setForeground(new Color(0, 139, 139));
 		btnEditar.setBounds(666, 490, 123, 34);
@@ -162,6 +165,7 @@ public class PainelListagemClientes extends JPanel {
 		this.add(btnEditar);
 
 		btnExcluir = new JButton("Excluir");
+		btnExcluir.setBackground(new Color(255, 255, 255));
 		btnExcluir.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {

@@ -221,6 +221,7 @@ public class TelaLoginUsuario {
 		painelCampos.add(lblDisable);
 
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.setBackground(new Color(255, 255, 255));
 		btnEntrar.addActionListener(new ActionListener() {
 
 

@@ -116,6 +116,8 @@ public class PainelListagemItens extends JPanel {
 		add(txtCor);
 
 		btnBuscar = new JButton("Buscar");
+		btnBuscar.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		btnBuscar.setForeground(new Color(0, 139, 139));
 		btnBuscar.setEnabled(false);
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -123,10 +125,13 @@ public class PainelListagemItens extends JPanel {
 				atualizarTabelaItens();
 			}
 		});
-		btnBuscar.setBounds(648, 132, 89, 31);
+		btnBuscar.setBounds(629, 131, 99, 31);
 		add(btnBuscar);
 
 		btnBuscarTodos = new JButton("Buscar Todos");
+		btnBuscarTodos.setBackground(new Color(255, 255, 255));
+		btnBuscarTodos.setForeground(new Color(0, 139, 139));
+		btnBuscarTodos.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		btnBuscarTodos.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -135,7 +140,7 @@ public class PainelListagemItens extends JPanel {
 				atualizarTabelaItens();
 			}
 		});
-		btnBuscarTodos.setBounds(759, 132, 128, 31);
+		btnBuscarTodos.setBounds(738, 131, 149, 31);
 		this.add(btnBuscarTodos);
 
 		tabelaItens = new JTable();
@@ -151,6 +156,8 @@ public class PainelListagemItens extends JPanel {
         txtMaiorPreco.getDocument().addDocumentListener(new MyDocumentListener());
         txtMenorPreco.getDocument().addDocumentListener(new MyDocumentListener());
         txtTamanho.getDocument().addDocumentListener(new MyDocumentListener());
+        
+        //TODO botao editar e excluir e as funções.
 
 	}
 	
