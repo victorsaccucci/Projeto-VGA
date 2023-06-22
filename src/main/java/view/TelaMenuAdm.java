@@ -104,8 +104,9 @@ public class TelaMenuAdm {
 		frame.setJMenuBar(menuBar);
 
 		JMenu menuUsuarios = new JMenu("Usuários");
-		menuUsuarios.setForeground(new Color(0, 0, 0));
-		menuUsuarios.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-usuario-30 (1).png")));
+		menuUsuarios.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		menuUsuarios.setForeground(new Color(0, 139, 139));
+		menuUsuarios.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-usuário-30.png")));
 		menuBar.add(menuUsuarios);
 
 		JMenuItem menuItemCadastrarUsuarios = new JMenuItem("Cadastrar");
@@ -155,7 +156,8 @@ public class TelaMenuAdm {
 				menuUsuarios.add(menuItemConsultarUsuarios);
 
 		JMenu menuEstoque = new JMenu("Estoque");
-		menuEstoque.setForeground(new Color(0, 0, 0));
+		menuEstoque.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		menuEstoque.setForeground(new Color(0, 139, 139));
 		menuEstoque.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-vender-estoque-30.png")));
 		menuBar.add(menuEstoque);
 		
@@ -196,6 +198,7 @@ public class TelaMenuAdm {
 				menuEstoque.add(menuItemConsultarEstoque);
 
 		JMenu mnNewMenu_2 = new JMenu("Menu");
+		mnNewMenu_2.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		mnNewMenu_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -205,13 +208,14 @@ public class TelaMenuAdm {
 			}
 		});
 
-		mnNewMenu_2.setForeground(new Color(0, 0, 0));
-		mnNewMenu_2.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-home-30.png")));
+		mnNewMenu_2.setForeground(new Color(0, 139, 139));
+		mnNewMenu_2.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-casa-30.png")));
 		menuBar.add(mnNewMenu_2);
 
 		JMenu mnNewMenu_3 = new JMenu(
 				"                                                                                                                                                                                                         ");
 		mnNewMenu_3.setEnabled(false);
+		mnNewMenu_3.setBackground(new Color(0, 139, 139));
 		menuBar.add(mnNewMenu_3);
 
 		JMenu mnNewMenu_4 = new JMenu("  X  ");
