@@ -94,7 +94,7 @@ public class ProdutoDAO {
 		try {
 			ResultSet resultado = query.executeQuery();
 			while(resultado.next()) {
-				ProdutoVO produtoConsultado = converterResultSetParaEntidadeSemId(resultado);
+				ProdutoVO produtoConsultado = converterResultSetParaEntidade(resultado);
 				produtos.add(produtoConsultado);
 			}
 		} catch(SQLException e) {
@@ -119,7 +119,7 @@ public class ProdutoDAO {
 			ResultSet resultado = query.executeQuery();
 			
 			if(resultado.next()) {
-				produtoConsultado = converterResultSetParaEntidadeComId(resultado);
+				produtoConsultado = converterResultSetParaEntidade(resultado);
 			}
 		}catch(SQLException e) {
 			System.out.println("Erro ao buscar produto com id: " + id
@@ -131,19 +131,11 @@ public class ProdutoDAO {
 		return produtoConsultado;
 	}
 
-	private ProdutoVO converterResultSetParaEntidadeComId(ResultSet resultado) throws SQLException{
+	private ProdutoVO converterResultSetParaEntidade(ResultSet resultado) throws SQLException{
 		ProdutoVO produtoConsultado = new ProdutoVO();
 		produtoConsultado.setId(resultado.getInt("idproduto"));
 		produtoConsultado.setMarca(resultado.getString("marca"));
 		produtoConsultado.setModelo(resultado.getString("modelo"));		
 		return produtoConsultado;
 	}
-	
-	private ProdutoVO converterResultSetParaEntidadeSemId(ResultSet resultado) throws SQLException{
-		ProdutoVO produtoConsultado = new ProdutoVO();
-		produtoConsultado.setMarca(resultado.getString("marca"));
-		produtoConsultado.setModelo(resultado.getString("modelo"));		
-		return produtoConsultado;
-	}
-
 }

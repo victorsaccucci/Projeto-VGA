@@ -8,6 +8,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import model.vo.UsuarioVO;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.ImageIcon;
@@ -35,6 +37,7 @@ public class TelaMenuAdm {
 	private PainelCadastroItem painelCadastroItem;
 	protected PainelCadastroDeProduto painelCadastroProduto;
 	private PainelAdmCadastroUsuarios painelCadastroUsuarios;
+	private UsuarioVO usuario;
 
 	/**
 	 * Launch the application.
@@ -103,7 +106,10 @@ public class TelaMenuAdm {
 
 		JMenuItem menuItemCadastrarUsuarios = new JMenuItem("Cadastrar");
 		menuItemCadastrarUsuarios.addActionListener(new ActionListener() {
+		
+
 			public void actionPerformed(ActionEvent e) {
+				usuario = new UsuarioVO();
 				try {
 					painelAdmCadastroUsuarios = new PainelAdmCadastroUsuarios(null);
 				} catch (ParseException e1) {

@@ -23,7 +23,7 @@ public class ItemController {
 	private void validarCamposObrigatorios(ItemVO i) throws ExceptionVGA {
 		String validacao = "";
 		
-		if(i.getProduto().getId() == 0) {
+		if(i.getProduto() == null) {
 			validacao += "Informe um produto! \n";
 		}
 		

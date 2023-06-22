@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ExceptionVGA;
 import model.seletor.SeletorItem;
 import model.vo.ItemVO;
 import model.vo.ProdutoVO;
+import view.TelaMenuPrincipal;
 
 
 public class ItemDAO {

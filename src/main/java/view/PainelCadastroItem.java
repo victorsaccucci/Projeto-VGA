@@ -122,11 +122,19 @@ public class PainelCadastroItem extends JPanel {
 				novoItem.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
 				novoItem.setPrecoUnitario(Double.parseDouble(txtPreco.getText()));
 				novoItem.setTamanho(txtTamanho.getText());
-				novoItem.setProduto((ProdutoVO)cbProduto.getSelectedItem());				
+				novoItem.setProduto((ProdutoVO)cbProduto.getSelectedItem());
+
+				
 				try {
-					itemController.inserirItem(novoItem);
-					JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!", 
-							"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+					novoItem = itemController.inserirItem(novoItem);
+					
+					if(novoItem.getId() > 0) {
+						JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!", 
+								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+							
+						//
+					}
+					
 				}catch(ExceptionVGA e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), 
 							"Erro", JOptionPane.ERROR_MESSAGE);
