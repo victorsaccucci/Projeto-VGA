@@ -39,6 +39,8 @@ public class TelaMenuAdm {
 	protected PainelCadastroDeProduto painelCadastroProduto;
 	private PainelAdmCadastroUsuarios painelCadastroUsuarios;
 	private UsuarioVO usuario;
+	
+	private TelaMenuPrincipal telaMenuPrincipal;
 
 	/**
 	 * Launch the application.
@@ -102,6 +104,7 @@ public class TelaMenuAdm {
 		frame.setJMenuBar(menuBar);
 
 		JMenu menuUsuarios = new JMenu("Usuários");
+		menuUsuarios.setForeground(new Color(0, 0, 0));
 		menuUsuarios.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-usuario-30 (1).png")));
 		menuBar.add(menuUsuarios);
 
@@ -152,6 +155,7 @@ public class TelaMenuAdm {
 				menuUsuarios.add(menuItemConsultarUsuarios);
 
 		JMenu menuEstoque = new JMenu("Estoque");
+		menuEstoque.setForeground(new Color(0, 0, 0));
 		menuEstoque.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-vender-estoque-30.png")));
 		menuBar.add(menuEstoque);
 		
@@ -191,12 +195,22 @@ public class TelaMenuAdm {
 				});
 				menuEstoque.add(menuItemConsultarEstoque);
 
-		JMenu mnNewMenu_2 = new JMenu("");
-		mnNewMenu_2.setEnabled(false);
+		JMenu mnNewMenu_2 = new JMenu("Menu");
+		mnNewMenu_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				telaMenuPrincipal = new TelaMenuPrincipal();
+				telaMenuPrincipal.tornarVisivelForaDoFrame();
+				frame.setVisible(false);
+			}
+		});
+
+		mnNewMenu_2.setForeground(new Color(0, 0, 0));
+		mnNewMenu_2.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-home-30.png")));
 		menuBar.add(mnNewMenu_2);
 
 		JMenu mnNewMenu_3 = new JMenu(
-				"                                                                                                                                                                                                                                          ");
+				"                                                                                                                                                                                                         ");
 		mnNewMenu_3.setEnabled(false);
 		menuBar.add(mnNewMenu_3);
 
