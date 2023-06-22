@@ -22,11 +22,18 @@ public class UsuarioBO {
 	}
 	
 	public UsuarioVO cadastrarUsuarioBO(UsuarioVO usuarioVO) throws ExceptionVGA {
-		if(usuarioDAO.verificarExistenciaCpfeEmail(usuarioVO.getCpf())) {
+		if(usuarioDAO.verificarExistenciaCpfeEmail(usuarioVO.getCpf(), usuarioVO.getEmail())) {
+			throw new ExceptionVGA("CPF e E-mail já cadastrado");
+		}
+		if(usuarioDAO.verificarExistenciaCpf(usuarioVO.getCpf())) {
 			throw new ExceptionVGA("CPF já cadastrado");
-		} else {
+			} 
+		if(usuarioDAO.verificarExistenciaEmail(usuarioVO.getEmail())) {
+			throw new ExceptionVGA("Email já cadastrado");
+		}else {
 			usuarioVO = usuarioDAO.cadastrarUsuarioDAO(usuarioVO);
 		}
+		
 		return usuarioVO;
 	}
 	

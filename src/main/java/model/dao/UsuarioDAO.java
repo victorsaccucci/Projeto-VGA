@@ -199,7 +199,7 @@ public class UsuarioDAO {
 		return usuarioVO;
 	}
 
-	public boolean verificarExistenciaCpfeEmail(String cpfBuscado) {
+	public boolean verificarExistenciaCpf(String cpfBuscado) {
 		boolean cpfJaUtilizado = false;
 		Connection conexao = Banco.getConnection();
 		String sql = " select count(*) from usuario "
@@ -288,4 +288,54 @@ public class UsuarioDAO {
 		return sql;
 
 	}
+
+	public boolean verificarExistenciaEmail(String emailBuscado) {
+		boolean emailJaUtilizado = false;
+		Connection conexao = Banco.getConnection();
+		String sql = " select count(*) from usuario "
+				   + " where email = ? ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			query.setString(1, emailBuscado);
+			ResultSet resultado = query.executeQuery();
+			
+			if(resultado.next()) {
+				emailJaUtilizado = resultado.getInt(1) > 0;
+			}
+		}catch (Exception e) {
+			System.out.println("Erro ao verificar uso do email " + emailBuscado 
+					+ "\n Causa:" + e.getMessage());
+		}finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		return emailJaUtilizado;
+	}
+	
+	public boolean verificarExistenciaCpfeEmail(String cpfBuscado, String emailBuscado) {
+		boolean cpfeEmailJaUtilizado = false;
+		Connection conexao = Banco.getConnection();
+		String sql = " select count(*) from usuario "
+				   + " where cpf = ? and email = ?";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			query.setString(1, cpfBuscado);
+			query.setString(2, emailBuscado);
+			ResultSet resultado = query.executeQuery();
+			
+			if(resultado.next()) {
+				cpfeEmailJaUtilizado = resultado.getInt(1) > 0;
+			}
+		}catch (Exception e) {
+			System.out.println("Erro ao verificar uso do CPF e E-mail" + cpfBuscado 
+					+ "\n Causa:" + e.getMessage());
+		}finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		return cpfeEmailJaUtilizado;
+	}
+	
 }
