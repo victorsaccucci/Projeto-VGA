@@ -42,6 +42,10 @@ public class ItemController {
 		if(i.getPrecoUnitario() == 0) {
 			validacao += "Informe um preço! \n";
 		}
+
+		if(i.getImagem() == null) {
+			validacao += "Insira uma imagem! \n";
+		}
 		
 		if(!validacao.isEmpty()) {
 			throw new ExceptionVGA(validacao);
