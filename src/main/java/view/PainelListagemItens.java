@@ -34,7 +34,7 @@ public class PainelListagemItens extends JPanel {
 
 	private static final long serialVersionUID = -826234024317345122L;
 
-	public String[] nomeColunas = { "Tamanho", "Cor", "Qtd", "Preço" };
+	public String[] nomeColunas = { "Marca", "Modelo", "Tamanho", "Cor", "Qtd", "Preço" };
 	private JTable tabelaItens;
 	
 	private List<ProdutoVO> produto;
@@ -72,11 +72,13 @@ public class PainelListagemItens extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tabelaItens.getModel();
 
 		for (ItemVO vo : itens) {
-			Object[] novaLinhaDaTabela = new Object[4];
-			novaLinhaDaTabela[0] = vo.getTamanho();
-			novaLinhaDaTabela[1] = vo.getCor();
-			novaLinhaDaTabela[2] = vo.getQuantidade();
-			novaLinhaDaTabela[3] = vo.getPrecoUnitario();
+			Object[] novaLinhaDaTabela = new Object[6];
+			novaLinhaDaTabela[0] = vo.getProduto().getMarca();
+			novaLinhaDaTabela[1] = vo.getProduto().getModelo();
+			novaLinhaDaTabela[2] = vo.getTamanho();
+			novaLinhaDaTabela[3] = vo.getCor();
+			novaLinhaDaTabela[4] = vo.getQuantidade();
+			novaLinhaDaTabela[5] = vo.getPrecoUnitario();
 			model.addRow(novaLinhaDaTabela);
 		}
 	}
