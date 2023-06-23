@@ -1,5 +1,6 @@
 package model.bo;
 
+import java.io.IOException;
 import java.util.List;
 
 import model.dao.ItemDAO;
@@ -20,6 +21,12 @@ public class ItemBO {
 	
 	public List<ItemVO> consultarComFiltros(SeletorItem seletor){
 		return itemDAO.consultarComFiltros(seletor);
+	}
+	
+
+
+	public List<ItemVO> consultarTodosComImagensBO() throws IOException {	
+		return itemDAO.consultarItensComImagensDAO();
 	}
 	
 }
