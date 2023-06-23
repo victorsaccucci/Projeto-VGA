@@ -9,15 +9,20 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import controller.ItemController;
+import model.ExceptionVGA;
 import model.seletor.SeletorItem;
 import model.vo.ItemVO;
 import model.vo.ProdutoVO;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 
@@ -42,10 +47,14 @@ public class PainelListagemItens extends JPanel {
 	private JLabel lblCor;
 	private JButton btnBuscar;
 	private JButton btnBuscarTodos;
+	private JFileChooser jfc;
 	
 	//Seletor
 	private SeletorItem seletor;
 	private ItemController itemControllerSeletor;
+	private JButton btnEditar;
+	private JButton btnExcluir;
+	private JButton btnGerarRelatorio;
 
 	private void limparTabela() {
 		tabelaItens.setModel(new DefaultTableModel(new Object[][] { nomeColunas, }, nomeColunas));
@@ -144,7 +153,7 @@ public class PainelListagemItens extends JPanel {
 		this.add(btnBuscarTodos);
 
 		tabelaItens = new JTable();
-		tabelaItens.setBounds(57, 193, 830, 340);
+		tabelaItens.setBounds(57, 193, 830, 177);
 		add(tabelaItens);
 
 		JLabel lblAte = new JLabel("Até");
@@ -152,6 +161,50 @@ public class PainelListagemItens extends JPanel {
 		lblAte.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblAte.setBounds(57, 98, 36, 26);
 		add(lblAte);
+		
+		btnEditar = new JButton("Editar");
+		btnEditar.setForeground(new Color(0, 139, 139));
+		btnEditar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnEditar.setEnabled(false);
+		btnEditar.setBackground(Color.WHITE);
+		btnEditar.setBounds(629, 381, 123, 34);
+		add(btnEditar);
+		
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.setForeground(new Color(0, 139, 139));
+		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnExcluir.setBackground(Color.WHITE);
+		btnExcluir.setBounds(764, 381, 123, 34);
+		add(btnExcluir);
+		
+		btnGerarRelatorio = new JButton("Relatorio");
+		btnGerarRelatorio.addActionListener(new ActionListener() {
+			
+
+			
+
+			public void actionPerformed(ActionEvent e) {
+				jfc = new JFileChooser();
+				jfc.setDialogTitle("Salvar Relatorio como...");
+				
+				int opcaoSelecionada = jfc.showSaveDialog(null);
+				if(opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
+					String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
+					String resultado;
+					try {
+						resultado = itemController.gerarPlanilha(item, caminhoEscolhido);
+						JOptionPane.showMessageDialog(null, resultado);
+					} catch (ExceptionVGA e1) {
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			}
+		});
+		btnGerarRelatorio.setForeground(new Color(0, 139, 139));
+		btnGerarRelatorio.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnGerarRelatorio.setBackground(Color.WHITE);
+		btnGerarRelatorio.setBounds(485, 381, 123, 34);
+		add(btnGerarRelatorio);
 		
         txtMaiorPreco.getDocument().addDocumentListener(new MyDocumentListener());
         txtMenorPreco.getDocument().addDocumentListener(new MyDocumentListener());
@@ -196,5 +249,4 @@ public class PainelListagemItens extends JPanel {
 		atualizarTabelaItens();
 
 	}
-
 }

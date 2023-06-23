@@ -30,5 +30,13 @@
 			<artifactId>LGoodDatePicker</artifactId>
 			<version>10.3.1</version>
 		</dependency>
+		
+		<!-- Formao Excel - '.xls'	' -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>5.2.3</version>
+		</dependency>
+		
 	</dependencies>
 </project>

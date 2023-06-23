@@ -21,6 +21,8 @@ import model.vo.UsuarioVO;
 
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -40,6 +42,7 @@ public class PainelListagemClientes extends JPanel {
 	private JTextField txtEmail;
 	private JTable tabelaUsuarios;
 	private JButton btnBuscar;
+	private JFileChooser jfc;
 
 	private List<UsuarioVO> usuarios;
 	
@@ -52,6 +55,7 @@ public class PainelListagemClientes extends JPanel {
 
 	// Seletor	
 	private SeletorUsuario seletor;
+	private JButton btnRelatorio;
 
 
 	private void limparTabela() {
@@ -189,6 +193,34 @@ public class PainelListagemClientes extends JPanel {
 		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnExcluir.setBounds(802, 490, 123, 34);
 		add(btnExcluir);
+		
+		btnRelatorio = new JButton("Relatorio");
+		btnRelatorio.addActionListener(new ActionListener() {
+			
+
+			public void actionPerformed(ActionEvent e) {
+				
+				jfc = new JFileChooser();
+				jfc.setDialogTitle("Salvar Relatorio como...");
+				
+				int opcaoSelecionada = jfc.showSaveDialog(null);
+				if(opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
+					String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
+					String resultado;
+					try {
+						resultado = usuarioController.gerarPlanilha(usuarios, caminhoEscolhido);
+						JOptionPane.showMessageDialog(null, resultado);
+					} catch (Exception e1) {
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			}
+		});
+		btnRelatorio.setForeground(new Color(0, 139, 139));
+		btnRelatorio.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnRelatorio.setBackground(Color.WHITE);
+		btnRelatorio.setBounds(529, 490, 123, 34);
+		add(btnRelatorio);
 		
 		txtNome.getDocument().addDocumentListener(new MyDocumentListener());
 		txtEmail.getDocument().addDocumentListener(new MyDocumentListener());
