@@ -61,10 +61,11 @@ public class PainelCadastroItem extends JPanel {
 	private ArrayList<ItemVO> listaDeImagens = new ArrayList<ItemVO>();
 	
 	private File imagemSelecionada;
+	
+	private TelaMenuPrincipal telaMenuPrincipal;
+	private JLabel lbltetse;
 
-	/**
-	 * Create the panel.
-	 */
+
 	public PainelCadastroItem() {
 		setBackground(new Color(0, 139, 139));
 		setLayout(null);
@@ -134,6 +135,9 @@ public class PainelCadastroItem extends JPanel {
 		btnAddImagem.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				telaMenuPrincipal = new TelaMenuPrincipal();
+				
 				JFileChooser fileChooser = new JFileChooser();
 				int result = fileChooser.showOpenDialog(frame);
 				if (result == JFileChooser.APPROVE_OPTION) {
