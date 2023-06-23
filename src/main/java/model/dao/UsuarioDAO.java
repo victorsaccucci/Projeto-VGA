@@ -12,8 +12,11 @@ import model.seletor.SeletorItem;
 import model.seletor.SeletorUsuario;
 import model.vo.ItemVO;
 import model.vo.UsuarioVO;
+import model.vo.CarrinhoVO;
 
 public class UsuarioDAO {
+
+	private CarrinhoDAO carrinhoDAO;
 
 	public UsuarioVO inserir(UsuarioVO novoUsuario) {
 		Connection conn = Banco.getConnection();
@@ -131,6 +134,7 @@ public class UsuarioDAO {
 	}
 
 	private UsuarioVO montarUsuarioComResultadoDoBanco(ResultSet resultado) throws SQLException {
+		CarrinhoVO novoCarrinho = new CarrinhoVO();
 		UsuarioVO usuarioBuscado = new UsuarioVO();
 		usuarioBuscado.setId(resultado.getInt("idusuario"));
 		usuarioBuscado.setNome(resultado.getString("nome"));
@@ -143,6 +147,7 @@ public class UsuarioDAO {
 	}
 
 	public UsuarioVO realizarLogin(String email, String senha) {
+		CarrinhoVO novoCarrinho = new CarrinhoVO();
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
@@ -163,7 +168,12 @@ public class UsuarioDAO {
 				usuarioAutenticado.setCpf(resultado.getString(4));
 				usuarioAutenticado.setSenha(resultado.getString(5));
 				usuarioAutenticado.setAdm(resultado.getBoolean(6));
+				
+				carrinhoDAO = new CarrinhoDAO();
+				carrinhoDAO.verificarExistenciaCarrinho(usuarioAutenticado.getCpf());
+				carrinhoDAO.inserir(usuarioAutenticado.getId());
 			}
+			
 		} catch (SQLException e) {
 			System.out.println("Erro ao realizar login! \nCausa: " + e.getMessage());
 		} finally {
