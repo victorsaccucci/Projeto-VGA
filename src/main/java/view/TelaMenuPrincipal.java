@@ -1,14 +1,21 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.List;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
@@ -19,18 +26,32 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import controller.ItemController;
 import model.vo.ItemVO;
 
 import com.jgoodies.forms.layout.FormSpecs;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
 
 public class TelaMenuPrincipal {
 
 	private JFrame frame;
 	private JLabel lblSair;
+	private JLabel labelImagem;
 
-	/**
-	 * Launch the application.
-	 */
+	private ItemController controller;
+
+	private List<ItemVO> itensComImagens;
+	private JLabel label;
+	
+	private PainelMenuPrincipalParaClientes painelMenu;
+	protected Point initialClick;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -44,137 +65,64 @@ public class TelaMenuPrincipal {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public TelaMenuPrincipal() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(0, 139, 139));
 		frame.setUndecorated(true);
-		MouseAdapter mouseAdapter = new MouseAdapter() {
-			private Point initialClick;
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				initialClick = e.getPoint();
-				frame.getComponentAt(initialClick);
-			}
-
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				int thisX = frame.getLocation().x;
-				int thisY = frame.getLocation().y;
-
-				int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
-				int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
-
-				int X = thisX + xMoved;
-				int Y = thisY + yMoved;
-
-				frame.setLocation(X, Y);
-			}
-		};
-
-		frame.addMouseListener(mouseAdapter);
-		frame.addMouseMotionListener(mouseAdapter);
 		frame.setBounds(100, 100, 946, 585);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JLabel lblNewLabel_1 = new JLabel("");
-		frame.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("200px"),
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("200px"),
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("200px"),
-				ColumnSpec.decode("right:15px"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,},
-			new RowSpec[] {
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("19px"),
-				RowSpec.decode("150px"),
-				RowSpec.decode("1px"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("150px"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("150px"),}));
+		frame.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent e) {
+		        initialClick = e.getPoint();
+		        frame.getComponentAt(initialClick);
+		    }
+		});
+
+		frame.addMouseMotionListener(new MouseAdapter() {
+		    public void mouseDragged(MouseEvent e) {
+		        int thisX = frame.getLocation().x;
+		        int thisY = frame.getLocation().y;
+
+		        int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
+		        int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
+
+		        int X = thisX + xMoved;
+		        int Y = thisY + yMoved;
+
+		        frame.setLocation(X, Y);
+		    }
+		});
 		
-				JLabel lblSair_1 = new JLabel(" X");
-				lblSair_1.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						System.exit(0);
-					}
-				});
-				lblSair_1.setForeground(new Color(255, 255, 255));
-				lblSair_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-				frame.getContentPane().add(lblSair_1, "26, 2, fill, top");
 
-		JLabel lblNewLabel_4_2 = new JLabel("New label");
-		frame.getContentPane().add(lblNewLabel_4_2, "3, 3, center, default");
 
-		JLabel lblNewLabel_4_3 = new JLabel("New label");
-		frame.getContentPane().add(lblNewLabel_4_3, "6, 3, center, default");
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
 
-		JLabel lblNewLabel_4_4 = new JLabel("New label");
-		frame.getContentPane().add(lblNewLabel_4_4, "9, 3, center, default");
-		frame.getContentPane().add(lblNewLabel_1, "6, 4, left, top");
+		JMenu mnNewMenu = new JMenu("New menu");
+		menuBar.add(mnNewMenu);
 
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		frame.getContentPane().add(lblNewLabel_4, "3, 8, center, default");
+		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
+		mnNewMenu.add(mntmNewMenuItem);
 
-		JLabel lblNewLabel_4_1 = new JLabel("New label");
-		frame.getContentPane().add(lblNewLabel_4_1, "6, 8, center, default");
+		painelMenu = new PainelMenuPrincipalParaClientes();
 
-		JLabel lblNewLabel_4_1_1 = new JLabel("New label");
-		frame.getContentPane().add(lblNewLabel_4_1_1, "9, 8, center, default");
+		JScrollPane scrollPane = new JScrollPane(painelMenu);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-		JLabel lblNewLabel = new JLabel("New label");
-		frame.getContentPane().add(lblNewLabel, "3, 12, center, default");
+		frame.getContentPane().setLayout(new BorderLayout());
+		frame.getContentPane().add(scrollPane, BorderLayout.EAST);
 
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		frame.getContentPane().add(lblNewLabel_2, "6, 12, center, default");
-
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		frame.getContentPane().add(lblNewLabel_3, "9, 12, center, default");
+		frame.validate();
 	}
 
 	public void tornarVisivelForaDoFrame() {
 		frame.setVisible(true);
 	}
 
-	public void inserirLabel(ItemVO novoItem) {
-		// TODO Auto-generated method stub
-		
-	}
 }
