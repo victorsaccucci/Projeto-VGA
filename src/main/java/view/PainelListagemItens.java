@@ -125,6 +125,7 @@ public class PainelListagemItens extends JPanel {
 		add(txtCor);
 
 		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBackground(new Color(255, 255, 255));
 		btnBuscar.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		btnBuscar.setForeground(new Color(0, 139, 139));
 		btnBuscar.setEnabled(false);
@@ -179,10 +180,6 @@ public class PainelListagemItens extends JPanel {
 		
 		btnGerarRelatorio = new JButton("Relatorio");
 		btnGerarRelatorio.addActionListener(new ActionListener() {
-			
-
-			
-
 			public void actionPerformed(ActionEvent e) {
 				jfc = new JFileChooser();
 				jfc.setDialogTitle("Salvar Relatorio como...");
@@ -215,6 +212,7 @@ public class PainelListagemItens extends JPanel {
         txtMaiorPreco.getDocument().addDocumentListener(new MyDocumentListener());
         txtMenorPreco.getDocument().addDocumentListener(new MyDocumentListener());
         txtTamanho.getDocument().addDocumentListener(new MyDocumentListener());
+        txtCor.getDocument().addDocumentListener(new MyDocumentListener());
         
         //TODO botao editar e excluir e as funções.
 
@@ -235,11 +233,16 @@ public class PainelListagemItens extends JPanel {
     }
 
 	private void checarCampos() {
-		if (!txtMenorPreco.getText().isEmpty() && !txtMaiorPreco.getText().isEmpty() && !txtTamanho.getText().isEmpty()) {
+		if(!txtTamanho.getText().isEmpty()) {
 			btnBuscar.setEnabled(true);
-		} else {
-			btnBuscar.setEnabled(false);
 		}
+		if (!txtMenorPreco.getText().isEmpty() && !txtMaiorPreco.getText().isEmpty()) {
+			btnBuscar.setEnabled(true);
+		}
+		if(!txtCor.getText().isEmpty()) {
+			btnBuscar.setEnabled(true);
+		}
+		
 	}
 
 	protected void buscarItensComFiltro() {
@@ -247,7 +250,7 @@ public class PainelListagemItens extends JPanel {
 		
 		seletor = new SeletorItem();
 		seletor.setCor(txtCor.getText());
-		seletor.setTamanho(Integer.parseInt(txtTamanho.getText()));
+		seletor.setTamanho(txtTamanho.getText());
 		seletor.setPrecoInicial(txtMenorPreco.getText());
 		seletor.setPrecoFinal(txtMaiorPreco.getText());
 

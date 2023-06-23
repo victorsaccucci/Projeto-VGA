@@ -3,32 +3,32 @@ package model.seletor;
 public class SeletorItem extends SeletorBase{
 	
 	//TODO incluir filtro para o carrinho
-	private int tamanho;
-	private int quantidade;
+	private String tamanho;
+	private String quantidade;
 	private String cor;
 	private String precoInicial;
 	private String precoFinal;
 	
 	@Override
 	public boolean temFiltro() {
-		return (this.tamanho > 0)
-				|| (this.quantidade > 0)
-				|| this.precoInicial != null
-				|| this.precoFinal != null
+		return (this.tamanho != null)
+				|| (this.quantidade != null)
+				|| (this.precoInicial != null)
+				|| (this.precoFinal != null)
 				|| this.cor != null;
 	}
 	
 	
-	public int getTamanho() {
+	public String getTamanho() {
 		return tamanho;
 	}
-	public void setTamanho(int tamanho) {
+	public void setTamanho(String tamanho) {
 		this.tamanho = tamanho;
 	}
-	public int getQuantidade() {
+	public String getQuantidade() {
 		return quantidade;
 	}
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(String quantidade) {
 		this.quantidade = quantidade;
 	}
 	public String getPrecoInicial() {
