@@ -78,15 +78,14 @@ public class ItemDAO {
 	public boolean excluir(int idItem) {
 		boolean excluiu = false;
 		Connection conn = Banco.getConnection();
-		String sql = " DELETE * FROM ITEM " + " WHERE IDITEM = ? ";
+		String sql = " DELETE FROM ITEM WHERE IDITEM = " +idItem;
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
 		try {
-			stmt.setInt(1, idItem);
 			int atualizadas = stmt.executeUpdate();
 			excluiu = atualizadas > 0;
 
 		} catch (SQLException e) {
-			System.out.println("Erro ao atualizar item!" + "\n Causa: " + e.getMessage());
+			System.out.println("Erro ao excluir item!" + "\n Causa: " + e.getMessage());
 		}
 		return excluiu;
 	}
@@ -260,9 +259,6 @@ public class ItemDAO {
 	}
 
 	private String preencherFiltros(String sql, SeletorItem seletor) {
-		double precoInicial = Double.parseDouble(seletor.getPrecoInicial());
-		double precoFinal = Double.parseDouble(seletor.getPrecoFinal());
-
 		boolean primeiro = true;
 		if (seletor.getCor() != null && !seletor.getCor().trim().isEmpty()) {
 			if (primeiro) {
@@ -275,7 +271,7 @@ public class ItemDAO {
 			primeiro = false;
 		}
 
-		if (seletor.getQuantidade() > 0) {
+		if (seletor.getQuantidade() != null) {
 			if (primeiro) {
 				sql += " WHERE ";
 			} else {
@@ -286,7 +282,7 @@ public class ItemDAO {
 			primeiro = false;
 		}
 
-		if (seletor.getTamanho() > 0) {
+		if (seletor.getTamanho() != null) {
 			if (primeiro) {
 				sql += " WHERE ";
 			} else {
@@ -296,36 +292,50 @@ public class ItemDAO {
 			sql += " tamanho LIKE '%" + seletor.getTamanho() + "%'";
 			primeiro = false;
 		}
-
-		if (precoInicial > 0 && precoFinal > 0) {
-			if (primeiro) {
-				sql += " WHERE ";
-			} else {
-				sql += " AND ";
-			}
-			sql += " precoUnitario BETWEEN '" + precoInicial + "' " + " AND '" + precoFinal + "' ";
-			primeiro = false;
-		} else {
-			if (precoInicial > 0) {
-				if (primeiro) {
-					sql += " WHERE ";
-				} else {
-					sql += " AND ";
-				}
-				sql += " precoUnitario >= '" + precoInicial + "' ";
-				primeiro = false;
-			}
-
-			if (precoFinal > 0) {
-				if (primeiro) {
-					sql += " WHERE ";
-				} else {
-					sql += " AND ";
-				}
-				sql += " precoUnitario <= '" + precoFinal + "' ";
-				primeiro = false;
-			}
+		
+		if(seletor.getPrecoInicial() == null && seletor.getPrecoFinal() == null) {
+			return sql;
 		}
+		
+		if (seletor.getPrecoInicial() != null && !seletor.getPrecoInicial().isEmpty() &&
+			    seletor.getPrecoFinal() != null && !seletor.getPrecoFinal().isEmpty()) {
+			    double precoInicial = Double.parseDouble(seletor.getPrecoInicial());
+			    double precoFinal = Double.parseDouble(seletor.getPrecoFinal());
+			    if (precoInicial > 0 && precoFinal > 0) {
+					if (primeiro) {
+						sql += " WHERE ";
+					} else {
+						sql += " AND ";
+					}
+					sql += " precoUnitario BETWEEN '" + precoInicial + "' " + " AND '" + precoFinal + "' ";
+					primeiro = false;
+				} else {
+					if (precoInicial > 0) {
+						if (primeiro) {
+							sql += " WHERE ";
+						} else {
+							sql += " AND ";
+						}
+						sql += " precoUnitario >= '" + precoInicial + "' ";
+						primeiro = false;
+					}
+
+					if (precoFinal > 0) {
+						if (primeiro) {
+							sql += " WHERE ";
+						} else {
+							sql += " AND ";
+						}
+						sql += " precoUnitario <= '" + precoFinal + "' ";
+						primeiro = false;
+					}
+				}
+			}
+		
+		//double precoInicial = Double.parseDouble(seletor.getPrecoInicial());
+		//double precoFinal = Double.parseDouble(seletor.getPrecoFinal());
+		
+		
 		return sql;
 	}
 

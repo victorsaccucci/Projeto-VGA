@@ -54,6 +54,10 @@ public class ItemController {
 		}
 	}
 	
+	public boolean excluirItemController(int id) throws ExceptionVGA {
+		return bo.excluirItemBO(id);
+	}
+	
 	public List<ItemVO> consultarComFiltros(SeletorItem seletor){
 		return bo.consultarComFiltros(seletor);
 	}

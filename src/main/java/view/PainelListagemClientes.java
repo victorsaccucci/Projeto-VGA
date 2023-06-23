@@ -58,6 +58,10 @@ public class PainelListagemClientes extends JPanel {
 
 	private JButton btnRelatorio;
 
+	private JLabel lblNome;
+
+	private JLabel lblNewLabel;
+
 	private void limparTabela() {
 		tabelaUsuarios.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
 	}
@@ -96,8 +100,9 @@ public class PainelListagemClientes extends JPanel {
 		btnBuscar.setBounds(666, 98, 123, 34);
 		add(btnBuscar);
 
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblNome = new JLabel("Nome:");
+		lblNome.setForeground(new Color(255, 255, 255));
+		lblNome.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblNome.setBounds(42, 49, 45, 13);
 		add(lblNome);
 
@@ -106,8 +111,9 @@ public class PainelListagemClientes extends JPanel {
 		add(txtNome);
 		txtNome.setColumns(10);
 
-		JLabel lblNewLabel = new JLabel("CPF:");
-		lblNewLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblNewLabel = new JLabel("CPF:");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblNewLabel.setBounds(418, 45, 45, 20);
 		add(lblNewLabel);
 
@@ -117,7 +123,8 @@ public class PainelListagemClientes extends JPanel {
 		add(txtCpf);
 
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblEmail.setForeground(new Color(255, 255, 255));
+		lblEmail.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblEmail.setBounds(42, 102, 45, 13);
 		add(lblEmail);
 
