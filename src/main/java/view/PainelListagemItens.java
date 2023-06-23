@@ -13,10 +13,14 @@ import model.ExceptionVGA;
 import model.seletor.SeletorItem;
 import model.vo.ItemVO;
 import model.vo.ProdutoVO;
+import model.vo.UsuarioVO;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -34,7 +38,9 @@ public class PainelListagemItens extends JPanel {
 	private JTable tabelaItens;
 	
 	private List<ProdutoVO> produto;
-	private List<ItemVO> item;
+	private List<ItemVO> itens;
+	
+	private ItemVO itemSelecionado;
 	
 	private ItemController itemController;
 	private JTextField txtMenorPreco;
@@ -65,7 +71,7 @@ public class PainelListagemItens extends JPanel {
 
 		DefaultTableModel model = (DefaultTableModel) tabelaItens.getModel();
 
-		for (ItemVO vo : item) {
+		for (ItemVO vo : itens) {
 			Object[] novaLinhaDaTabela = new Object[4];
 			novaLinhaDaTabela[0] = vo.getTamanho();
 			novaLinhaDaTabela[1] = vo.getCor();
@@ -146,7 +152,7 @@ public class PainelListagemItens extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				itemController = new ItemController();
-				item = itemController.consultarTodos();
+				itens = itemController.consultarTodos();
 				atualizarTabelaItens();
 			}
 		});
@@ -154,6 +160,21 @@ public class PainelListagemItens extends JPanel {
 		this.add(btnBuscarTodos);
 
 		tabelaItens = new JTable();
+		tabelaItens.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int indiceSelecionado = tabelaItens.getSelectedRow();
+
+				if (indiceSelecionado > 0) {
+					btnEditar.setEnabled(true);
+					btnExcluir.setEnabled(true);
+					itemSelecionado = itens.get(indiceSelecionado - 1);
+				} else {
+					btnEditar.setEnabled(false);
+					btnExcluir.setEnabled(true);
+				}
+			}
+		});
 		tabelaItens.setBounds(57, 193, 830, 177);
 		add(tabelaItens);
 
@@ -169,12 +190,31 @@ public class PainelListagemItens extends JPanel {
 		btnEditar.setEnabled(false);
 		btnEditar.setBackground(Color.WHITE);
 		btnEditar.setBounds(629, 381, 123, 34);
-		add(btnEditar);
+		this.add(btnEditar);
 		
 		btnExcluir = new JButton("Excluir");
-		btnExcluir.setForeground(new Color(0, 139, 139));
+		btnExcluir.setBackground(new Color(255, 255, 255));
+		btnExcluir.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				int opcaoSelecionada = JOptionPane.showConfirmDialog(null,
+						"Confirmar a exclusão do item selecionado?");
+
+				if (opcaoSelecionada == JOptionPane.YES_OPTION) {
+					try {
+						itemController.excluirItemController(itemSelecionado.getId());
+						JOptionPane.showMessageDialog(null, "Item excluído com sucesso!");
+						itens = itemController.consultarTodos();
+
+						atualizarTabelaItens();
+					} catch (ExceptionVGA e1) {
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			}
+		});
 		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnExcluir.setBackground(Color.WHITE);
+		btnExcluir.setForeground(new Color(0, 139, 139));
 		btnExcluir.setBounds(764, 381, 123, 34);
 		add(btnExcluir);
 		
@@ -189,7 +229,7 @@ public class PainelListagemItens extends JPanel {
 					String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
 					String resultado;
 					try {
-						resultado = itemController.gerarPlanilha(item, caminhoEscolhido);
+						resultado = itemController.gerarPlanilha(itens, caminhoEscolhido);
 						JOptionPane.showMessageDialog(null, resultado);
 					} catch (ExceptionVGA e1) {
 						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
@@ -236,7 +276,7 @@ public class PainelListagemItens extends JPanel {
 		if(!txtTamanho.getText().isEmpty()) {
 			btnBuscar.setEnabled(true);
 		}
-		if (!txtMenorPreco.getText().isEmpty() && !txtMaiorPreco.getText().isEmpty()) {
+		if (!txtMenorPreco.getText().isEmpty() && !txtMaiorPreco.getText().isEmpty()){
 			btnBuscar.setEnabled(true);
 		}
 		if(!txtCor.getText().isEmpty()) {
@@ -254,8 +294,16 @@ public class PainelListagemItens extends JPanel {
 		seletor.setPrecoInicial(txtMenorPreco.getText());
 		seletor.setPrecoFinal(txtMaiorPreco.getText());
 
-		item = (List<ItemVO>) itemControllerSeletor.consultarComFiltros(seletor);
+		itens = (List<ItemVO>) itemControllerSeletor.consultarComFiltros(seletor);
 		atualizarTabelaItens();
 
+	}
+	
+	public JButton getBtnEditar() {
+		return btnEditar;
+	}
+
+	public ItemVO getItemSelecionado() {
+		return itemSelecionado;
 	}
 }
