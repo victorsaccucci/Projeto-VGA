@@ -41,6 +41,7 @@ public class TelaCarrinho {
 	private List<ItemVO> itens;
 	
 	private ItemController controllerCarrinho;
+	protected TelaMenuPrincipal telaMenuPrincipal;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -94,8 +95,8 @@ public class TelaCarrinho {
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				telaDeProdutos = new TelaDeProdutos();
-				telaDeProdutos.tornarVisivelForaDoFrame();
+				telaMenuPrincipal = new TelaMenuPrincipal();
+				telaMenuPrincipal.tornarVisivelForaDoFrame();
 				frame.setVisible(false);
 				
 			}
@@ -198,8 +199,6 @@ public class TelaCarrinho {
 
 	}
 	
-	
-
 	public void tornarVisivelForaDoFrame() {
 		frame.setVisible(true);
 		

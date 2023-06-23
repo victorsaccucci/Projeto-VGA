@@ -8,11 +8,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import Animacion.Animacion;
+import controller.ItemController;
+import model.vo.ItemVO;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -68,6 +71,13 @@ public class TelaDeProdutos {
 	private JLabel lblNewLabel_4;
 	private JLabel lblNewLabel_5;
 
+	private ItemController itemController;
+	private JLabel lblModelo;
+
+	private PainelMenuPrincipalParaClientes painel;
+	
+	private String stringModelo;
+
 	public String[] litarImagens() {
 		File f = new File(getClass().getResource("/imagensTenis").getFile());
 		String[] imagensListadas = f.list();
@@ -92,9 +102,12 @@ public class TelaDeProdutos {
 		frame.setBounds(100, 100, 946, 585);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
+		painel = new PainelMenuPrincipalParaClientes();
+		stringModelo += painel.getModeloSelecionado();
 
 		lblExemplares = new JLabel("                      ");
-		lblExemplares.setBounds(297, 64, 400, 375);
+		lblExemplares.setBounds(297, 140, 400, 299);
 		frame.getContentPane().add(lblExemplares);
 
 		lblVoltar = new JLabel("");
@@ -206,46 +219,24 @@ public class TelaDeProdutos {
 				frame.setVisible(false);
 			}
 		});
-		lblNewLabel_3.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-sacola-de-compras-40.png")));
+		lblNewLabel_3
+				.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-sacola-de-compras-40.png")));
 		lblNewLabel_3.setBounds(32, 24, 50, 50);
 		frame.getContentPane().add(lblNewLabel_3);
-		
-		lblNewLabel_5 = new JLabel("add");
-		lblNewLabel_5.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			    JFileChooser fileChooser = new JFileChooser();
-		        int result = fileChooser.showOpenDialog(frame);
-		        if (result == JFileChooser.APPROVE_OPTION) {
-		            File selectedFile = fileChooser.getSelectedFile();
-		            String destinationPath = "src/main/java/imagensTenis/";
 
-		            try {
-		                // Copia o arquivo para o diretório de destino
-		                Path destination = Paths.get(destinationPath, selectedFile.getName());
-		                Files.copy(selectedFile.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
-		            } catch (IOException ex) {
-		                ex.printStackTrace();
-		            }
-		        }
-			}
-		});
-		lblNewLabel_5.setForeground(new Color(255, 255, 255));
-		lblNewLabel_5.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		lblNewLabel_5.setBounds(801, 507, 82, 40);
-		frame.getContentPane().add(lblNewLabel_5);
-		
-			
-		
-				lblNewLabel = new JLabel("gxcghjhg");
-				lblNewLabel.setIcon(new ImageIcon(
-						TelaDeProdutos.class.getResource("/icones/textura-de-cor-ciano-escuro-grunge_469558-34227 (2).png")));
-				lblNewLabel.setBounds(0, 0, 946, 585);
-				frame.getContentPane().add(lblNewLabel);
+		lblModelo = new JLabel(stringModelo);
+		lblModelo.setBounds(316, 24, 381, 77);
+		frame.getContentPane().add(lblModelo);
+
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(
+				TelaDeProdutos.class.getResource("/icones/textura-de-cor-ciano-escuro-grunge_469558-34227 (2).png")));
+		lblNewLabel.setBounds(0, 0, 946, 585);
+		frame.getContentPane().add(lblNewLabel);
 	}
 
 	public void tornarVisivelForaDoFrame() {
 		frame.setVisible(true);
-		
+
 	}
 }

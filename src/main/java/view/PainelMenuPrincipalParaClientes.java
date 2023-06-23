@@ -25,9 +25,18 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 	private ItemController controller;
 
 	private TelaDeProdutos telaDeProdutos;
+	public String modeloSelecionado;
+
+
+	//private JLabel lblModelo;
 
 	public PainelMenuPrincipalParaClientes() {
 		setBackground(new Color(0, 139, 139));
+		setLayout(null);
+		
+		//lblModelo = new JLabel("");
+		//lblModelo.setBounds(332, 71, 276, 50);
+		//add(lblModelo);
 
 		controller = new ItemController();
 
@@ -40,7 +49,7 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 				int numColunas = (int) Math.ceil(Math.sqrt(itensComImagens.size()));
 				setLayout(new GridLayout((int) Math.ceil(itensComImagens.size() / (double) numColunas), numColunas));
 
-				int espacamento = 10;
+				int espacamento = 40;
 				EmptyBorder borda = new EmptyBorder(espacamento, espacamento, espacamento, espacamento);
 
 				for (final ItemVO item : itensComImagens) {
@@ -53,13 +62,18 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 					label.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
-							System.out.println("Label clicado: " + item.getId());
+							System.out.println("Label clicado: " + item.getProduto().getModelo());
+
 							telaDeProdutos = new TelaDeProdutos();
 							telaDeProdutos.tornarVisivelForaDoFrame();
+					
+
+							// guardar valor do getModelo para exibir em um label em outra tela
+							modeloSelecionado = item.getProduto().getModelo();
+							//lblModelo.setText(modeloSelecionado);
 						}
 					});
 
-					
 					ImageIcon icon = new ImageIcon(item.getImagem());
 
 					label.setIcon(icon);
@@ -70,6 +84,9 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
 
+	}
+	public String getModeloSelecionado() {
+	    return modeloSelecionado;
+	}
 }
