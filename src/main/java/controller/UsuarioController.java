@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ExceptionVGA;
-import model.GeradorPlanilha;
+
 import model.bo.UsuarioBO;
 import model.dao.UsuarioDAO;
 import model.seletor.SeletorUsuario;
@@ -32,7 +32,7 @@ public class UsuarioController {
 
 	}
 
-	public UsuarioVO cadastrarUsuarioController(UsuarioVO usuarioVO) throws ExceptionVGA {	
+	public UsuarioVO cadastrarUsuarioController(UsuarioVO usuarioVO) throws ExceptionVGA {
 		this.validarCamposObrigatorios(usuarioVO);
 		return usuarioBO.cadastrarUsuarioBO(usuarioVO);
 	}
@@ -55,14 +55,14 @@ public class UsuarioController {
 
 	private void validarCamposObrigatorios(UsuarioVO usuario) throws ExceptionVGA {
 		String validacao = "";
-		
+
 		if (usuario.getEmail() == null || usuario.getEmail().trim().isEmpty()) {
 			validacao += "Informe um email.";
 		}
 		if (usuario.getCpf() == null || usuario.getCpf().trim().isEmpty()) {
 			validacao += "\nInforme um cpf.";
 		}
-		if (usuario.getNome() == null ||usuario.getNome().trim().isEmpty()) {
+		if (usuario.getNome() == null || usuario.getNome().trim().isEmpty()) {
 			validacao += "\nInforme um nome.";
 		}
 		if (usuario.getSenha() == null || usuario.getSenha().trim().isEmpty()) {
@@ -73,18 +73,8 @@ public class UsuarioController {
 		}
 	}
 
-	public List<UsuarioVO> consultarComFiltros(SeletorUsuario seletor) {	
+	public List<UsuarioVO> consultarComFiltros(SeletorUsuario seletor) {
 		return usuarioBO.consultarComFiltros(seletor);
 	}
 
-	public String gerarPlanilha(List<UsuarioVO> usuarios, String caminhoEscolhido) throws ExceptionVGA {
-		if(usuarios == null || caminhoEscolhido == null || caminhoEscolhido.trim().isEmpty()) {
-			throw new ExceptionVGA("Preencha todos os campos");
-		}
-		
-		GeradorPlanilha gerador = new GeradorPlanilha();
-		return gerador.gerarPlanilhaUsuarios(usuarios, caminhoEscolhido);
-	}
-	}
-	
-	
+}
