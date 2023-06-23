@@ -1,5 +1,10 @@
 package model.dao;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,11 +12,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
+import com.mysql.cj.jdbc.Blob;
+
 import model.seletor.SeletorItem;
 import model.vo.ItemVO;
 import model.vo.ProdutoVO;
 import view.TelaMenuPrincipal;
-
 
 public class ItemDAO {
 
@@ -27,7 +35,7 @@ public class ItemDAO {
 			stmt.setInt(5, novoItem.getProduto().getId());
 			stmt.setBytes(6, novoItem.getImagem());
 			stmt.execute();
-					
+
 			ResultSet resultado = stmt.getGeneratedKeys();
 			if (resultado.next()) {
 				novoItem.setId(resultado.getInt(1));
@@ -122,6 +130,68 @@ public class ItemDAO {
 		return consultados;
 	}
 	
+	//pega a imagem
+	public List<ItemVO> consultarItensComImagensDAO() throws IOException {
+		List<ItemVO> itens = new ArrayList<ItemVO>();
+
+		Connection conn = Banco.getConnection();
+		String sql = "SELECT * FROM ITEM";
+		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
+
+		try {
+			ResultSet resultado = stmt.executeQuery();
+			while (resultado.next()) {
+
+				ItemVO itemConsultado = converterResultSetParaEntidadeComIdParaMetodoComImagem(resultado);
+
+
+				Blob blob = (Blob) resultado.getBlob("imagem");
+				InputStream inputStream = blob.getBinaryStream();
+				BufferedImage imagemBanco = ImageIO.read(inputStream);
+
+				byte[] imagemBytes = converterParaArrayDeBytes(imagemBanco);
+
+				itemConsultado.setImagem(imagemBytes);
+
+				itens.add(itemConsultado);
+
+			}
+		} catch (SQLException e1) {
+			System.out.println("Erro ao consultar todos os itens com imagens! \nCausa: " + e1.getMessage());
+		}
+
+		return itens;
+	}
+	
+	// converte para byte
+	private byte[] converterParaArrayDeBytes(BufferedImage bufferedImage) throws IOException {
+
+		 ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		 ImageIO.write(bufferedImage, "png", baos);
+	        baos.flush();
+	        byte[] imageBytes = baos.toByteArray();
+	        baos.close();
+	        return imageBytes;
+	}
+	
+	//para o metodo de buscar imagem
+		private ItemVO converterResultSetParaEntidadeComIdParaMetodoComImagem(ResultSet resultado) throws SQLException {
+			ItemVO itemConsultado = new ItemVO();
+			itemConsultado.setId(resultado.getInt("iditem"));
+			itemConsultado.setTamanho(resultado.getString("tamanho"));
+			itemConsultado.setCor(resultado.getString("cor"));
+			itemConsultado.setQuantidade(resultado.getInt("quantidade"));
+			itemConsultado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
+			
+			byte[] imagemBytes = resultado.getBytes("imagem");
+		    itemConsultado.setImagem(imagemBytes);
+
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			ProdutoVO produto = produtoDAO.consultarPorId(resultado.getInt("idProduto"));
+			itemConsultado.setProduto(produto);
+
+			return itemConsultado;
+		}
 
 	public ItemVO consultarPorId(int id) {
 		ItemVO itemConsultado = null;
@@ -151,6 +221,8 @@ public class ItemDAO {
 		itemConsultado.setCor(resultado.getString("cor"));
 		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
 		itemConsultado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
+		
+		
 
 		ProdutoDAO produtoDAO = new ProdutoDAO();
 		ProdutoVO produto = produtoDAO.consultarPorId(resultado.getInt("idProduto"));
@@ -159,103 +231,102 @@ public class ItemDAO {
 		return itemConsultado;
 	}
 	
-	public List<ItemVO> consultarComFiltros(SeletorItem seletor){
+	
+
+	public List<ItemVO> consultarComFiltros(SeletorItem seletor) {
 		List<ItemVO> itens = new ArrayList<ItemVO>();
 		Connection conexao = Banco.getConnection();
 		String sql = " SELECT * FROM ITEM ";
-		
-		if(seletor.temFiltro()) {
+
+		if (seletor.temFiltro()) {
 			sql = preencherFiltros(sql, seletor);
 		}
-		
+
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		try {
 			ResultSet resultado = query.executeQuery();
-			while(resultado.next()) {
+			while (resultado.next()) {
 				ItemVO itemBuscado = converterResultSetParaEntidadeComId(resultado);
 				itens.add(itemBuscado);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("Erro ao buscar os itens! \n Causa:" + e.getMessage());
-		}finally {
+		} finally {
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);
 		}
-		
+
 		return itens;
 	}
-	
 
 	private String preencherFiltros(String sql, SeletorItem seletor) {
 		double precoInicial = Double.parseDouble(seletor.getPrecoInicial());
 		double precoFinal = Double.parseDouble(seletor.getPrecoFinal());
-		
+
 		boolean primeiro = true;
-		if(seletor.getCor() != null && !seletor.getCor().trim().isEmpty()) {
-			if(primeiro) {
-				sql += " WHERE ";
-			}else {
-				sql += " AND ";
-			}
-			
-			sql += " cor LIKE '%" + seletor.getCor() + "%'";
-			primeiro = false;
-		}
-		
-		if(seletor.getQuantidade() > 0 ) {
-			if(primeiro) {
-				sql += " WHERE ";
-			}else {
-				sql += " AND ";
-			}
-			
-			sql += " quantidade LIKE '%" + seletor.getQuantidade() + "%'";
-			primeiro = false; 
-		}
-		
-		if(seletor.getTamanho() > 0) {
-			if(primeiro) {
-				sql += " WHERE ";
-			}else {
-				sql += " AND ";
-			}
-			
-			sql += " tamanho LIKE '%" + seletor.getTamanho() + "%'";
-			primeiro = false; 
-		}
-		
-		if(precoInicial > 0 && precoFinal > 0) {		
-			if(primeiro) {	
+		if (seletor.getCor() != null && !seletor.getCor().trim().isEmpty()) {
+			if (primeiro) {
 				sql += " WHERE ";
 			} else {
 				sql += " AND ";
 			}
-			sql += " precoUnitario BETWEEN '" 
-					+ precoInicial + "' " 
-					+ " AND '" + precoFinal + "' ";
-				primeiro = false;
-		}else {
+
+			sql += " cor LIKE '%" + seletor.getCor() + "%'";
+			primeiro = false;
+		}
+
+		if (seletor.getQuantidade() > 0) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+
+			sql += " quantidade LIKE '%" + seletor.getQuantidade() + "%'";
+			primeiro = false;
+		}
+
+		if (seletor.getTamanho() > 0) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+
+			sql += " tamanho LIKE '%" + seletor.getTamanho() + "%'";
+			primeiro = false;
+		}
+
+		if (precoInicial > 0 && precoFinal > 0) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			sql += " precoUnitario BETWEEN '" + precoInicial + "' " + " AND '" + precoFinal + "' ";
+			primeiro = false;
+		} else {
 			if (precoInicial > 0) {
-				if(primeiro) {
+				if (primeiro) {
 					sql += " WHERE ";
 				} else {
 					sql += " AND ";
 				}
-				sql += " precoUnitario >= '" + precoInicial + "' "; 
+				sql += " precoUnitario >= '" + precoInicial + "' ";
 				primeiro = false;
 			}
-			
+
 			if (precoFinal > 0) {
-				if(primeiro) {
+				if (primeiro) {
 					sql += " WHERE ";
 				} else {
 					sql += " AND ";
 				}
-				sql += " precoUnitario <= '" + precoFinal + "' "; 
+				sql += " precoUnitario <= '" + precoFinal + "' ";
 				primeiro = false;
 			}
 		}
 		return sql;
 	}
-	
+
 }
