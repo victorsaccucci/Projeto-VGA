@@ -177,6 +177,35 @@ public class PainelListagemItens extends JPanel {
 		btnExcluir.setBounds(764, 381, 123, 34);
 		add(btnExcluir);
 		
+		btnGerarRelatorio = new JButton("Relatorio");
+		btnGerarRelatorio.addActionListener(new ActionListener() {
+			
+
+			
+
+			public void actionPerformed(ActionEvent e) {
+				jfc = new JFileChooser();
+				jfc.setDialogTitle("Salvar Relatorio como...");
+				
+				int opcaoSelecionada = jfc.showSaveDialog(null);
+				if(opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
+					String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
+					String resultado;
+					try {
+						resultado = itemController.gerarPlanilha(item, caminhoEscolhido);
+						JOptionPane.showMessageDialog(null, resultado);
+					} catch (ExceptionVGA e1) {
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			}
+		});
+		btnGerarRelatorio.setForeground(new Color(0, 139, 139));
+		btnGerarRelatorio.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnGerarRelatorio.setBackground(Color.WHITE);
+		btnGerarRelatorio.setBounds(485, 381, 123, 34);
+		add(btnGerarRelatorio);
+		
 		btnGerarRelatorio.setForeground(new Color(0, 139, 139));
 		btnGerarRelatorio.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnGerarRelatorio.setBackground(Color.WHITE);
