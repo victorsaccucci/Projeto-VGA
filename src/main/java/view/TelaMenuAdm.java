@@ -100,7 +100,7 @@ public class TelaMenuAdm {
 		JMenu menuUsuarios = new JMenu("Usuários");
 		menuUsuarios.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		menuUsuarios.setForeground(new Color(0, 139, 139));
-		menuUsuarios.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-usu�rio-30.png")));
+		menuUsuarios.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-usuário-30.png")));
 		menuBar.add(menuUsuarios);
 
 		JMenuItem menuItemCadastrarUsuarios = new JMenuItem("Cadastrar");
@@ -188,9 +188,10 @@ public class TelaMenuAdm {
 				listagemItens.getBtnEditar().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							painelCadastroItem = new PainelCadastroItem(listagemItens.getItemSelecionado());
-							listagemItens.setVisible(true);
-							frame.setContentPane(listagemItens);
+							painelCadastroItem = new PainelCadastroItem(
+									listagemItens.getItemSelecionado());
+							painelCadastroItem.setVisible(true);
+							frame.setContentPane(painelCadastroItem);
 							frame.revalidate();
 							registrarCliqueBotaoEditarDoPainelListagemItens();
 						} catch (ParseException e1) {

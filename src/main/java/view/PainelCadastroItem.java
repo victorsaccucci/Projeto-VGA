@@ -223,10 +223,12 @@ public class PainelCadastroItem extends JPanel {
 		}
 	}
 	private void preencherCamposDaTela() {
-		this.txtCor.setText(this.item.getCor());
-		this.txtPreco.setText(String.valueOf(this.txtQuantidade.getText()));
-		this.txtQuantidade.setText(String.valueOf(this.item.getQuantidade()));
+		this.cbProduto.setSelectedItem(this.item.getProduto());
 		this.txtTamanho.setText(this.item.getTamanho());
+		this.txtCor.setText(this.item.getCor());
+		this.txtQuantidade.setText(String.valueOf(this.item.getQuantidade()));
+		this.txtPreco.setText(String.valueOf(this.item.getPrecoUnitario()));
+		//TODO preencher imagem (talvez tenha que mexer no ItemDAO)
 		this.btnCadastrarItem.setText("Salvar");
 	}
 }
