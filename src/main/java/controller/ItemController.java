@@ -80,5 +80,9 @@ public class ItemController {
 		return bo.atualizarItemBO(item);
 		
 	}
+
+	public boolean diminuirtQuantidadeController(int idItem, int quantidade) {
+		return bo.diminuirtQuantidadeBO(idItem, quantidade);
+	}
 	
 }

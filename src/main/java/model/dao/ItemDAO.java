@@ -49,6 +49,32 @@ public class ItemDAO {
 		return novoItem;
 	}
 
+	public boolean diminuirQuantidade(int idItem, int quantidade) {
+	    boolean atualizou = false;
+	    Connection conn = Banco.getConnection();
+	    String sql = "UPDATE ITEM SET QUANTIDADE = QUANTIDADE - ? WHERE IDITEM = ?";
+	    PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
+
+	    try {
+	        stmt.setInt(1, quantidade);
+	        stmt.setInt(2, idItem);
+
+	        int atualizados = stmt.executeUpdate();
+	        atualizou = atualizados > 0;
+	  
+	        System.out.println("Erro ao diminuir quantidade do item!");
+
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao diminuir quantidade do item!" + "\nCausa: " + e.getMessage());
+	    } finally {
+	        Banco.closePreparedStatement(stmt);
+	        Banco.closeConnection(conn);
+	    }
+	    return atualizou;
+	}
+
+
+
 	public boolean atualizar(ItemVO itemVO) {
 		boolean atualizou = false;
 		Connection conn = Banco.getConnection();
@@ -78,7 +104,7 @@ public class ItemDAO {
 	public boolean excluir(int idItem) {
 		boolean excluiu = false;
 		Connection conn = Banco.getConnection();
-		String sql = " DELETE FROM ITEM WHERE IDITEM = " +idItem;
+		String sql = " DELETE FROM ITEM WHERE IDITEM = " + idItem;
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
 		try {
 			int atualizadas = stmt.executeUpdate();
@@ -128,8 +154,8 @@ public class ItemDAO {
 		}
 		return consultados;
 	}
-	
-	//pega a imagem
+
+	// pega a imagem
 	public List<ItemVO> consultarItensComImagensDAO() throws IOException {
 		List<ItemVO> itens = new ArrayList<ItemVO>();
 
@@ -142,7 +168,6 @@ public class ItemDAO {
 			while (resultado.next()) {
 
 				ItemVO itemConsultado = converterResultSetParaEntidadeComIdParaMetodoComImagem(resultado);
-
 
 				Blob blob = (Blob) resultado.getBlob("imagem");
 				InputStream inputStream = blob.getBinaryStream();
@@ -161,36 +186,36 @@ public class ItemDAO {
 
 		return itens;
 	}
-	
+
 	// converte para byte
 	private byte[] converterParaArrayDeBytes(BufferedImage bufferedImage) throws IOException {
 
-		 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		 ImageIO.write(bufferedImage, "png", baos);
-	        baos.flush();
-	        byte[] imageBytes = baos.toByteArray();
-	        baos.close();
-	        return imageBytes;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(bufferedImage, "png", baos);
+		baos.flush();
+		byte[] imageBytes = baos.toByteArray();
+		baos.close();
+		return imageBytes;
 	}
-	
-	//para o metodo de buscar imagem
-		private ItemVO converterResultSetParaEntidadeComIdParaMetodoComImagem(ResultSet resultado) throws SQLException {
-			ItemVO itemConsultado = new ItemVO();
-			itemConsultado.setId(resultado.getInt("iditem"));
-			itemConsultado.setTamanho(resultado.getString("tamanho"));
-			itemConsultado.setCor(resultado.getString("cor"));
-			itemConsultado.setQuantidade(resultado.getInt("quantidade"));
-			itemConsultado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
-			
-			byte[] imagemBytes = resultado.getBytes("imagem");
-		    itemConsultado.setImagem(imagemBytes);
 
-			ProdutoDAO produtoDAO = new ProdutoDAO();
-			ProdutoVO produto = produtoDAO.consultarPorId(resultado.getInt("idProduto"));
-			itemConsultado.setProduto(produto);
+	// para o metodo de buscar imagem
+	private ItemVO converterResultSetParaEntidadeComIdParaMetodoComImagem(ResultSet resultado) throws SQLException {
+		ItemVO itemConsultado = new ItemVO();
+		itemConsultado.setId(resultado.getInt("iditem"));
+		itemConsultado.setTamanho(resultado.getString("tamanho"));
+		itemConsultado.setCor(resultado.getString("cor"));
+		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
+		itemConsultado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
 
-			return itemConsultado;
-		}
+		byte[] imagemBytes = resultado.getBytes("imagem");
+		itemConsultado.setImagem(imagemBytes);
+
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		ProdutoVO produto = produtoDAO.consultarPorId(resultado.getInt("idProduto"));
+		itemConsultado.setProduto(produto);
+
+		return itemConsultado;
+	}
 
 	public ItemVO consultarPorId(int id) {
 		ItemVO itemConsultado = null;
@@ -220,8 +245,6 @@ public class ItemDAO {
 		itemConsultado.setCor(resultado.getString("cor"));
 		itemConsultado.setQuantidade(resultado.getInt("quantidade"));
 		itemConsultado.setPrecoUnitario(resultado.getDouble("precoUnitario"));
-		
-		
 
 		ProdutoDAO produtoDAO = new ProdutoDAO();
 		ProdutoVO produto = produtoDAO.consultarPorId(resultado.getInt("idProduto"));
@@ -229,8 +252,6 @@ public class ItemDAO {
 
 		return itemConsultado;
 	}
-	
-	
 
 	public List<ItemVO> consultarComFiltros(SeletorItem seletor) {
 		List<ItemVO> itens = new ArrayList<ItemVO>();
@@ -292,46 +313,47 @@ public class ItemDAO {
 			sql += " tamanho LIKE '%" + seletor.getTamanho() + "%'";
 			primeiro = false;
 		}
-		
-		if(seletor.getPrecoInicial() == null && seletor.getPrecoFinal() == null) {
+
+		if (seletor.getPrecoInicial() == null && seletor.getPrecoFinal() == null) {
 			return sql;
 		}
-		
-		if (seletor.getPrecoInicial() != null && !seletor.getPrecoInicial().isEmpty() &&
-			    seletor.getPrecoFinal() != null && !seletor.getPrecoFinal().isEmpty()) {
-			    double precoInicial = Double.parseDouble(seletor.getPrecoInicial());
-			    double precoFinal = Double.parseDouble(seletor.getPrecoFinal());
-			    if (precoInicial > 0 && precoFinal > 0) {
+
+		if (seletor.getPrecoInicial() != null && !seletor.getPrecoInicial().isEmpty() && seletor.getPrecoFinal() != null
+				&& !seletor.getPrecoFinal().isEmpty()) {
+			double precoInicial = Double.parseDouble(seletor.getPrecoInicial());
+			double precoFinal = Double.parseDouble(seletor.getPrecoFinal());
+			if (precoInicial > 0 && precoFinal > 0) {
+				if (primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				sql += " precoUnitario BETWEEN '" + precoInicial + "' " + " AND '" + precoFinal + "' ";
+				primeiro = false;
+			} else {
+				if (precoInicial > 0) {
 					if (primeiro) {
 						sql += " WHERE ";
 					} else {
 						sql += " AND ";
 					}
-					sql += " precoUnitario BETWEEN '" + precoInicial + "' " + " AND '" + precoFinal + "' ";
+					sql += " precoUnitario >= '" + precoInicial + "' ";
 					primeiro = false;
-				} else {
-					if (precoInicial > 0) {
-						if (primeiro) {
-							sql += " WHERE ";
-						} else {
-							sql += " AND ";
-						}
-						sql += " precoUnitario >= '" + precoInicial + "' ";
-						primeiro = false;
-					}
-
-					if (precoFinal > 0) {
-						if (primeiro) {
-							sql += " WHERE ";
-						} else {
-							sql += " AND ";
-						}
-						sql += " precoUnitario <= '" + precoFinal + "' ";
-						primeiro = false;
-					}
 				}
-			}	
+
+				if (precoFinal > 0) {
+					if (primeiro) {
+						sql += " WHERE ";
+					} else {
+						sql += " AND ";
+					}
+					sql += " precoUnitario <= '" + precoFinal + "' ";
+					primeiro = false;
+				}
+			}
+		}
 		return sql;
 	}
+
 
 }

@@ -37,5 +37,9 @@ public class ItemBO {
 	public boolean atualizarItemBO(ItemVO item) {
 		return itemDAO.atualizar(item);
 	}
+
+	public boolean diminuirtQuantidadeBO(int idItem, int quantidade) {
+		return itemDAO.diminuirQuantidade(idItem, quantidade);
+	}
 	
 }

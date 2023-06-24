@@ -12,11 +12,10 @@ import model.seletor.SeletorItem;
 import model.seletor.SeletorUsuario;
 import model.vo.ItemVO;
 import model.vo.UsuarioVO;
-import model.vo.CarrinhoVO;
+
 
 public class UsuarioDAO {
 
-	private CarrinhoDAO carrinhoDAO;
 
 	public UsuarioVO inserir(UsuarioVO novoUsuario) {
 		Connection conn = Banco.getConnection();
@@ -48,7 +47,8 @@ public class UsuarioDAO {
 
 	public boolean atualizar(UsuarioVO usuarioAtualizado) {
 		Connection conn = Banco.getConnection();
-		String sql = "UPDATE USUARIO SET NOME=?, SENHA=?, EMAIL=?, CPF=?, ADM=? WHERE IDUSUARIO= " +usuarioAtualizado.getId();
+		String sql = "UPDATE USUARIO SET NOME=?, SENHA=?, EMAIL=?, CPF=?, ADM=? WHERE IDUSUARIO= "
+				+ usuarioAtualizado.getId();
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
 		int registrosAlterados = 0;
 		try {
@@ -136,7 +136,6 @@ public class UsuarioDAO {
 	}
 
 	private UsuarioVO montarUsuarioComResultadoDoBanco(ResultSet resultado) throws SQLException {
-		CarrinhoVO novoCarrinho = new CarrinhoVO();
 		UsuarioVO usuarioBuscado = new UsuarioVO();
 		usuarioBuscado.setId(resultado.getInt("idusuario"));
 		usuarioBuscado.setNome(resultado.getString("nome"));
@@ -149,7 +148,6 @@ public class UsuarioDAO {
 	}
 
 	public UsuarioVO realizarLogin(String email, String senha) {
-		CarrinhoVO novoCarrinho = new CarrinhoVO();
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
@@ -171,14 +169,6 @@ public class UsuarioDAO {
 				usuarioAutenticado.setSenha(resultado.getString(5));
 				usuarioAutenticado.setAdm(resultado.getBoolean(6));
 
-				carrinhoDAO = new CarrinhoDAO();
-				if(carrinhoDAO.verificarExistenciaCarrinho(usuarioAutenticado.getCpf())) {
-					
-				} else {
-					carrinhoDAO.inserir(usuarioAutenticado.getId());	
-				}
-				
-				
 			}
 
 		} catch (SQLException e) {
@@ -350,26 +340,25 @@ public class UsuarioDAO {
 	}
 
 	public boolean verificarAdm(UsuarioVO usuarioVO) {
-        boolean verificacao = false;
-        Connection conn = Banco.getConnection();
-        String sql = " select count(*) from usuario"
-                    + " where id = ? and adm = 1";
-        PreparedStatement query = Banco.getPreparedStatement(conn, sql);
-        try {
-            query.setInt(1, usuarioVO.getId());
-            query.setBoolean(2, usuarioVO.isAdm());
-            ResultSet resultado = query.executeQuery();
+		boolean verificacao = false;
+		Connection conn = Banco.getConnection();
+		String sql = " select count(*) from usuario" + " where id = ? and adm = 1";
+		PreparedStatement query = Banco.getPreparedStatement(conn, sql);
+		try {
+			query.setInt(1, usuarioVO.getId());
+			query.setBoolean(2, usuarioVO.isAdm());
+			ResultSet resultado = query.executeQuery();
 
-            if(resultado.next()) {
-                verificacao = resultado.getInt(1) > 0;
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro ao verificar uso do ADM \n Causa:" + e.getMessage());
-        } finally {
-            Banco.closePreparedStatement(query);
-            Banco.closeConnection(conn);
-        }
-        return verificacao;
-    }
-	
+			if (resultado.next()) {
+				verificacao = resultado.getInt(1) > 0;
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar uso do ADM \n Causa:" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conn);
+		}
+		return verificacao;
+	}
+
 }
