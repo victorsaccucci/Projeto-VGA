@@ -39,14 +39,17 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 	private MaskFormatter mascaraCpf;
 	private JLabel lblTitulo;
 
+	private boolean novoCliente;
 	/**
 	 * Create the panel.
 	 * @throws ParseException 
 	 */
 	public PainelAdmCadastroUsuarios(UsuarioVO usuarioParaEditar) throws ParseException {
-		if(usuarioParaEditar == null) {
+		if(usuarioParaEditar.getId() == null) {
+			novoCliente = true;
 			this.usuario = new UsuarioVO();
 		}else {
+			novoCliente = false;
 			this.usuario = usuarioParaEditar;
 		}
 		
@@ -111,7 +114,7 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				usuarioController = new UsuarioController();
-				usuario = new UsuarioVO();
+				
 				
 				usuario.setNome(txtNome.getText());
 				usuario.setEmail(txtEmail.getText());
@@ -132,14 +135,17 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 				
 				try {
 					//TODO verificar o id -> se tiver (atualizar), senão (cadastrar)
-					if(usuario.getId() == null) {
+					if(novoCliente) {
 						usuarioController.cadastrarUsuarioController(usuario);
+						JOptionPane.showMessageDialog(null, "Cliente SALVO com sucesso!", 
+								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
 					} else {
 						usuarioController.atualizarUsuarioController(usuario);
+						JOptionPane.showMessageDialog(null, "Cliente ATUALIZADO com sucesso!", 
+								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
 					}
 					
-					JOptionPane.showMessageDialog(null, "Usuario salvo com sucesso!", 
-							"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+					
 					
 				} catch (ExceptionVGA e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), 
