@@ -33,5 +33,9 @@ public class ItemBO {
 	public boolean excluirItemBO(int id) throws ExceptionVGA{
 		return itemDAO.excluir(id);
 	}
+
+	public boolean atualizarItemBO(ItemVO item) {
+		return itemDAO.atualizar(item);
+	}
 	
 }

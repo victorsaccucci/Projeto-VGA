@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import controller.ItemController;
 import controller.ProdutoController;
@@ -33,6 +34,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -52,11 +54,13 @@ public class PainelCadastroItem extends JPanel {
 	private JButton btnCadastrar;
 	private JComboBox cbProduto;
 	private JLabel lblPreco;
+	private JLabel lblTitulo;
 
 	private ItemController itemController;
 	private ProdutoController produtoController;
 	protected ItemVO novoItem;
 	private JButton btnAddImagem;
+	private ItemVO item;
 	
 	private ArrayList<ItemVO> listaDeImagens = new ArrayList<ItemVO>();
 	
@@ -65,17 +69,34 @@ public class PainelCadastroItem extends JPanel {
 	private TelaMenuPrincipal telaMenuPrincipal;
 	private JLabel lbltetse;
 
+	private boolean itemTrueFalse;
+	private JButton btnCadastrarItem;
 
-	public PainelCadastroItem() {
+	public PainelCadastroItem(ItemVO itemParaEditar) throws ParseException {
+		if(itemParaEditar == null) {
+			itemTrueFalse = true;
+			this.item = new ItemVO();
+		}else {
+			itemTrueFalse = false;
+			this.item = itemParaEditar;
+		}
+		
 		setBackground(new Color(0, 139, 139));
 		setLayout(null);
+		
+		lblTitulo = new JLabel(item.getId() == 0 ? "NOVO ITEM" : "EDIÇÃO DE ITEM");
+		lblTitulo.setForeground(new Color(255, 255, 255));
+		lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblTitulo.setBounds(432, 65, 231, 13);
+		lblTitulo.setHorizontalAlignment(SwingConstants.LEFT);
+		add(lblTitulo, "4, 2, 9, 1, center, default");
 
 		lblProduto = new JLabel("Produto:");
 		lblProduto.setForeground(new Color(255, 255, 255));
 		lblProduto.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblProduto.setBounds(213, 91, 59, 20);
 		add(lblProduto);
-
+		
 		produtoController = new ProdutoController();
 		cbProduto = new JComboBox(produtoController.consultarTodosProdutosController().toArray());
 
@@ -153,34 +174,38 @@ public class PainelCadastroItem extends JPanel {
 		btnAddImagem.setBounds(305, 382, 43, 28);
 		add(btnAddImagem);
 
-		JButton btnCadastrarItem = new JButton("Cadastrar");
+		btnCadastrarItem = new JButton("Cadastrar");
 		btnCadastrarItem.setBackground(new Color(255, 255, 255));
 		btnCadastrarItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				itemController = new ItemController();
-				novoItem = new ItemVO();
+				
 
-				novoItem.setCor(txtCor.getText());
-				novoItem.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
-				novoItem.setPrecoUnitario(Double.parseDouble(txtPreco.getText()));
-				novoItem.setTamanho(txtTamanho.getText());
-				novoItem.setProduto((ProdutoVO) cbProduto.getSelectedItem());
+				item.setCor(txtCor.getText());
+				item.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+				item.setPrecoUnitario(Double.parseDouble(txtPreco.getText()));
+				item.setTamanho(txtTamanho.getText());
+				item.setProduto((ProdutoVO) cbProduto.getSelectedItem());
 				
 				try {
-					novoItem.setImagem(Files.readAllBytes(imagemSelecionada.toPath()));
+					item.setImagem(Files.readAllBytes(imagemSelecionada.toPath()));
 				} catch (IOException e1) {
 					
 					JOptionPane.showMessageDialog(null, "Erro ao converter imagem" + e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 				
-				listaDeImagens.add(novoItem);
+				listaDeImagens.add(item);
 
 				try {
-					novoItem = itemController.inserirItem(novoItem);
-
-					if (novoItem.getId() > 0) {
-						JOptionPane.showMessageDialog(null, "Item cadastrado com sucesso!", "Sucesso",
-								JOptionPane.INFORMATION_MESSAGE);
+					//TODO verificar o id -> se tiver (atualizar), senão (cadastrar)
+					if(itemTrueFalse) {
+						itemController.inserirItem(item);
+						JOptionPane.showMessageDialog(null, "Item SALVO com sucesso!", 
+								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						itemController.atualizarItem(item);
+						JOptionPane.showMessageDialog(null, "Item ATUALIZADO com sucesso!", 
+								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
 					}
 
 				} catch (ExceptionVGA e1) {
@@ -193,6 +218,15 @@ public class PainelCadastroItem extends JPanel {
 		btnCadastrarItem.setBounds(430, 381, 109, 27);
 		add(btnCadastrarItem);
 
-
+		if(this.item != null) {
+			preencherCamposDaTela();
+		}
+	}
+	private void preencherCamposDaTela() {
+		this.txtCor.setText(this.item.getCor());
+		this.txtPreco.setText(String.valueOf(this.txtQuantidade.getText()));
+		this.txtQuantidade.setText(String.valueOf(this.item.getQuantidade()));
+		this.txtTamanho.setText(this.item.getTamanho());
+		this.btnCadastrarItem.setText("Salvar");
 	}
 }

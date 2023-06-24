@@ -8,6 +8,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import model.vo.ItemVO;
 import model.vo.UsuarioVO;
 
 import javax.swing.JMenuBar;
@@ -34,13 +35,14 @@ public class TelaMenuAdm {
 	private JFrame frame;
 	private PainelListagemClientes painelListagemClientes;
 	private PainelAdmCadastroUsuarios painelAdmCadastroUsuarios;
-	
+
 	private PainelListagemItens listagemItens;
 	private PainelCadastroItem painelCadastroItem;
 	protected PainelCadastroDeProduto painelCadastroProduto;
 	private PainelAdmCadastroUsuarios painelCadastroUsuarios;
 	private UsuarioVO usuario;
-	
+	private ItemVO item;
+
 	private TelaMenuPrincipal telaMenuPrincipal;
 
 	public static void main(String[] args) {
@@ -56,37 +58,35 @@ public class TelaMenuAdm {
 		});
 	}
 
-
 	public TelaMenuAdm() {
 		initialize();
 	}
-
 
 	private void initialize() {
 		frame = new JFrame();
 		frame.setUndecorated(true);
 		MouseAdapter mouseAdapter = new MouseAdapter() {
-		    private Point initialClick;
+			private Point initialClick;
 
-		    @Override
-		    public void mousePressed(MouseEvent e) {
-		        initialClick = e.getPoint();
-		        frame.getComponentAt(initialClick);
-		    }
+			@Override
+			public void mousePressed(MouseEvent e) {
+				initialClick = e.getPoint();
+				frame.getComponentAt(initialClick);
+			}
 
-		    @Override
-		    public void mouseDragged(MouseEvent e) {
-		        int thisX = frame.getLocation().x;
-		        int thisY = frame.getLocation().y;
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int thisX = frame.getLocation().x;
+				int thisY = frame.getLocation().y;
 
-		        int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
-		        int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
+				int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
+				int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
 
-		        int X = thisX + xMoved;
-		        int Y = thisY + yMoved;
+				int X = thisX + xMoved;
+				int Y = thisY + yMoved;
 
-		        frame.setLocation(X, Y);
-		    }
+				frame.setLocation(X, Y);
+			}
 		};
 		frame.addMouseListener(mouseAdapter);
 		frame.addMouseMotionListener(mouseAdapter);
@@ -105,7 +105,6 @@ public class TelaMenuAdm {
 
 		JMenuItem menuItemCadastrarUsuarios = new JMenuItem("Cadastrar");
 		menuItemCadastrarUsuarios.addActionListener(new ActionListener() {
-		
 
 			public void actionPerformed(ActionEvent e) {
 				usuario = new UsuarioVO();
@@ -120,54 +119,57 @@ public class TelaMenuAdm {
 			}
 		});
 		menuUsuarios.add(menuItemCadastrarUsuarios);
-		
-				JMenuItem menuItemConsultarUsuarios = new JMenuItem("Consultar");
-				menuItemConsultarUsuarios.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						painelListagemClientes = new PainelListagemClientes();
-						painelListagemClientes.getBtnEditar().addActionListener(new ActionListener() {
-							
 
-							public void actionPerformed(ActionEvent e) {
-								try {
-									painelCadastroUsuarios = new PainelAdmCadastroUsuarios(painelListagemClientes.getUsuarioSelecionado());
-									painelCadastroUsuarios.setVisible(true);
-									frame.setContentPane(painelCadastroUsuarios);
-									frame.revalidate();
-									registrarCliqueBotaoEditarDoPainelListagemCliente();
-								} catch (ParseException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
-								
-							}
-						});
-						painelListagemClientes.setVisible(true);
-						frame.setContentPane(painelListagemClientes);
-						frame.revalidate();
+		JMenuItem menuItemConsultarUsuarios = new JMenuItem("Consultar");
+		menuItemConsultarUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelListagemClientes = new PainelListagemClientes();
+				painelListagemClientes.getBtnEditar().addActionListener(new ActionListener() {
+
+					public void actionPerformed(ActionEvent e) {
+						try {
+							painelCadastroUsuarios = new PainelAdmCadastroUsuarios(
+									painelListagemClientes.getUsuarioSelecionado());
+							painelCadastroUsuarios.setVisible(true);
+							frame.setContentPane(painelCadastroUsuarios);
+							frame.revalidate();
+							registrarCliqueBotaoEditarDoPainelListagemCliente();
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
 					}
 				});
-				menuUsuarios.add(menuItemConsultarUsuarios);
+				painelListagemClientes.setVisible(true);
+				frame.setContentPane(painelListagemClientes);
+				frame.revalidate();
+			}
+		});
+		menuUsuarios.add(menuItemConsultarUsuarios);
 
 		JMenu menuEstoque = new JMenu("Estoque");
 		menuEstoque.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		menuEstoque.setForeground(new Color(0, 139, 139));
 		menuEstoque.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-vender-estoque-30.png")));
 		menuBar.add(menuEstoque);
-		
+
 		JMenuItem menuItemCadastrarItem = new JMenuItem("Cadastrar Item");
 		menuItemCadastrarItem.addActionListener(new ActionListener() {
-			
-
 			public void actionPerformed(ActionEvent e) {
-				painelCadastroItem = new PainelCadastroItem();
+				item = new ItemVO();
+				try {
+					painelCadastroItem = new PainelCadastroItem(null);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
 				painelCadastroItem.setVisible(true);
 				frame.setContentPane(painelCadastroItem);
 				frame.revalidate();
 			}
 		});
 		menuEstoque.add(menuItemCadastrarItem);
-		
+
 		JMenuItem menuItemCadastrarProduto = new JMenuItem("Cadastrar Produto");
 		menuItemCadastrarProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -178,18 +180,32 @@ public class TelaMenuAdm {
 			}
 		});
 		menuEstoque.add(menuItemCadastrarProduto);
-		
-				JMenuItem menuItemConsultarEstoque = new JMenuItem("Consultar");
-				menuItemConsultarEstoque.addActionListener(new ActionListener() {
 
+		JMenuItem menuItemConsultarEstoque = new JMenuItem("Consultar Estoque");
+		menuItemConsultarEstoque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listagemItens = new PainelListagemItens();
+				listagemItens.getBtnEditar().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						listagemItens = new PainelListagemItens();
-						listagemItens.setVisible(true);
-						frame.setContentPane(listagemItens);
-						frame.revalidate();
+						try {
+							painelCadastroItem = new PainelCadastroItem(listagemItens.getItemSelecionado());
+							listagemItens.setVisible(true);
+							frame.setContentPane(listagemItens);
+							frame.revalidate();
+							registrarCliqueBotaoEditarDoPainelListagemItens();
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
 					}
 				});
-				menuEstoque.add(menuItemConsultarEstoque);
+				listagemItens.setVisible(true);
+				frame.setContentPane(listagemItens);
+				frame.revalidate();
+			}
+		});
+		menuEstoque.add(menuItemConsultarEstoque);
 
 		JMenu mnNewMenu_2 = new JMenu("Menu");
 		mnNewMenu_2.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -230,7 +246,7 @@ public class TelaMenuAdm {
 		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(panel,
 				GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE));
 		panel.setLayout(null);
-		
+
 		JLabel lblVga = new JLabel("");
 		lblVga.setBounds(317, 67, 412, 397);
 		lblVga.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/LogoVGA3.png")));
@@ -238,25 +254,45 @@ public class TelaMenuAdm {
 
 	}
 	
-	protected void registrarCliqueBotaoEditarDoPainelListagemCliente() {
-		
-		painelListagemClientes.getBtnEditar().addActionListener(new ActionListener() {
+	protected void registrarCliqueBotaoEditarDoPainelListagemItens() {
+
+		listagemItens.getBtnEditar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					painelAdmCadastroUsuarios =  new PainelAdmCadastroUsuarios(painelListagemClientes.getUsuarioSelecionado());
+					painelCadastroItem = new PainelCadastroItem(
+							listagemItens.getItemSelecionado());
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}		
+				}
+				painelCadastroItem.setVisible(true);
+				frame.setContentPane(painelCadastroItem);
+				frame.revalidate();
+			}
+		});
+
+	}
+
+	protected void registrarCliqueBotaoEditarDoPainelListagemCliente() {
+
+		painelListagemClientes.getBtnEditar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					painelAdmCadastroUsuarios = new PainelAdmCadastroUsuarios(
+							painelListagemClientes.getUsuarioSelecionado());
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				painelAdmCadastroUsuarios.setVisible(true);
 				frame.setContentPane(painelAdmCadastroUsuarios);
 				frame.revalidate();
 			}
 		});
-		
+
 	}
 
 	public void tornarVisivelForaDoFrame() {
-		frame.setVisible(true);		
+		frame.setVisible(true);
 	}
 }

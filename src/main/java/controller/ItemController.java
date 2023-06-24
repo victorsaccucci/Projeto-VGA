@@ -75,5 +75,10 @@ public class ItemController {
 		GeradorPlanilha gerador = new GeradorPlanilha();
 		return gerador.gerarPlanilhaProdutos(item, caminho);
 	}
+
+	public boolean atualizarItem(ItemVO item) {
+		return bo.atualizarItemBO(item);
+		
+	}
 	
 }
