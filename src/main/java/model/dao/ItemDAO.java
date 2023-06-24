@@ -78,8 +78,7 @@ public class ItemDAO {
 	public boolean atualizar(ItemVO itemVO) {
 		boolean atualizou = false;
 		Connection conn = Banco.getConnection();
-		String slq = " UPDATE ITEM SET TAMANHO=?, COR=?, QUANTIDADE=?, PRECOUNITARIO=?, IDPRODUTO=? "
-				+ " WHERE IDITEM=? ";
+		String slq = " UPDATE ITEM SET TAMANHO=?, COR=?, QUANTIDADE=?, PRECOUNITARIO=?, IDPRODUTO=? WHERE IDITEM= " +itemVO.getId();
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, slq);
 
 		try {

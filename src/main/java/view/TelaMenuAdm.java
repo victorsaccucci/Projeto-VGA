@@ -188,9 +188,10 @@ public class TelaMenuAdm {
 				listagemItens.getBtnEditar().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							painelCadastroItem = new PainelCadastroItem(listagemItens.getItemSelecionado());
-							listagemItens.setVisible(true);
-							frame.setContentPane(listagemItens);
+							painelCadastroItem = new PainelCadastroItem(
+									listagemItens.getItemSelecionado());
+							painelCadastroItem.setVisible(true);
+							frame.setContentPane(painelCadastroItem);
 							frame.revalidate();
 							registrarCliqueBotaoEditarDoPainelListagemItens();
 						} catch (ParseException e1) {
