@@ -123,7 +123,12 @@ public class TelaMenuAdm {
 		JMenuItem menuItemConsultarUsuarios = new JMenuItem("Consultar");
 		menuItemConsultarUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				painelListagemClientes = new PainelListagemClientes();
+				try {
+					painelListagemClientes = new PainelListagemClientes();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				painelListagemClientes.getBtnEditar().addActionListener(new ActionListener() {
 
 					public void actionPerformed(ActionEvent e) {
