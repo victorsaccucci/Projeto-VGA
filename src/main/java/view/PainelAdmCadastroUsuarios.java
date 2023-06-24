@@ -57,8 +57,10 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 		setLayout(null);
 		
 		lblTitulo = new JLabel(usuario.getId() == null ? "NOVO CLIENTE" : "EDIÇÃO DE CLIENTE");
-		lblTitulo.setBounds(438, 36, 231, 13);
-		lblTitulo.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTitulo.setForeground(new Color(255, 255, 255));
+		lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblTitulo.setBounds(311, 63, 358, 13);
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblTitulo, "4, 2, 9, 1, center, default");
 		
 		lblNome = new JLabel("Nome:");
