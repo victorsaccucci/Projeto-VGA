@@ -11,6 +11,7 @@ import javax.swing.event.DocumentListener;
 import controller.ItemController;
 import model.ExceptionVGA;
 import model.seletor.SeletorItem;
+import model.seletor.SeletorProduto;
 import model.vo.ItemVO;
 import model.vo.ProdutoVO;
 import model.vo.UsuarioVO;
@@ -56,11 +57,14 @@ public class PainelListagemItens extends JPanel {
 	private JFileChooser jfc;
 	
 	//Seletor
+	private SeletorProduto seletorProduto;
 	private SeletorItem seletor;
 	private ItemController itemControllerSeletor;
 	private JButton btnEditar;
 	private JButton btnExcluir;
 	private JButton btnGerarRelatorio;
+	private JTextField txtMarca;
+	private JTextField txtModelo;
 
 	private void limparTabela() {
 		tabelaItens.setModel(new DefaultTableModel(new Object[][] { nomeColunas, }, nomeColunas));
@@ -103,13 +107,13 @@ public class PainelListagemItens extends JPanel {
 		lblTamanho = new JLabel("Tamanho:");
 		lblTamanho.setForeground(new Color(255, 255, 255));
 		lblTamanho.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblTamanho.setBounds(366, 61, 77, 26);
+		lblTamanho.setBounds(282, 61, 77, 26);
 		add(lblTamanho);
 
 		lblCor = new JLabel("Cor:");
 		lblCor.setForeground(new Color(255, 255, 255));
 		lblCor.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblCor.setBounds(390, 132, 53, 26);
+		lblCor.setBounds(282, 132, 53, 26);
 		add(lblCor);
 
 		txtMenorPreco = new JTextField();
@@ -124,12 +128,12 @@ public class PainelListagemItens extends JPanel {
 
 		txtTamanho = new JTextField();
 		txtTamanho.setColumns(10);
-		txtTamanho.setBounds(443, 61, 55, 31);
+		txtTamanho.setBounds(359, 61, 61, 31);
 		add(txtTamanho);
 
 		txtCor = new JTextField();
 		txtCor.setColumns(10);
-		txtCor.setBounds(443, 132, 165, 31);
+		txtCor.setBounds(321, 132, 99, 31);
 		add(txtCor);
 
 		btnBuscar = new JButton("Buscar");
@@ -143,7 +147,7 @@ public class PainelListagemItens extends JPanel {
 				atualizarTabelaItens();
 			}
 		});
-		btnBuscar.setBounds(629, 131, 99, 31);
+		btnBuscar.setBounds(764, 89, 99, 31);
 		add(btnBuscar);
 
 		btnBuscarTodos = new JButton("Buscar Todos");
@@ -242,7 +246,7 @@ public class PainelListagemItens extends JPanel {
 		btnGerarRelatorio.setForeground(new Color(0, 139, 139));
 		btnGerarRelatorio.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnGerarRelatorio.setBackground(Color.WHITE);
-		btnGerarRelatorio.setBounds(485, 381, 123, 34);
+		btnGerarRelatorio.setBounds(75, 430, 123, 34);
 		add(btnGerarRelatorio);
 		
 		btnGerarRelatorio.setForeground(new Color(0, 139, 139));
@@ -251,13 +255,35 @@ public class PainelListagemItens extends JPanel {
 		btnGerarRelatorio.setBounds(485, 381, 123, 34);
 		add(btnGerarRelatorio);
 		
+		JLabel lblMarca = new JLabel("Marca:");
+		lblMarca.setForeground(Color.WHITE);
+		lblMarca.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblMarca.setBounds(463, 61, 53, 26);
+		add(lblMarca);
+		
+		txtMarca = new JTextField();
+		txtMarca.setColumns(10);
+		txtMarca.setBounds(526, 61, 82, 31);
+		add(txtMarca);
+		
+		JLabel lblModelo = new JLabel("Modelo:");
+		lblModelo.setForeground(Color.WHITE);
+		lblModelo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblModelo.setBounds(455, 134, 67, 26);
+		add(lblModelo);
+		
+		txtModelo = new JTextField();
+		txtModelo.setColumns(10);
+		txtModelo.setBounds(526, 132, 82, 31);
+		add(txtModelo);
+		
+		//Checa se os campos estão sendo preenchidos
         txtMaiorPreco.getDocument().addDocumentListener(new MyDocumentListener());
         txtMenorPreco.getDocument().addDocumentListener(new MyDocumentListener());
         txtTamanho.getDocument().addDocumentListener(new MyDocumentListener());
         txtCor.getDocument().addDocumentListener(new MyDocumentListener());
-        
-        //TODO botao editar e excluir e as funções.
-
+        txtMarca.getDocument().addDocumentListener(new MyDocumentListener());
+        txtModelo.getDocument().addDocumentListener(new MyDocumentListener());
 	}
 	
 	private class MyDocumentListener implements DocumentListener {
@@ -275,16 +301,12 @@ public class PainelListagemItens extends JPanel {
     }
 
 	private void checarCampos() {
-		if(!txtTamanho.getText().isEmpty()) {
+		if (!txtMenorPreco.getText().isEmpty() && !txtMaiorPreco.getText().isEmpty() || !txtTamanho.getText().isEmpty() 
+				|| !txtCor.getText().isEmpty() || !txtMarca.getText().isEmpty() || !txtModelo.getText().isEmpty()){
 			btnBuscar.setEnabled(true);
+		}else {
+			btnBuscar.setEnabled(false);
 		}
-		if (!txtMenorPreco.getText().isEmpty() && !txtMaiorPreco.getText().isEmpty()){
-			btnBuscar.setEnabled(true);
-		}
-		if(!txtCor.getText().isEmpty()) {
-			btnBuscar.setEnabled(true);
-		}
-		
 	}
 
 	protected void buscarItensComFiltro() {
@@ -295,8 +317,11 @@ public class PainelListagemItens extends JPanel {
 		seletor.setTamanho(txtTamanho.getText());
 		seletor.setPrecoInicial(txtMenorPreco.getText());
 		seletor.setPrecoFinal(txtMaiorPreco.getText());
-
-		itens = (List<ItemVO>) itemControllerSeletor.consultarComFiltros(seletor);
+		
+		seletorProduto = new SeletorProduto();
+		seletorProduto.setMarca(txtMarca.getText());
+		seletorProduto.setModelo(txtModelo.getText());
+		itens = (List<ItemVO>) itemControllerSeletor.consultarComFiltros(seletor, seletorProduto);
 		atualizarTabelaItens();
 
 	}
