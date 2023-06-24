@@ -240,12 +240,11 @@ public class TelaLoginUsuario {
 						telaMenuAdm.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
 
-					}else {
+					} else {
 						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
 						telaMenuPrincipal.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
 					}
-
 
 				} catch (ExceptionVGA exception) {
 					JOptionPane.showConfirmDialog(null, exception.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
