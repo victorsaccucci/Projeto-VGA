@@ -85,29 +85,29 @@ public class TelaLoginUsuario {
 		// clean
 		frame = new JFrame();
 		frame.setUndecorated(true);
-		
+
 		MouseAdapter mouseAdapter = new MouseAdapter() {
-		    private Point initialClick;
+			private Point initialClick;
 
-		    @Override
-		    public void mousePressed(MouseEvent e) {
-		        initialClick = e.getPoint();
-		        frame.getComponentAt(initialClick);
-		    }
+			@Override
+			public void mousePressed(MouseEvent e) {
+				initialClick = e.getPoint();
+				frame.getComponentAt(initialClick);
+			}
 
-		    @Override
-		    public void mouseDragged(MouseEvent e) {
-		        int thisX = frame.getLocation().x;
-		        int thisY = frame.getLocation().y;
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int thisX = frame.getLocation().x;
+				int thisY = frame.getLocation().y;
 
-		        int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
-		        int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
+				int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
+				int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
 
-		        int X = thisX + xMoved;
-		        int Y = thisY + yMoved;
+				int X = thisX + xMoved;
+				int Y = thisY + yMoved;
 
-		        frame.setLocation(X, Y);
-		    }
+				frame.setLocation(X, Y);
+			}
 		};
 
 		frame.addMouseListener(mouseAdapter);
@@ -223,7 +223,6 @@ public class TelaLoginUsuario {
 		btnEntrar.setBackground(new Color(255, 255, 255));
 		btnEntrar.addActionListener(new ActionListener() {
 
-
 			public void actionPerformed(ActionEvent e) {
 
 				String email = txtEmail.getText();
@@ -234,20 +233,19 @@ public class TelaLoginUsuario {
 				telaMenuAdm = new TelaMenuAdm();
 				telaMenuPrincipal = new TelaMenuPrincipal();
 				usuarioAutenticado = new UsuarioVO();
-				
-				
+
 				try {
-					if (usuarioAutenticado.isAdm()) {
+					if (usuarioController.realizarLoginController(email, senha).isAdm() == true) {
 						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
 						telaMenuAdm.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
-						
 
-					} else {
+					}else {
 						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
 						telaMenuPrincipal.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
 					}
+
 
 				} catch (ExceptionVGA exception) {
 					JOptionPane.showConfirmDialog(null, exception.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
@@ -310,12 +308,12 @@ public class TelaLoginUsuario {
 		lblMaximizar.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8-maximizar-10.png")));
 		lblMaximizar.setBounds(422, 5, 25, 24);
 		painelCampos.add(lblMaximizar);
-		
+
 		lblMinizar = new JLabel("  ");
 		lblMinizar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				 frame.setExtendedState(JFrame.ICONIFIED);
+				frame.setExtendedState(JFrame.ICONIFIED);
 			}
 		});
 		lblMinizar.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8-minimizar-15.png")));
