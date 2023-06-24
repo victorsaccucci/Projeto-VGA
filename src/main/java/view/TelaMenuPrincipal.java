@@ -67,7 +67,6 @@ public class TelaMenuPrincipal {
 	private JMenu menuMaximizar;
 	private JMenu menuSair;
 	protected TelaCarrinho telaCarrinho;
-	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -91,16 +90,16 @@ public class TelaMenuPrincipal {
 		frame.setUndecorated(true);
 		frame.setBounds(100, 100, 1050, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		frame.addComponentListener(new ComponentAdapter() {
-		    @Override
-		    public void componentResized(ComponentEvent e) {
-		        int frameWidth = frame.getWidth();
-		        menuBar.setPreferredSize(new Dimension(frameWidth, menuBar.getPreferredSize().height));
-		        frame.revalidate();
-		    }
+			@Override
+			public void componentResized(ComponentEvent e) {
+				int frameWidth = frame.getWidth();
+				menuBar.setPreferredSize(new Dimension(frameWidth, menuBar.getPreferredSize().height));
+				frame.revalidate();
+			}
 		});
-		
+
 		frame.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				initialClick = e.getPoint();
@@ -135,7 +134,7 @@ public class TelaMenuPrincipal {
 		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
 		menuBar = new JMenuBar();
-		menuBar.setUI(new CustomMenuBarUI()); 
+		menuBar.setUI(new CustomMenuBarUI());
 		scrollPane.setColumnHeaderView(menuBar);
 
 		menuCarrinho = new JMenu("");
@@ -148,7 +147,8 @@ public class TelaMenuPrincipal {
 			}
 		});
 
-		menuCarrinho.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-sacola-de-compras-30.png")));
+		menuCarrinho
+				.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-sacola-de-compras-30.png")));
 		menuCarrinho.setForeground(new Color(0, 139, 139)); // Define a cor do texto do JMenu
 		menuBar.add(menuCarrinho);
 
@@ -161,26 +161,26 @@ public class TelaMenuPrincipal {
 		menuMinimizar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				  frame.setState(Frame.ICONIFIED); // Minimiza o JFrame
+				frame.setState(Frame.ICONIFIED); // Minimiza o JFrame
 			}
 		});
 		menuMinimizar.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-minimizar-15.png")));
 		menuMinimizar.setForeground(new Color(255, 255, 255));
 		menuMinimizar.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		menuBar.add(menuMinimizar);
-		
+
 		menuMaximizar = new JMenu("");
 		menuMaximizar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				   frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			}
 		});
 		menuMaximizar.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-maximizar-10.png")));
 		menuMaximizar.setForeground(Color.WHITE);
 		menuMaximizar.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		menuBar.add(menuMaximizar);
-		
+
 		menuSair = new JMenu("X");
 		menuSair.addMouseListener(new MouseAdapter() {
 			@Override
@@ -198,13 +198,13 @@ public class TelaMenuPrincipal {
 	class CustomMenuBarUI extends BasicMenuBarUI {
 		@Override
 		public void paint(Graphics g, JComponent c) {
-			g.setColor(new Color(0, 139, 139)); 
+			g.setColor(new Color(0, 139, 139));
 			g.fillRect(0, 0, c.getWidth(), c.getHeight());
 		}
 	}
 
 	public void tornarVisivelForaDoFrame() {
 		frame.setVisible(true);
-		
+
 	}
 }
