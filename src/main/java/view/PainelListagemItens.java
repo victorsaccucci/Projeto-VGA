@@ -263,7 +263,7 @@ public class PainelListagemItens extends JPanel {
 		
 		txtMarca = new JTextField();
 		txtMarca.setColumns(10);
-		txtMarca.setBounds(526, 61, 82, 31);
+		txtMarca.setBounds(526, 61, 99, 31);
 		add(txtMarca);
 		
 		JLabel lblModelo = new JLabel("Modelo:");
@@ -274,7 +274,7 @@ public class PainelListagemItens extends JPanel {
 		
 		txtModelo = new JTextField();
 		txtModelo.setColumns(10);
-		txtModelo.setBounds(526, 132, 82, 31);
+		txtModelo.setBounds(526, 132, 99, 31);
 		add(txtModelo);
 		
 		//Checa se os campos estão sendo preenchidos
