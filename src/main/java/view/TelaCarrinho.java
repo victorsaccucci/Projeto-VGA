@@ -29,20 +29,19 @@ import javax.swing.JButton;
 public class TelaCarrinho {
 
 	private JFrame frame;
-	private TelaDeProdutos telaDeProdutos;
 	private JLabel lblSair;
 	private JLabel lblMaximizar;
 	private JLabel lblMinimizar;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JTable tabelaCarrinho;
-	
+
 	private String[] nomesColunas = { "Modelo", "Marca", "Cor", "Tamanho", "Quantidade", "Valor", "Total" };
 	private List<ItemVO> itens;
-	
+
 	private ItemController controllerCarrinho;
 	protected TelaMenuPrincipal telaMenuPrincipal;
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -56,7 +55,6 @@ public class TelaCarrinho {
 		});
 	}
 
-	
 	public TelaCarrinho() {
 		initialize();
 	}
@@ -64,33 +62,32 @@ public class TelaCarrinho {
 	private void limparTabela() {
 		tabelaCarrinho.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
 	}
-	
-	private void atualizarTabelaCarrinho() {
-	    this.limparTabela();
 
-	    DefaultTableModel model = (DefaultTableModel) tabelaCarrinho.getModel();
-	    itens = controllerCarrinho.consultarTodos();
-		
-		
-	    for (ItemVO itemVO : itens) {
-	        Object[] novaLinhaDaTabela = new Object[6];
-	        novaLinhaDaTabela[0] = itemVO.getCor();
-	        novaLinhaDaTabela[1] = itemVO.getTamanho();
-	        novaLinhaDaTabela[2] = itemVO.getQuantidade();
-	        novaLinhaDaTabela[3] = itemVO.getPrecoUnitario();
-	        novaLinhaDaTabela[4] = itemVO.getProduto().getMarca(); 
-	        novaLinhaDaTabela[5] = itemVO.getProduto().getModelo(); 
-	        model.addRow(novaLinhaDaTabela);
-	    }
+	private void atualizarTabelaCarrinho() {
+		this.limparTabela();
+
+		DefaultTableModel model = (DefaultTableModel) tabelaCarrinho.getModel();
+		itens = controllerCarrinho.consultarTodos();
+
+		for (ItemVO itemVO : itens) {
+			Object[] novaLinhaDaTabela = new Object[6];
+			novaLinhaDaTabela[0] = itemVO.getCor();
+			novaLinhaDaTabela[1] = itemVO.getTamanho();
+			novaLinhaDaTabela[2] = itemVO.getQuantidade();
+			novaLinhaDaTabela[3] = itemVO.getPrecoUnitario();
+			novaLinhaDaTabela[4] = itemVO.getProduto().getMarca();
+			novaLinhaDaTabela[5] = itemVO.getProduto().getModelo();
+			model.addRow(novaLinhaDaTabela);
+		}
 	}
-	
+
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 139, 139));
 		frame.setUndecorated(true);
 		frame.setBounds(100, 100, 946, 585);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -98,59 +95,49 @@ public class TelaCarrinho {
 				telaMenuPrincipal = new TelaMenuPrincipal();
 				telaMenuPrincipal.tornarVisivelForaDoFrame();
 				frame.setVisible(false);
-				
+
 			}
 		});
 		lblNewLabel.setIcon(new ImageIcon(TelaCarrinho.class.getResource("/icones/icons8-voltar-50 (1).png")));
-		
-		tabelaCarrinho =  new JTable();
+
+		tabelaCarrinho = new JTable();
 		tabelaCarrinho.addMouseListener(new MouseAdapter() {
-			
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				controllerCarrinho = new ItemController();
-				
-				//TODO preencher o idCarrinho
+
+				// TODO preencher o idCarrinho
 				SeletorItem seletor = new SeletorItem();
-				
-				
+
 				controllerCarrinho.consultarComFiltros(seletor);
 				atualizarTabelaCarrinho();
 			}
 		});
-		
+
 		JButton btnFinalizar = new JButton("Finalizar comprar");
 		btnFinalizar.setForeground(new Color(0, 139, 139));
 		btnFinalizar.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(901, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(203, Short.MAX_VALUE)
-					.addComponent(tabelaCarrinho, GroupLayout.PREFERRED_SIZE, 684, GroupLayout.PREFERRED_SIZE)
-					.addGap(125))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(473, Short.MAX_VALUE)
-					.addComponent(btnFinalizar)
-					.addGap(388))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNewLabel)
-					.addGap(25)
-					.addComponent(tabelaCarrinho, GroupLayout.PREFERRED_SIZE, 405, GroupLayout.PREFERRED_SIZE)
-					.addGap(32)
-					.addComponent(btnFinalizar)
-					.addContainerGap(34, Short.MAX_VALUE))
-		);
+		groupLayout
+				.setHorizontalGroup(
+						groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 45,
+												GroupLayout.PREFERRED_SIZE)
+										.addContainerGap(901, Short.MAX_VALUE))
+								.addGroup(groupLayout.createSequentialGroup().addContainerGap(203, Short.MAX_VALUE)
+										.addComponent(tabelaCarrinho, GroupLayout.PREFERRED_SIZE, 684,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(125))
+								.addGroup(groupLayout.createSequentialGroup().addContainerGap(473, Short.MAX_VALUE)
+										.addComponent(btnFinalizar).addGap(388)));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(lblNewLabel).addGap(25)
+						.addComponent(tabelaCarrinho, GroupLayout.PREFERRED_SIZE, 405, GroupLayout.PREFERRED_SIZE)
+						.addGap(32).addComponent(btnFinalizar).addContainerGap(34, Short.MAX_VALUE)));
 		frame.getContentPane().setLayout(groupLayout);
-		
+
 		lblSair = new JLabel(" X");
 		lblSair.setVerticalAlignment(SwingConstants.TOP);
 		lblSair.addMouseListener(new MouseAdapter() {
@@ -163,7 +150,7 @@ public class TelaCarrinho {
 		lblSair.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		lblSair.setBounds(924, 0, 22, 21);
 		frame.getContentPane().add(lblSair);
-		
+
 		lblMaximizar = new JLabel("  ");
 		lblMaximizar.setBounds(881, 534, 25, 24);
 		frame.getContentPane().add(lblMaximizar);
@@ -172,7 +159,7 @@ public class TelaCarrinho {
 		lblMinimizar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				 frame.setExtendedState(JFrame.ICONIFIED);
+				frame.setExtendedState(JFrame.ICONIFIED);
 			}
 		});
 		lblMinimizar.setForeground(new Color(255, 255, 255));
@@ -181,26 +168,10 @@ public class TelaCarrinho {
 		lblMinimizar.setBounds(700, 522, 8, 20);
 		frame.getContentPane().add(lblMinimizar);
 
-		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-maximizar-10.png")));
-		lblNewLabel_1.setBounds(896, 6, 15, 15);
-		frame.getContentPane().add(lblNewLabel_1);
-
-		lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				 frame.setExtendedState(JFrame.ICONIFIED);
-			}
-		});
-		lblNewLabel_2.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-minimizar-15.png")));
-		lblNewLabel_2.setBounds(867, 0, 16, 27);
-		frame.getContentPane().add(lblNewLabel_2);
-
 	}
-	
+
 	public void tornarVisivelForaDoFrame() {
 		frame.setVisible(true);
-		
+
 	}
 }

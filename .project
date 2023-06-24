@@ -20,11 +20,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/main/java/imagensTenis/convertido4.png</name>
-			<type>1</type>
-			<location>D:/Downloads/imagens para redefinir/convertido4.png</location>
-		</link>
-	</linkedResources>
 </projectDescription>
