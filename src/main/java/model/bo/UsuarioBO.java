@@ -50,7 +50,7 @@ public class UsuarioBO {
 	}
 
 	public boolean atualizarUsuarioBO(UsuarioVO usuarioVO) {
-		return false;
+		return usuarioDAO.atualizar(usuarioVO);
 	}
 
 	public boolean excluirUsuarioBO(int id) throws ExceptionVGA {
