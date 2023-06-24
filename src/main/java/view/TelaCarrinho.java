@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.ItemController;
 import model.seletor.SeletorItem;
+import model.seletor.SeletorProduto;
 import model.vo.ItemVO;
 import model.vo.ProdutoVO;
 import model.vo.UsuarioVO;
@@ -71,12 +72,12 @@ public class TelaCarrinho {
 
 		for (ItemVO itemVO : itens) {
 			Object[] novaLinhaDaTabela = new Object[6];
-			novaLinhaDaTabela[0] = itemVO.getCor();
-			novaLinhaDaTabela[1] = itemVO.getTamanho();
-			novaLinhaDaTabela[2] = itemVO.getQuantidade();
-			novaLinhaDaTabela[3] = itemVO.getPrecoUnitario();
-			novaLinhaDaTabela[4] = itemVO.getProduto().getMarca();
-			novaLinhaDaTabela[5] = itemVO.getProduto().getModelo();
+			novaLinhaDaTabela[0] = itemVO.getProduto().getMarca();
+			novaLinhaDaTabela[1] = itemVO.getProduto().getModelo();
+			novaLinhaDaTabela[2] = itemVO.getCor();
+			novaLinhaDaTabela[3] = itemVO.getTamanho();
+			novaLinhaDaTabela[4] = itemVO.getQuantidade();
+			novaLinhaDaTabela[5] = itemVO.getPrecoUnitario();
 			model.addRow(novaLinhaDaTabela);
 		}
 	}
@@ -109,8 +110,9 @@ public class TelaCarrinho {
 
 				// TODO preencher o idCarrinho
 				SeletorItem seletor = new SeletorItem();
+				SeletorProduto seletorProduto = new SeletorProduto();
 
-				controllerCarrinho.consultarComFiltros(seletor);
+				controllerCarrinho.consultarComFiltros(seletor, seletorProduto);
 				atualizarTabelaCarrinho();
 			}
 		});
