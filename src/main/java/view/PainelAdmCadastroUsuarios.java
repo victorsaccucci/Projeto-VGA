@@ -45,7 +45,7 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 	 * @throws ParseException 
 	 */
 	public PainelAdmCadastroUsuarios(UsuarioVO usuarioParaEditar) throws ParseException {
-		if(usuarioParaEditar.getId() == null) {
+		if(usuarioParaEditar == null) {
 			novoCliente = true;
 			this.usuario = new UsuarioVO();
 		}else {
@@ -114,7 +114,6 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				usuarioController = new UsuarioController();
-				
 				
 				usuario.setNome(txtNome.getText());
 				usuario.setEmail(txtEmail.getText());
