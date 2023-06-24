@@ -86,4 +86,9 @@ public class UsuarioController {
 		return gerador.gerarPlanilhaUsuarios(usuarios, caminhoEscolhido);
 	}
 
+	public boolean verificarADM(UsuarioVO usuarioVO) {
+        return usuarioBO.verificarADM(usuarioVO);
+
+    }
+			
 }

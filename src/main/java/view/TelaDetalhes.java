@@ -5,9 +5,18 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import model.dao.CarrinhoItensDAO;
+import model.vo.CarrinhoItensVO;
+import model.vo.CarrinhoVO;
+import model.vo.ItemVO;
+
+
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 
 public class TelaDetalhes {
 
@@ -17,9 +26,14 @@ public class TelaDetalhes {
     private JLabel lvlValorTenis;
     private ImageIcon imagemDoTenis;
     private JLabel lblVoltar;
+    private CarrinhoItensDAO carrinhoItemDAO;
+    private ArrayList<ItemVO> listaCarrinho;
+    private PainelMenuPrincipalParaClientes painelMenuParaClientes;
+    private CarrinhoItensVO carrinhoItensVO;
     
     private TelaMenuPrincipal telaMenu;
     private JLabel lblNewLabel;
+	private JLabel lblAdicionarCarrinho;
 
     public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis) {
         initialize();
@@ -62,6 +76,26 @@ public class TelaDetalhes {
         lblVoltar.setIcon(new ImageIcon(TelaDetalhes.class.getResource("/icones/icons8-voltar-35.png")));
         lblVoltar.setBounds(20, 20, 80, 60);
         frame.getContentPane().add(lblVoltar);
+        
+        lblAdicionarCarrinho = new JLabel("Adicionar ao Carrinho");
+        lblAdicionarCarrinho.addMouseListener(new MouseAdapter() {
+      
+			
+
+			@Override
+        	public void mouseClicked(MouseEvent e) {
+				
+				painelMenuParaClientes = new PainelMenuPrincipalParaClientes();
+        		carrinhoItemDAO = new CarrinhoItensDAO();
+        		listaCarrinho = new ArrayList<ItemVO>();
+        		
+        		// carrinhoItemDAO.inserir(painelMenuParaClientes.getIdSelecionado(), idcarrinho)
+        	}
+        });
+        lblAdicionarCarrinho.setForeground(new Color(255, 255, 255));
+        lblAdicionarCarrinho.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblAdicionarCarrinho.setBounds(432, 530, 148, 20);
+        frame.getContentPane().add(lblAdicionarCarrinho);
         
         lblNewLabel = new JLabel("");
         lblNewLabel.setIcon(new ImageIcon(TelaDetalhes.class.getResource("/icones/textura-de-cor-ciano-escuro-grunge_469558-34227 (2) (1).png")));

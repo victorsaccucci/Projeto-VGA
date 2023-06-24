@@ -60,4 +60,10 @@ public class UsuarioBO {
 	public List<UsuarioVO> consultarComFiltros(SeletorUsuario seletor) {
 		return usuarioDAO.consultarComFiltros(seletor);
 	}
+	
+	public boolean verificarADM(UsuarioVO usuarioVO) {
+        return usuarioDAO.verificarAdm(usuarioVO);
+
+    }
+	
 }

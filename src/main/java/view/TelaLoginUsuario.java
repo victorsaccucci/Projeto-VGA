@@ -233,16 +233,19 @@ public class TelaLoginUsuario {
 				usuarioController = new UsuarioController();
 				telaMenuAdm = new TelaMenuAdm();
 				telaMenuPrincipal = new TelaMenuPrincipal();
-
+				usuarioAutenticado = new UsuarioVO();
+				
+				
 				try {
-					if (usuarioController.realizarLoginController(email, senha).isAdm() == false) {
-
+					if (usuarioAutenticado.isAdm()) {
 						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
-						telaMenuPrincipal.tornarVisivelForaDoFrame();
+						telaMenuAdm.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
+						
 
 					} else {
-						telaMenuAdm.tornarVisivelForaDoFrame();
+						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
+						telaMenuPrincipal.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
 					}
 

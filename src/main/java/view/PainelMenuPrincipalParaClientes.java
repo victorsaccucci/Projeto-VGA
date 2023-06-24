@@ -28,6 +28,7 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 
 	private String valorDoTenisClicado = "";
 	private String modeloDoTenisClicado = "";
+	private int idSelecionado = 0;
 
 	private ImageIcon imagemDoTenisClicado = null;
 
@@ -58,6 +59,8 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 					label.setSize(tamanhoX, tamanhoY);
 
 					label.addMouseListener(new MouseAdapter() {
+						
+
 						@Override
 						public void mouseClicked(MouseEvent e) {
 
@@ -68,7 +71,7 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 							valorDoTenisClicado = String.valueOf(item.getPrecoUnitario());
 							
 							imagemDoTenisClicado = new ImageIcon(item.getImagem());
-						
+							idSelecionado = item.getId();
 							
 							telaDetalhes = new TelaDetalhes(modeloDoTenisClicado, valorDoTenisClicado, imagemDoTenisClicado);
 
@@ -92,6 +95,10 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 
 	}
 
+	public int getIdSelecionado() {
+		return idSelecionado;
+	}
+	
 	public String getModeloSelecionado() {
 		return modeloDoTenisClicado;
 	}
