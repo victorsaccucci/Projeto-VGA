@@ -87,8 +87,8 @@ public class PainelCadastroItem extends JPanel {
 		lblTitulo = new JLabel(item.getId() == 0 ? "NOVO ITEM" : "EDIÇÃO DE ITEM");
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		lblTitulo.setBounds(432, 65, 231, 13);
-		lblTitulo.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTitulo.setBounds(305, 65, 358, 13);
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblTitulo, "4, 2, 9, 1, center, default");
 
 		lblProduto = new JLabel("Produto:");
@@ -99,6 +99,7 @@ public class PainelCadastroItem extends JPanel {
 		
 		produtoController = new ProdutoController();
 		cbProduto = new JComboBox(produtoController.consultarTodosProdutosController().toArray());
+		cbProduto.setFont(new Font("Segoe UI", Font.BOLD, 12));
 
 		cbProduto.setForeground(new Color(0, 139, 139));
 		cbProduto.setBounds(305, 89, 358, 28);
@@ -215,7 +216,7 @@ public class PainelCadastroItem extends JPanel {
 		});
 		btnCadastrarItem.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		btnCadastrarItem.setForeground(new Color(0, 139, 139));
-		btnCadastrarItem.setBounds(430, 381, 109, 27);
+		btnCadastrarItem.setBounds(404, 377, 155, 39);
 		add(btnCadastrarItem);
 
 		if(this.item != null) {
