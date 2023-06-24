@@ -34,6 +34,8 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 	
 	private ItemVO itemSelecionado = null;
 
+	protected int idDoItemClicado;
+
 	public PainelMenuPrincipalParaClientes() {
 		setBackground(new Color(0, 139, 139));
 		setLayout(null);
@@ -69,15 +71,15 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 							// guardar um valor para exibir em um label em outra tela
 							modeloDoTenisClicado = item.getProduto().getModelo();
 							valorDoTenisClicado = String.valueOf(item.getPrecoUnitario());
-
 							imagemDoTenisClicado = new ImageIcon(item.getImagem());
-							idSelecionado = item.getId();
+							idDoItemClicado = item.getId();
+							
 							
 							//Item selecioando para adicionar ao carrinho;
 							itemSelecionado = new ItemVO();							
 							itemSelecionado = item;
 							
-							telaDetalhes = new TelaDetalhes(modeloDoTenisClicado, valorDoTenisClicado,imagemDoTenisClicado);
+							telaDetalhes = new TelaDetalhes(modeloDoTenisClicado, valorDoTenisClicado,imagemDoTenisClicado, idDoItemClicado);
 
 							telaDetalhes.tornarVisivelForaDoFrame();
 

@@ -63,7 +63,7 @@ public class ItemDAO {
 	        atualizou = atualizados > 0;
 	  
 	        System.out.println("Erro ao diminuir quantidade do item!");
-
+	        System.out.println(idItem + quantidade);
 	    } catch (SQLException e) {
 	        System.out.println("Erro ao diminuir quantidade do item!" + "\nCausa: " + e.getMessage());
 	    } finally {

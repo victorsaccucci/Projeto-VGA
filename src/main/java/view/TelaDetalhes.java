@@ -36,17 +36,17 @@ public class TelaDetalhes {
 
 	private int idItem = 0;
 	private int idCarrinho = 0;
-	private int idSelecionadoPeloCliente;
+	private ItemVO itemSelecionadoPeloCliente;
 	private ItemController itemController;
 	private JTextField txtQuantidade;
 	private int quantidade = 0;
 
-	public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis) {
-		initialize();
-		exibirValores(modeloTenis, valorTenis, imagemDoTenis);
+	public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado) {
+		initialize(idDoItemClicado);
+		exibirValores(modeloTenis, valorTenis, imagemDoTenis, idDoItemClicado);
 	}
 
-	private void initialize() {
+	private void initialize(final int idDoItemClicado) {
 		frame = new JFrame();
 		frame.setUndecorated(true);
 		frame.getContentPane().setBackground(new Color(64, 128, 128));
@@ -95,12 +95,12 @@ public class TelaDetalhes {
 			public void mouseClicked(MouseEvent e) {
 				painelMenuParaClientes = new PainelMenuPrincipalParaClientes();
 				itemController = new ItemController();
-
-				idSelecionadoPeloCliente = painelMenuParaClientes.getIdSelecionado();
+				itemSelecionadoPeloCliente = new ItemVO();
+				itemSelecionadoPeloCliente = painelMenuParaClientes.getItemSelecionado();
 
 				quantidade = Integer.parseInt(txtQuantidade.getText()); 
 
-				itemController.diminuirtQuantidadeController(idSelecionadoPeloCliente, quantidade);
+				itemController.diminuirtQuantidadeController(idDoItemClicado, quantidade);
 
 			
 			}
@@ -121,7 +121,7 @@ public class TelaDetalhes {
 		frame.getContentPane().add(lblNewLabel);
 	}
 
-	public void exibirValores(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis) {
+	public void exibirValores(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado) {
 		lblModeloTenis.setText("Modelo: " + modeloTenis);
 		lvlValorTenis.setText("Valor: " + valorTenis);
 		lblTenis.setIcon(imagemDoTenis);
