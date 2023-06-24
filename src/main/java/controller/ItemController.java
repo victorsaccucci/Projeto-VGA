@@ -7,6 +7,7 @@ import model.ExceptionVGA;
 import model.GeradorPlanilha;
 import model.bo.ItemBO;
 import model.seletor.SeletorItem;
+import model.seletor.SeletorProduto;
 import model.vo.ItemVO;
 
 public class ItemController {
@@ -58,8 +59,8 @@ public class ItemController {
 		return bo.excluirItemBO(id);
 	}
 	
-	public List<ItemVO> consultarComFiltros(SeletorItem seletor){
-		return bo.consultarComFiltros(seletor);
+	public List<ItemVO> consultarComFiltros(SeletorItem seletor, SeletorProduto seletorProduto){
+		return bo.consultarComFiltros(seletor, seletorProduto);
 	}
 	
 	public List<ItemVO> consultarTodosComImagensController() throws IOException {

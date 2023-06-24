@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import com.mysql.cj.jdbc.Blob;
 
 import model.seletor.SeletorItem;
+import model.seletor.SeletorProduto;
 import model.vo.ItemVO;
 import model.vo.ProdutoVO;
 import view.TelaMenuPrincipal;
@@ -253,13 +254,13 @@ public class ItemDAO {
 		return itemConsultado;
 	}
 
-	public List<ItemVO> consultarComFiltros(SeletorItem seletor) {
+	public List<ItemVO> consultarComFiltros(SeletorItem seletor, SeletorProduto seletorProduto) {
 		List<ItemVO> itens = new ArrayList<ItemVO>();
 		Connection conexao = Banco.getConnection();
 		String sql = " SELECT * FROM ITEM ";
 
 		if (seletor.temFiltro()) {
-			sql = preencherFiltros(sql, seletor);
+			sql = preencherFiltros(sql, seletor, seletorProduto);
 		}
 
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
@@ -279,8 +280,33 @@ public class ItemDAO {
 		return itens;
 	}
 
-	private String preencherFiltros(String sql, SeletorItem seletor) {
+	private String preencherFiltros(String sql, SeletorItem seletor, SeletorProduto seletorProduto) {
 		boolean primeiro = true;
+		
+		if (seletorProduto != null) {
+		    if (seletorProduto.getMarca() != null && !seletorProduto.getMarca().trim().isEmpty()) {
+		        if (primeiro) {
+		            sql += " INNER JOIN PRODUTO ON ITEM.IDPRODUTO = PRODUTO.IDPRODUTO ";
+		            sql += " WHERE ";
+		        } else {
+		            sql += " AND ";
+		        }
+		        sql += " PRODUTO.MARCA LIKE '%" + seletorProduto.getMarca() + "%'";
+		        primeiro = false;
+		    }
+
+		    if (seletorProduto.getModelo() != null && !seletorProduto.getModelo().trim().isEmpty()) {
+		        if (primeiro) {
+		            sql += " INNER JOIN PRODUTO ON ITEM.IDPRODUTO = PRODUTO.IDPRODUTO ";
+		            sql += " WHERE ";
+		        } else {
+		            sql += " AND ";
+		        }
+		        sql += " PRODUTO.MODELO LIKE '%" + seletorProduto.getModelo() + "%'";
+		        primeiro = false;
+		    }
+		}
+		
 		if (seletor.getCor() != null && !seletor.getCor().trim().isEmpty()) {
 			if (primeiro) {
 				sql += " WHERE ";

@@ -6,6 +6,7 @@ import java.util.List;
 import model.ExceptionVGA;
 import model.dao.ItemDAO;
 import model.seletor.SeletorItem;
+import model.seletor.SeletorProduto;
 import model.vo.ItemVO;
 
 public class ItemBO {
@@ -20,8 +21,8 @@ public class ItemBO {
 		return itemDAO.inserir(novoItem);
 	}
 	
-	public List<ItemVO> consultarComFiltros(SeletorItem seletor){
-		return itemDAO.consultarComFiltros(seletor);
+	public List<ItemVO> consultarComFiltros(SeletorItem seletor, SeletorProduto seletorProduto){
+		return itemDAO.consultarComFiltros(seletor, seletorProduto);
 	}
 	
 
