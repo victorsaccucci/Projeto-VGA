@@ -330,12 +330,7 @@ public class ItemDAO {
 						primeiro = false;
 					}
 				}
-			}
-		
-		//double precoInicial = Double.parseDouble(seletor.getPrecoInicial());
-		//double precoFinal = Double.parseDouble(seletor.getPrecoFinal());
-		
-		
+			}	
 		return sql;
 	}
 
