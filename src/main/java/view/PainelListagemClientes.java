@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import controller.UsuarioController;
 import model.ExceptionVGA;
@@ -22,6 +23,7 @@ import model.vo.UsuarioVO;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -32,13 +34,14 @@ import javax.swing.event.DocumentListener;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 
 public class PainelListagemClientes extends JPanel {
 
 	private static final long serialVersionUID = -1185570684789843566L;
 
 	private JTextField txtNome;
-	private JTextField txtCpf;
+	private JFormattedTextField txtCpf;
 	private JTextField txtEmail;
 	private JTable tabelaUsuarios;
 	private JButton btnBuscar;
@@ -62,6 +65,8 @@ public class PainelListagemClientes extends JPanel {
 
 	private JLabel lblNewLabel;
 
+	private MaskFormatter mascaraCpf;
+
 	private void limparTabela() {
 		tabelaUsuarios.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
 	}
@@ -81,7 +86,7 @@ public class PainelListagemClientes extends JPanel {
 		}
 	}
 
-	public PainelListagemClientes() {
+	public PainelListagemClientes() throws ParseException {
 		setBackground(new Color(0, 139, 139));
 		setLayout(null);
 
@@ -116,8 +121,11 @@ public class PainelListagemClientes extends JPanel {
 		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblNewLabel.setBounds(418, 45, 45, 20);
 		add(lblNewLabel);
+		
+		mascaraCpf = new MaskFormatter("###########");
+		mascaraCpf.setValueContainsLiteralCharacters(false);
 
-		txtCpf = new JTextField();
+		txtCpf = new JFormattedTextField(mascaraCpf);
 		txtCpf.setColumns(10);
 		txtCpf.setBounds(456, 44, 196, 28);
 		add(txtCpf);
