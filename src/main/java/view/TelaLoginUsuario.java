@@ -50,7 +50,6 @@ public class TelaLoginUsuario {
 	private TelaMenuPrincipal telaMenuPrincipal;
 	private TelaCadastroUsuario telaCadastroUsuario;
 	private TelaMenuAdm telaMenuAdm;
-	private TelaDeProdutos telaDeProdutos;
 
 	private JLabel lblCadastrar;
 	private JLabel lblUsuarioImagem;
@@ -233,17 +232,20 @@ public class TelaLoginUsuario {
 				telaMenuPrincipal = new TelaMenuPrincipal();
 				usuarioController = new UsuarioController();
 				telaMenuAdm = new TelaMenuAdm();
-				telaDeProdutos = new TelaDeProdutos();
-
+				telaMenuPrincipal = new TelaMenuPrincipal();
+				usuarioAutenticado = new UsuarioVO();
+				
+				
 				try {
-					if (usuarioController.realizarLoginController(email, senha).isAdm() == false) {
-
+					if (usuarioAutenticado.isAdm()) {
 						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
-						telaDeProdutos.tornarVisivelForaDoFrame();
+						telaMenuAdm.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
+						
 
 					} else {
-						telaMenuAdm.tornarVisivelForaDoFrame();
+						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
+						telaMenuPrincipal.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
 					}
 

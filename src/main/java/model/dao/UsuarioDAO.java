@@ -172,8 +172,13 @@ public class UsuarioDAO {
 				usuarioAutenticado.setAdm(resultado.getBoolean(6));
 
 				carrinhoDAO = new CarrinhoDAO();
-				carrinhoDAO.verificarExistenciaCarrinho(usuarioAutenticado.getCpf());
-				carrinhoDAO.inserir(usuarioAutenticado.getId());
+				if(carrinhoDAO.verificarExistenciaCarrinho(usuarioAutenticado.getCpf())) {
+					
+				} else {
+					carrinhoDAO.inserir(usuarioAutenticado.getId());	
+				}
+				
+				
 			}
 
 		} catch (SQLException e) {
@@ -344,4 +349,27 @@ public class UsuarioDAO {
 		return cpfeEmailJaUtilizado;
 	}
 
+	public boolean verificarAdm(UsuarioVO usuarioVO) {
+        boolean verificacao = false;
+        Connection conn = Banco.getConnection();
+        String sql = " select count(*) from usuario"
+                    + " where id = ? and adm = 1";
+        PreparedStatement query = Banco.getPreparedStatement(conn, sql);
+        try {
+            query.setInt(1, usuarioVO.getId());
+            query.setBoolean(2, usuarioVO.isAdm());
+            ResultSet resultado = query.executeQuery();
+
+            if(resultado.next()) {
+                verificacao = resultado.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar uso do ADM \n Causa:" + e.getMessage());
+        } finally {
+            Banco.closePreparedStatement(query);
+            Banco.closeConnection(conn);
+        }
+        return verificacao;
+    }
+	
 }

@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import controller.ItemController;
 import model.vo.ItemVO;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,20 +24,18 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 	private List<ItemVO> itensComImagens;
 	private JLabel label;
 	private ItemController controller;
+	private TelaDetalhes telaDetalhes;
 
-	private TelaDeProdutos telaDeProdutos;
-	public String modeloSelecionado;
+	private String valorDoTenisClicado = "";
+	private String modeloDoTenisClicado = "";
+	private int idSelecionado = 0;
 
+	private ImageIcon imagemDoTenisClicado = null;
 
-	//private JLabel lblModelo;
 
 	public PainelMenuPrincipalParaClientes() {
 		setBackground(new Color(0, 139, 139));
 		setLayout(null);
-		
-		//lblModelo = new JLabel("");
-		//lblModelo.setBounds(332, 71, 276, 50);
-		//add(lblModelo);
 
 		controller = new ItemController();
 
@@ -49,7 +48,7 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 				int numColunas = (int) Math.ceil(Math.sqrt(itensComImagens.size()));
 				setLayout(new GridLayout((int) Math.ceil(itensComImagens.size() / (double) numColunas), numColunas));
 
-				int espacamento = 40;
+				int espacamento = 10;
 				EmptyBorder borda = new EmptyBorder(espacamento, espacamento, espacamento, espacamento);
 
 				for (final ItemVO item : itensComImagens) {
@@ -60,24 +59,33 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 					label.setSize(tamanhoX, tamanhoY);
 
 					label.addMouseListener(new MouseAdapter() {
+						
+
 						@Override
 						public void mouseClicked(MouseEvent e) {
+
 							System.out.println("Label clicado: " + item.getProduto().getModelo());
 
-							telaDeProdutos = new TelaDeProdutos();
-							telaDeProdutos.tornarVisivelForaDoFrame();
-					
+							// guardar um valor para exibir em um label em outra tela
+							modeloDoTenisClicado = item.getProduto().getModelo();
+							valorDoTenisClicado = String.valueOf(item.getPrecoUnitario());
+							
+							imagemDoTenisClicado = new ImageIcon(item.getImagem());
+							idSelecionado = item.getId();
+							
+							telaDetalhes = new TelaDetalhes(modeloDoTenisClicado, valorDoTenisClicado, imagemDoTenisClicado);
 
-							// guardar valor do getModelo para exibir em um label em outra tela
-							modeloSelecionado = item.getProduto().getModelo();
-							//lblModelo.setText(modeloSelecionado);
+							telaDetalhes.tornarVisivelForaDoFrame();
+
 						}
 					});
 
 					ImageIcon icon = new ImageIcon(item.getImagem());
-
+					label.setText("Valor: " + item.getPrecoUnitario());
 					label.setIcon(icon);
 					label.setBorder(borda);
+					label.setForeground(new Color(255, 255, 255));
+					label.setFont(new Font("Segoe UI", Font.BOLD, 14));
 					add(label);
 				}
 			}
@@ -86,7 +94,19 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 		}
 
 	}
+
+	public int getIdSelecionado() {
+		return idSelecionado;
+	}
+	
 	public String getModeloSelecionado() {
-	    return modeloSelecionado;
+		return modeloDoTenisClicado;
+	}
+
+	public String getValorSelecionado() {
+		return valorDoTenisClicado;
+	}
+	public ImageIcon getImagemDoTenisClicado() {
+	    return imagemDoTenisClicado;
 	}
 }

@@ -12,11 +12,10 @@ public class CarrinhoDAO {
 	public CarrinhoVO inserir(Integer idUsuario) {
 		CarrinhoVO novoCarrinho = new CarrinhoVO();
 		Connection conn = Banco.getConnection();
-		String sql = "INSERT INTO CARRINHO (IDUSUARIO, STATUS) VALUES (?,?)";
+		String sql = "INSERT INTO CARRINHO (IDUSUARIO, STATUS) VALUES (?,1)";
 		PreparedStatement query = Banco.getPreparedStatementWithPk(conn, sql);
 		try {
 			query.setInt(1, idUsuario);
-			query.setBoolean(2, novoCarrinho.isStatus());
 			query.execute();
 			
 			ResultSet resultado = query.getGeneratedKeys();

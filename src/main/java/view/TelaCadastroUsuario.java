@@ -153,21 +153,7 @@ public class TelaCadastroUsuario {
 		lblMinimizar.setBounds(700, 522, 8, 20);
 		frame.getContentPane().add(lblMinimizar);
 
-		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-maximizar-10.png")));
-		lblNewLabel_1.setBounds(896, 6, 15, 15);
-		frame.getContentPane().add(lblNewLabel_1);
-
-		lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				 frame.setExtendedState(JFrame.ICONIFIED);
-			}
-		});
-		lblNewLabel_2.setIcon(new ImageIcon(TelaDeProdutos.class.getResource("/icones/icons8-minimizar-15.png")));
-		lblNewLabel_2.setBounds(867, 0, 16, 27);
-		frame.getContentPane().add(lblNewLabel_2);
+	
 		
 		JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setIcon(new ImageIcon(TelaCadastroUsuario.class.getResource("/icones/icons8-minimizar-15.png")));
