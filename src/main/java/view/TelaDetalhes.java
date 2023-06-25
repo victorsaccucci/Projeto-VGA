@@ -113,7 +113,8 @@ public class TelaDetalhes {
 
 				idDoItemSelecionado = painelMenuParaClientes.getIdSelecionado();
 
-				if (itemController.consultarPorId(idDoItemClicado).getQuantidade() <= 0) {
+				if (itemController.consultarPorId(idDoItemClicado).getQuantidade() < quantidade || 
+						itemController.consultarPorId(idDoItemClicado).getQuantidade() <= 0) {
 					JOptionPane.showMessageDialog(null, "Indisponível no momento, volte mais tarde!");
 				} else {
 					itemController.diminuirtQuantidadeController(idDoItemClicado, quantidade);
