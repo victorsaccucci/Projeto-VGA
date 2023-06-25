@@ -44,12 +44,9 @@ public class PainelListagemItens extends JPanel {
 	private ItemVO itemSelecionado;
 	
 	private ItemController itemController;
-	private JTextField txtMenorPreco;
 	private JTextField txtMaiorPreco;
 	private JTextField txtTamanho;
-	private JTextField txtCor;
-	private JLabel lblMenorPreco;
-	private JLabel lblMaiorPreco;
+	private JLabel lblMenorValor;
 	private JLabel lblTamanho;
 	private JLabel lblCor;
 	private JButton btnBuscar;
@@ -65,6 +62,9 @@ public class PainelListagemItens extends JPanel {
 	private JButton btnGerarRelatorio;
 	private JTextField txtMarca;
 	private JTextField txtModelo;
+	private JTextField txtCor;
+	private JTextField txtMenorPreco;
+	private JLabel lblMaiorValor;
 
 	private void limparTabela() {
 		tabelaItens.setModel(new DefaultTableModel(new Object[][] { nomeColunas, }, nomeColunas));
@@ -92,49 +92,33 @@ public class PainelListagemItens extends JPanel {
 		setForeground(new Color(0, 139, 139));
 		setLayout(null);
 
-		lblMenorPreco = new JLabel("Menor Preço:");
-		lblMenorPreco.setForeground(new Color(255, 255, 255));
-		lblMenorPreco.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblMenorPreco.setBounds(57, 61, 118, 26);
-		add(lblMenorPreco);
-
-		lblMaiorPreco = new JLabel("Maior Preço:");
-		lblMaiorPreco.setForeground(new Color(255, 255, 255));
-		lblMaiorPreco.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblMaiorPreco.setBounds(57, 132, 118, 26);
-		add(lblMaiorPreco);
+		lblMenorValor = new JLabel("Menor Valor:");
+		lblMenorValor.setForeground(new Color(255, 255, 255));
+		lblMenorValor.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblMenorValor.setBounds(33, 44, 91, 20);
+		add(lblMenorValor);
 
 		lblTamanho = new JLabel("Tamanho:");
 		lblTamanho.setForeground(new Color(255, 255, 255));
 		lblTamanho.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblTamanho.setBounds(282, 61, 77, 26);
+		lblTamanho.setBounds(47, 87, 77, 26);
 		add(lblTamanho);
 
 		lblCor = new JLabel("Cor:");
 		lblCor.setForeground(new Color(255, 255, 255));
 		lblCor.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblCor.setBounds(282, 132, 53, 26);
+		lblCor.setBounds(57, 132, 53, 26);
 		add(lblCor);
-
-		txtMenorPreco = new JTextField();
-		txtMenorPreco.setBounds(156, 61, 99, 31);
-		add(txtMenorPreco);
-		txtMenorPreco.setColumns(10);
 
 		txtMaiorPreco = new JTextField();
 		txtMaiorPreco.setColumns(10);
-		txtMaiorPreco.setBounds(156, 132, 99, 31);
+		txtMaiorPreco.setBounds(345, 41, 195, 31);
 		add(txtMaiorPreco);
 
 		txtTamanho = new JTextField();
 		txtTamanho.setColumns(10);
-		txtTamanho.setBounds(359, 61, 61, 31);
+		txtTamanho.setBounds(134, 90, 108, 26);
 		add(txtTamanho);
-
-		txtCor = new JTextField();
-		txtCor.setColumns(10);
-		txtCor.setBounds(321, 132, 99, 31);
-		add(txtCor);
 
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.setBackground(new Color(255, 255, 255));
@@ -147,7 +131,7 @@ public class PainelListagemItens extends JPanel {
 				atualizarTabelaItens();
 			}
 		});
-		btnBuscar.setBounds(764, 89, 99, 31);
+		btnBuscar.setBounds(618, 131, 110, 31);
 		add(btnBuscar);
 
 		btnBuscarTodos = new JButton("Buscar Todos");
@@ -181,21 +165,15 @@ public class PainelListagemItens extends JPanel {
 				}
 			}
 		});
-		tabelaItens.setBounds(57, 193, 830, 177);
+		tabelaItens.setBounds(57, 173, 833, 197);
 		add(tabelaItens);
-
-		JLabel lblAte = new JLabel("Até");
-		lblAte.setForeground(new Color(255, 255, 255));
-		lblAte.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblAte.setBounds(57, 98, 36, 26);
-		add(lblAte);
 		
 		btnEditar = new JButton("Editar");
 		btnEditar.setForeground(new Color(0, 139, 139));
 		btnEditar.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnEditar.setEnabled(false);
 		btnEditar.setBackground(Color.WHITE);
-		btnEditar.setBounds(629, 381, 123, 34);
+		btnEditar.setBounds(618, 380, 118, 35);
 		this.add(btnEditar);
 		
 		btnExcluir = new JButton("Excluir");
@@ -221,7 +199,7 @@ public class PainelListagemItens extends JPanel {
 		});
 		btnExcluir.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnExcluir.setForeground(new Color(0, 139, 139));
-		btnExcluir.setBounds(764, 381, 123, 34);
+		btnExcluir.setBounds(745, 380, 142, 35);
 		add(btnExcluir);
 		
 		btnGerarRelatorio = new JButton("Relatorio");
@@ -246,7 +224,7 @@ public class PainelListagemItens extends JPanel {
 		btnGerarRelatorio.setForeground(new Color(0, 139, 139));
 		btnGerarRelatorio.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnGerarRelatorio.setBackground(Color.WHITE);
-		btnGerarRelatorio.setBounds(75, 430, 123, 34);
+		btnGerarRelatorio.setBounds(592, 380, 95, 29);
 		add(btnGerarRelatorio);
 		
 		btnGerarRelatorio.setForeground(new Color(0, 139, 139));
@@ -258,30 +236,44 @@ public class PainelListagemItens extends JPanel {
 		JLabel lblMarca = new JLabel("Marca:");
 		lblMarca.setForeground(Color.WHITE);
 		lblMarca.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblMarca.setBounds(463, 61, 53, 26);
+		lblMarca.setBounds(283, 87, 53, 26);
 		add(lblMarca);
 		
 		txtMarca = new JTextField();
 		txtMarca.setColumns(10);
-		txtMarca.setBounds(526, 61, 99, 31);
+		txtMarca.setBounds(345, 87, 195, 31);
 		add(txtMarca);
 		
 		JLabel lblModelo = new JLabel("Modelo:");
 		lblModelo.setForeground(Color.WHITE);
 		lblModelo.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblModelo.setBounds(455, 134, 67, 26);
+		lblModelo.setBounds(283, 132, 56, 20);
 		add(lblModelo);
 		
 		txtModelo = new JTextField();
 		txtModelo.setColumns(10);
-		txtModelo.setBounds(526, 132, 99, 31);
+		txtModelo.setBounds(345, 132, 195, 31);
 		add(txtModelo);
+		
+		txtCor = new JTextField();
+		txtCor.setColumns(10);
+		txtCor.setBounds(134, 138, 108, 26);
+		add(txtCor);
+		
+		txtMenorPreco = new JTextField();
+		txtMenorPreco.setColumns(10);
+		txtMenorPreco.setBounds(134, 44, 108, 26);
+		add(txtMenorPreco);
+		
+		lblMaiorValor = new JLabel("Maior Valor:");
+		lblMaiorValor.setForeground(Color.WHITE);
+		lblMaiorValor.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblMaiorValor.setBounds(252, 50, 91, 20);
+		add(lblMaiorValor);
 		
 		//Checa se os campos estão sendo preenchidos
         txtMaiorPreco.getDocument().addDocumentListener(new MyDocumentListener());
-        txtMenorPreco.getDocument().addDocumentListener(new MyDocumentListener());
         txtTamanho.getDocument().addDocumentListener(new MyDocumentListener());
-        txtCor.getDocument().addDocumentListener(new MyDocumentListener());
         txtMarca.getDocument().addDocumentListener(new MyDocumentListener());
         txtModelo.getDocument().addDocumentListener(new MyDocumentListener());
 	}
@@ -324,6 +316,7 @@ public class PainelListagemItens extends JPanel {
 		itens = (List<ItemVO>) itemControllerSeletor.consultarComFiltros(seletor, seletorProduto);
 		atualizarTabelaItens();
 
+		
 	}
 	
 	public JButton getBtnEditar() {
