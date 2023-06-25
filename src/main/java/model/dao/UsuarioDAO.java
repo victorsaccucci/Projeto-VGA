@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import model.seletor.SeletorItem;
 import model.seletor.SeletorUsuario;
 import model.vo.ItemVO;

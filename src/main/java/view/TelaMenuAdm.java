@@ -49,6 +49,7 @@ public class TelaMenuAdm {
 	private TelaLoginUsuario telaLoginusuario;
 	
 	private int idUsuario;
+	private PainelListagemVendas listagemVendas;
 	
 
 	public static void main(String[] args) {
@@ -219,6 +220,17 @@ public class TelaMenuAdm {
 		});
 		menuEstoque.add(menuItemConsultarEstoque);
 
+		JMenuItem mntmConsultarVenda = new JMenuItem("Consultar Vendas");
+        mntmConsultarVenda.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                listagemVendas = new PainelListagemVendas();
+                listagemVendas.setVisible(true);
+                frame.setContentPane(listagemVendas);
+                frame.revalidate();
+            }
+        });
+        menuEstoque.add(mntmConsultarVenda);
+		
 		JMenu mnNewMenu_2 = new JMenu("Menu");
 		mnNewMenu_2.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		mnNewMenu_2.addMouseListener(new MouseAdapter() {

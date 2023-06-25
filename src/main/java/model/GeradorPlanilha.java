@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Row;
 
 import model.vo.ItemVO;
 import model.vo.UsuarioVO;
+import model.vo.VendaVO;
 
 public class GeradorPlanilha {
 
@@ -101,6 +102,58 @@ public class GeradorPlanilha {
 	}
 	
 	private String salvarNoDiscoUsuarios(HSSFWorkbook planilha, String caminhoArquivo) {
+		String mensagem = "";
+		FileOutputStream saida = null;
+		String extensao = ".xls";
+
+		try {
+			saida = new FileOutputStream(new File(caminhoArquivo + extensao));
+			planilha.write(saida);
+			mensagem = "Planilha gerada com sucesso!";
+		} catch (FileNotFoundException e) {
+			mensagem = "Erro ao tentar salvar planilha (sem acesso): " + caminhoArquivo + extensao;
+			System.out.println("Causa: " + e.getMessage());
+		} catch (IOException e) {
+			mensagem = "Erro de I/O ao tentar salvar planilha em: " + caminhoArquivo + extensao;
+			System.out.println("Causa: " + e.getMessage());
+		} finally {
+			if (saida != null) {
+				try {
+					saida.close();
+					planilha.close();
+				} catch (IOException e) {
+					mensagem = "Erro ao tentar salvar planilha em: " + caminhoArquivo + extensao;
+					System.out.println("Causa: " + e.getMessage());
+				}
+			}
+		}
+
+		return mensagem;
+	}
+
+	public String gerarPlanilhaVendas(List<VendaVO> vendas, String caminhoEscolhido) {
+		HSSFWorkbook arquivoExcel = new HSSFWorkbook();
+		HSSFSheet abaPlanilha = arquivoExcel.createSheet("Clientes");
+		
+		HSSFRow linhaCabecalho = abaPlanilha.createRow(0);
+		linhaCabecalho.createCell(0).setCellValue("Data venda");
+		linhaCabecalho.createCell(1).setCellValue("ID Usuario");
+		linhaCabecalho.createCell(2).setCellValue("ID Item");
+		
+		
+		int contadorLinhas = 1;
+		for(VendaVO venda: vendas) {
+			HSSFRow novaLinha = abaPlanilha.createRow(contadorLinhas);
+			novaLinha.createCell(0).setCellValue(venda.getDataVenda());
+			novaLinha.createCell(1).setCellValue(venda.getIdUsuario());
+			novaLinha.createCell(2).setCellValue(venda.getIdItem());
+			contadorLinhas++;
+		}
+		
+		return salvarNoDiscoVendas(arquivoExcel, caminhoEscolhido);
+	}
+
+	private String salvarNoDiscoVendas(HSSFWorkbook planilha, String caminhoArquivo) {
 		String mensagem = "";
 		FileOutputStream saida = null;
 		String extensao = ".xls";

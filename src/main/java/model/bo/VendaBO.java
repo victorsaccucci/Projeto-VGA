@@ -1,5 +1,7 @@
 package model.bo;
 
+import java.util.List;
+
 import model.dao.VendaoDAO;
 import model.vo.VendaVO;
 
@@ -9,6 +11,11 @@ public class VendaBO {
 
 	public VendaVO inserirVenda(VendaVO vendaVO) {
 		return dao.inserirVenda(vendaVO);
+	}
+
+	public List<VendaVO> consultarTodos() {
+		// TODO Auto-generated method stub
+		return dao.consultarTodos();
 	}
 
 }

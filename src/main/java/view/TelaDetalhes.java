@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import controller.ItemController;
-import controller.vendaController;
+import controller.VendaController;
 import model.vo.ItemVO;
 import model.vo.UsuarioVO;
 import model.vo.VendaVO;
@@ -16,6 +16,8 @@ import model.vo.VendaVO;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 
@@ -46,23 +48,17 @@ public class TelaDetalhes {
 	private VendaVO vendaVO;
 	private UsuarioVO usuarioVO;
 	private int idDoItemSelecionado;
+	private int id = 0;
 
-
-	
 	private TelaLoginUsuario telaLoginUsuario;
-	
-	private int idUsuario;
-	private JTextField txtSeuId;
-
+	private JTextField txtId;
+	protected int idDoItem;
 
 	public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado,
-			UsuarioVO usuario, int idUsuario) {
-		
+			UsuarioVO usuario) {
 		initialize(idDoItemClicado);
 		exibirValores(modeloTenis, valorTenis, imagemDoTenis, idDoItemClicado);
 		usuarioVO = usuario;
-		
-		 this.idUsuario = idUsuario;
 	}
 
 	private void initialize(final int idDoItemClicado) {
@@ -72,10 +68,6 @@ public class TelaDetalhes {
 		frame.setBounds(100, 100, 1050, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
-		lblTenis = new JLabel("");
-		lblTenis.setBounds(288, 118, 515, 318);
-		frame.getContentPane().add(lblTenis);
 
 		lblModeloTenis = new JLabel("");
 		lblModeloTenis.setForeground(new Color(255, 255, 255));
@@ -103,7 +95,7 @@ public class TelaDetalhes {
 		frame.getContentPane().add(lblVoltar);
 
 		txtQuantidade = new JTextField();
-		txtQuantidade.setBounds(982, 493, 22, 27);
+		txtQuantidade.setBounds(929, 514, 22, 27);
 		frame.getContentPane().add(txtQuantidade);
 		txtQuantidade.setColumns(10);
 
@@ -119,10 +111,9 @@ public class TelaDetalhes {
 				itemSelecionadoPeloCliente = painelMenuParaClientes.getItemSelecionado();
 				quantidade = Integer.parseInt(txtQuantidade.getText());
 
-				idDoItemSelecionado = painelMenuParaClientes.getIdSelecionado();
+				id = Integer.parseInt(txtId.getText());
 
-				if (itemController.consultarPorId(idDoItemClicado).getQuantidade() < quantidade || 
-						itemController.consultarPorId(idDoItemClicado).getQuantidade() <= 0) {
+				if (itemController.consultarPorId(idDoItemClicado).getQuantidade() <= 0) {
 					JOptionPane.showMessageDialog(null, "Indisponível no momento, volte mais tarde!");
 				} else {
 					itemController.diminuirtQuantidadeController(idDoItemClicado, quantidade);
@@ -131,51 +122,48 @@ public class TelaDetalhes {
 
 				telaLoginUsuario = new TelaLoginUsuario();
 
-				//idUsuario = telaLoginUsuario.getId();
-				
-
-				idUsuario = telaLoginUsuario.getIdUsuario();
-				
-				
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				vendaVO.setDataVenda(LocalDateTime.now().format(formatter));
 				vendaVO.setIdItem(idDoItemClicado);
+				vendaVO.setIdUsuario(id);
 
-				vendaVO.setIdUsuario(idUsuario);
-
-				vendaController vendaController = new vendaController();
-
+				VendaController vendaController = new VendaController();
 				vendaController.inserirVenda(vendaVO);
 
 			}
 		});
-		
 
 		lblAdicionarCarrinho.setForeground(new Color(255, 255, 255));
 		lblAdicionarCarrinho.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblAdicionarCarrinho.setBounds(494, 529, 65, 20);
+		lblAdicionarCarrinho.setBounds(481, 514, 65, 20);
 		frame.getContentPane().add(lblAdicionarCarrinho);
 
 		JLabel lblQuantidade = new JLabel("Quantidade:");
 		lblQuantidade.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblQuantidade.setForeground(new Color(255, 255, 255));
-		lblQuantidade.setBounds(878, 492, 94, 22);
+		lblQuantidade.setBounds(810, 513, 94, 22);
 		frame.getContentPane().add(lblQuantidade);
-		
-		txtSeuId = new JTextField();
-		txtSeuId.setColumns(10);
-		txtSeuId.setBounds(982, 533, 22, 27);
-		frame.getContentPane().add(txtSeuId);
-		
-		JLabel lblSeuId = new JLabel("Seu ID:");
-		lblSeuId.setForeground(Color.WHITE);
-		lblSeuId.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblSeuId.setBounds(919, 528, 53, 22);
-		frame.getContentPane().add(lblSeuId);
-		
-				lblNewLabel = new JLabel("");
-				lblNewLabel.setIcon(new ImageIcon(
-						TelaDetalhes.class.getResource("/icones/textura-de-cor-ciano-escuro-grunge_469558-34227 (2) (1).png")));
-				lblNewLabel.setBounds(0, 0, 1050, 600);
-				frame.getContentPane().add(lblNewLabel);
+
+		JLabel lblId = new JLabel("Seu ID:");
+		lblId.setForeground(Color.WHITE);
+		lblId.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		lblId.setBounds(810, 546, 94, 22);
+		frame.getContentPane().add(lblId);
+
+		txtId = new JTextField();
+		txtId.setColumns(10);
+		txtId.setBounds(929, 550, 22, 27);
+		frame.getContentPane().add(txtId);
+
+		lblTenis = new JLabel("");
+		lblTenis.setBounds(288, 118, 515, 318);
+		frame.getContentPane().add(lblTenis);
+
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(
+				TelaDetalhes.class.getResource("/icones/textura-de-cor-ciano-escuro-grunge_469558-34227 (2) (1).png")));
+		lblNewLabel.setBounds(0, 0, 1050, 600);
+		frame.getContentPane().add(lblNewLabel);
 	}
 
 	public void exibirValores(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado) {

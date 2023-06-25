@@ -89,7 +89,7 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 
 							usuario = new UsuarioVO();
 							telaDetalhes = new TelaDetalhes(modeloDoTenisClicado, valorDoTenisClicado,
-									imagemDoTenisClicado, idDoItemClicado, usuario, idUsuario);
+									imagemDoTenisClicado, idDoItemClicado, usuario);
 
 							telaDetalhes.tornarVisivelForaDoFrame();
 
