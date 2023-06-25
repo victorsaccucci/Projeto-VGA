@@ -12,26 +12,24 @@ import model.vo.ItemVO;
 public class ItemBO {
 
 	ItemDAO itemDAO = new ItemDAO();
-	
-	public List<ItemVO> consultarTodos() {		
+
+	public List<ItemVO> consultarTodos() {
 		return itemDAO.consultarTodos();
 	}
 
 	public ItemVO inserirItem(ItemVO novoItem) {
 		return itemDAO.inserir(novoItem);
 	}
-	
-	public List<ItemVO> consultarComFiltros(SeletorItem seletor, SeletorProduto seletorProduto){
+
+	public List<ItemVO> consultarComFiltros(SeletorItem seletor, SeletorProduto seletorProduto) {
 		return itemDAO.consultarComFiltros(seletor, seletorProduto);
 	}
-	
 
-
-	public List<ItemVO> consultarTodosComImagensBO() throws IOException {	
+	public List<ItemVO> consultarTodosComImagensBO() throws IOException {
 		return itemDAO.consultarItensComImagensDAO();
 	}
 
-	public boolean excluirItemBO(int id) throws ExceptionVGA{
+	public boolean excluirItemBO(int id) throws ExceptionVGA {
 		return itemDAO.excluir(id);
 	}
 
@@ -43,9 +41,7 @@ public class ItemBO {
 		return itemDAO.diminuirQuantidade(idItem, quantidade);
 	}
 
-
 	public ItemVO consultarPorId(int idDoItemClicado) {
 		return itemDAO.consultarPorId(idDoItemClicado);
-	}
-	
+		}
 }

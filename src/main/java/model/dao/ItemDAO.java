@@ -381,21 +381,6 @@ public class ItemDAO {
 		return sql;
 	}
 
-	public ItemVO verificaQuantidadePorIdItem(int idDoItemSelecionado) {
-		ItemVO itemVO = null;
-		Connection conexao = Banco.getConnection();
-		String sql = " select * from item "
-				   + " where id = ? ";
-		
-		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
-		try {
-			query.setInt(1, idDoItemSelecionado);
-			ResultSet resultado = query.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return itemVO;
-	}
+
 
 }
