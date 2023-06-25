@@ -107,7 +107,7 @@ public class TelaMenuAdm {
 		JMenu menuUsuarios = new JMenu("Usuários");
 		menuUsuarios.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		menuUsuarios.setForeground(new Color(0, 139, 139));
-		menuUsuarios.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-usuário-30.png")));
+		menuUsuarios.setIcon(new ImageIcon(TelaMenuAdm.class.getResource("/icones/icons8-usu�rio-30.png")));
 		menuBar.add(menuUsuarios);
 
 		JMenuItem menuItemCadastrarUsuarios = new JMenuItem("Cadastrar");

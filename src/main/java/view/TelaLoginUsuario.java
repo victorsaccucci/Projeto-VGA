@@ -246,8 +246,9 @@ public class TelaLoginUsuario {
 				        telaMenuAdm.tornarVisivelForaDoFrame();
 				        frame.setVisible(false);
 				    } else {
-				    	JOptionPane.showMessageDialog(null, "Seu ID é:" + usuarioAutenticado);
+				    	
 				        usuarioAutenticado = usuario;
+				        JOptionPane.showMessageDialog(null, "Seu ID é:" + usuario.getId());
 				        telaMenuPrincipal.tornarVisivelForaDoFrame();
 				        frame.setVisible(false);
 				    }
