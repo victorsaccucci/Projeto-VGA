@@ -92,7 +92,7 @@ public class TelaMenuPrincipal {
 		frame = new JFrame();
 		frame.setUndecorated(false);
 		frame.setBounds(100, 100, 1050, 600);
-
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.addMouseListener(new MouseAdapter() {

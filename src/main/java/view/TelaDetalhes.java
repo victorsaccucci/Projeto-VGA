@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class TelaDetalhes {
 
@@ -65,6 +66,31 @@ public class TelaDetalhes {
 
 	private void initialize(final int idDoItemClicado) {
 		frame = new JFrame();
+		MouseAdapter mouseAdapter = new MouseAdapter() {
+			private Point initialClick;
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				initialClick = e.getPoint();
+				frame.getComponentAt(initialClick);
+			}
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int thisX = frame.getLocation().x;
+				int thisY = frame.getLocation().y;
+
+				int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
+				int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
+
+				int X = thisX + xMoved;
+				int Y = thisY + yMoved;
+
+				frame.setLocation(X, Y);
+			}
+		};
+		frame.addMouseListener(mouseAdapter);
+		frame.addMouseMotionListener(mouseAdapter);
 		frame.setUndecorated(true);
 		frame.getContentPane().setBackground(new Color(64, 128, 128));
 		frame.setBounds(100, 100, 1050, 600);
@@ -72,15 +98,17 @@ public class TelaDetalhes {
 		frame.getContentPane().setLayout(null);
 		
 		lblModeloTenis = new JLabel("");
+		lblModeloTenis.setHorizontalAlignment(SwingConstants.CENTER);
 		lblModeloTenis.setForeground(new Color(255, 255, 255));
 		lblModeloTenis.setFont(new Font("Segoe UI", Font.BOLD, 22));
-		lblModeloTenis.setBounds(409, 39, 448, 67);
+		lblModeloTenis.setBounds(0, 39, 1050, 67);
 		frame.getContentPane().add(lblModeloTenis);
 
 		lvlValorTenis = new JLabel("");
+		lvlValorTenis.setHorizontalAlignment(SwingConstants.CENTER);
 		lvlValorTenis.setFont(new Font("Segoe UI", Font.BOLD, 22));
 		lvlValorTenis.setForeground(new Color(255, 255, 255));
-		lvlValorTenis.setBounds(422, 459, 224, 60);
+		lvlValorTenis.setBounds(0, 459, 1050, 60);
 		frame.getContentPane().add(lvlValorTenis);
 
 		lblVoltar = new JLabel("");
@@ -101,7 +129,8 @@ public class TelaDetalhes {
 		frame.getContentPane().add(txtQuantidade);
 		txtQuantidade.setColumns(10);
 
-		lblAdicionarCarrinho = new JLabel("comprar");
+		lblAdicionarCarrinho = new JLabel("Comprar");
+		lblAdicionarCarrinho.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAdicionarCarrinho.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -137,7 +166,7 @@ public class TelaDetalhes {
 
 		lblAdicionarCarrinho.setForeground(new Color(255, 255, 255));
 		lblAdicionarCarrinho.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblAdicionarCarrinho.setBounds(481, 514, 65, 20);
+		lblAdicionarCarrinho.setBounds(0, 514, 1050, 20);
 		frame.getContentPane().add(lblAdicionarCarrinho);
 
 		JLabel lblQuantidade = new JLabel("Quantidade:");
@@ -158,7 +187,8 @@ public class TelaDetalhes {
 		frame.getContentPane().add(txtId);
 
 		lblTenis = new JLabel("");
-		lblTenis.setBounds(288, 118, 515, 318);
+		lblTenis.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTenis.setBounds(10, 118, 1030, 318);
 		frame.getContentPane().add(lblTenis);
 
 		lblNewLabel = new JLabel("");

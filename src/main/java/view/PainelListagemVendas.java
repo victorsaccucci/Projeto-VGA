@@ -54,6 +54,7 @@ public class PainelListagemVendas extends JPanel {
 		setLayout(null);
 		
 		JButton btnBuscarTodos = new JButton("Buscar Todos");
+		btnBuscarTodos.setBackground(new Color(255, 255, 255));
 		btnBuscarTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				vendaController = new VendaController();
@@ -63,14 +64,15 @@ public class PainelListagemVendas extends JPanel {
 		});
 		btnBuscarTodos.setForeground(new Color(0, 139, 139));
 		btnBuscarTodos.setFont(new Font("Segoe UI", Font.BOLD, 13));
-		btnBuscarTodos.setBounds(663, 395, 127, 27);
+		btnBuscarTodos.setBounds(677, 395, 123, 34);
 		add(btnBuscarTodos);
 		
 		tabelaVendas = new JTable();
 		tabelaVendas.setBounds(79, 104, 721, 258);
 		add(tabelaVendas);
 		
-		JButton btnRelatorio = new JButton("Relátorio");
+		JButton btnRelatorio = new JButton("Relatorio");
+		btnRelatorio.setBackground(new Color(255, 255, 255));
 		btnRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jfc = new JFileChooser();
@@ -92,7 +94,7 @@ public class PainelListagemVendas extends JPanel {
 		});
 		btnRelatorio.setForeground(new Color(0, 139, 139));
 		btnRelatorio.setFont(new Font("Segoe UI", Font.BOLD, 13));
-		btnRelatorio.setBounds(526, 395, 127, 27);
+		btnRelatorio.setBounds(544, 395, 123, 34);
 		add(btnRelatorio);
 
 	}
