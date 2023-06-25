@@ -47,6 +47,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+import javax.swing.SwingConstants;
 
 public class TelaMenuPrincipal {
 
@@ -61,19 +62,14 @@ public class TelaMenuPrincipal {
 
 	private PainelMenuPrincipalParaClientes painelMenu;
 	protected Point initialClick;
-	private JMenuBar menuBar;
-	private JMenu menuCarrinho;
-	private JMenu mnNewMenu_1;
-	private JMenu menuMinimizar;
-	private JMenu menuMaximizar;
-	private JMenu menuSair;
 	protected TelaCarrinho telaCarrinho;
-	private JMenu menuVoltar;
 
 	private UsuarioVO usuarioVO;
 
 	private TelaLoginUsuario telaLogin;
 	private TelaMenuAdm telaMenuAdm;
+	private JLabel label_1;
+	private JLabel lblVga;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -94,18 +90,9 @@ public class TelaMenuPrincipal {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setUndecorated(true);
+		frame.setUndecorated(false);
 		frame.setBounds(100, 100, 1050, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		frame.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				int frameWidth = frame.getWidth();
-				menuBar.setPreferredSize(new Dimension(frameWidth, menuBar.getPreferredSize().height));
-				frame.revalidate();
-			}
-		});
 
 		frame.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -138,88 +125,20 @@ public class TelaMenuPrincipal {
 		frame.getContentPane().setLayout(new BorderLayout());
 
 		scrollPane.setViewportView(painelMenu);
-		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-		menuBar = new JMenuBar();
-		menuBar.setUI(new CustomMenuBarUI());
-		scrollPane.setColumnHeaderView(menuBar);
-
-		menuCarrinho = new JMenu("");
-		menuCarrinho.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				telaCarrinho = new TelaCarrinho();
-				telaCarrinho.tornarVisivelForaDoFrame();
-				frame.setVisible(false);
-			}
-		});
-
-		menuCarrinho
-				.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-sacola-de-compras-30.png")));
-		menuCarrinho.setForeground(new Color(0, 139, 139)); // Define a cor do texto do JMenu
-		menuBar.add(menuCarrinho);
-
-		menuVoltar = new JMenu("");
-		menuVoltar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				telaMenuAdm = new TelaMenuAdm();
-				telaMenuAdm.tornarVisivelForaDoFrame();
-				frame.setVisible(false);
-			}
-		});
-		menuVoltar.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-voltar-35.png")));
-		menuBar.add(menuVoltar);
+		lblVga = new JLabel("VGA");
+		lblVga.setBackground(new Color(0, 139, 139));
+		lblVga.setForeground(new Color(255, 255, 255));
+		lblVga.setOpaque(true);
+		lblVga.setFont(new Font("Segoe UI", Font.BOLD, 52));
+		lblVga.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane.setColumnHeaderView(lblVga);
 
 		telaLogin = new TelaLoginUsuario();
 
-
-			menuVoltar.setVisible(true);
-			menuVoltar.setEnabled(true);
-	
-
-		mnNewMenu_1 = new JMenu(
-				"                                                                                                                                                                                                                                                                                        ");
-		mnNewMenu_1.setEnabled(false);
-		menuBar.add(mnNewMenu_1);
-
-		menuMinimizar = new JMenu("");
-		menuMinimizar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				frame.setState(Frame.ICONIFIED); // Minimiza o JFrame
-			}
-		});
-		menuMinimizar.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-minimizar-15.png")));
-		menuMinimizar.setForeground(new Color(255, 255, 255));
-		menuMinimizar.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		menuBar.add(menuMinimizar);
-
-		menuMaximizar = new JMenu("");
-		menuMaximizar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-			}
-		});
-		menuMaximizar.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-maximizar-10.png")));
-		menuMaximizar.setForeground(Color.WHITE);
-		menuMaximizar.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		menuBar.add(menuMaximizar);
-
-		menuSair = new JMenu("X");
-		menuSair.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
-			}
-		});
-		menuSair.setForeground(Color.WHITE);
-		menuSair.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		menuBar.add(menuSair);
-
 		frame.validate();
 	}
+	
 
 	class CustomMenuBarUI extends BasicMenuBarUI {
 		@Override
