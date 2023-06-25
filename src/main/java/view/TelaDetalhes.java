@@ -47,7 +47,7 @@ public class TelaDetalhes {
 	private UsuarioVO usuarioVO;
 	private int idDoItemSelecionado;
 	private int idUsuario;
-	
+
 	private TelaLoginUsuario telaLoginUsuario;
 
 	public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado,
@@ -113,23 +113,24 @@ public class TelaDetalhes {
 
 				idDoItemSelecionado = painelMenuParaClientes.getIdSelecionado();
 
-				if (itemController.verificaQuantidadePorIdItem(idDoItemSelecionado) < 0) {
+				if (itemController.consultarPorId(idDoItemClicado).getQuantidade() <= 0) {
 					JOptionPane.showMessageDialog(null, "Indisponível no momento, volte mais tarde!");
 				} else {
 					itemController.diminuirtQuantidadeController(idDoItemClicado, quantidade);
 					JOptionPane.showMessageDialog(null, "Compra realizada!");
 				}
-				
-				telaLoginUsuario =  new TelaLoginUsuario();
-				
+
+				telaLoginUsuario = new TelaLoginUsuario();
+
 				idUsuario = telaLoginUsuario.getId();
 
-				 vendaVO.setIdItem(idDoItemClicado);
-				 
-				 vendaVO.setIdUsuario(idUsuario);
-				 
-				 vendaController vendaController = new vendaController();
-				 vendaController.inserirVenda(vendaVO);
+				vendaVO.setIdItem(idDoItemClicado);
+
+				vendaVO.setIdUsuario(idUsuario);
+
+				vendaController vendaController = new vendaController();
+
+				vendaController.inserirVenda(vendaVO);
 
 			}
 		});

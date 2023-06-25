@@ -27,7 +27,7 @@ public class VendaoDAO {
 			System.out.println("Erro ao inserir nova venda.");
 			System.out.println("Erro: " + e.getMessage());
 		}
-		return null;
+		return vendaVO;
 	}
 
 }

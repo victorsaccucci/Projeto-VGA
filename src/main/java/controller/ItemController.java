@@ -86,9 +86,11 @@ public class ItemController {
 		return bo.diminuirtQuantidadeBO(idItem, quantidade);
 	}
 
-	public int verificaQuantidadePorIdItem(int idDoItemSelecionado) {
-		return bo.verificaQuantidadePorIdItem(idDoItemSelecionado);
 
+	public ItemVO consultarPorId(int idDoItemClicado) {
+		return bo.consultarPorId(idDoItemClicado);
 	}
+	
+	
 	
 }

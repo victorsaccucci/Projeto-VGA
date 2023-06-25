@@ -41,8 +41,7 @@ public class ItemBO {
 		return itemDAO.diminuirQuantidade(idItem, quantidade);
 	}
 
-	public int verificaQuantidadePorIdItem(int idDoItemSelecionado) {
-		return itemDAO.verificaQuantidadePorIdItem(idDoItemSelecionado);
-	}
-
+	public ItemVO consultarPorId(int idDoItemClicado) {
+		return itemDAO.consultarPorId(idDoItemClicado);
+		}
 }
