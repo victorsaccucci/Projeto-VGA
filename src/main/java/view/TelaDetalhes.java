@@ -115,8 +115,6 @@ public class TelaDetalhes {
 		lblVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				telaMenu = new TelaMenuPrincipal();
-				telaMenu.tornarVisivelForaDoFrame();
 				frame.setVisible(false);
 			}
 		});
