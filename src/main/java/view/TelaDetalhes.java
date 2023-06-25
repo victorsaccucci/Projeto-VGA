@@ -8,7 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import controller.ItemController;
+import controller.vendaController;
 import model.vo.ItemVO;
+import model.vo.UsuarioVO;
+import model.vo.VendaVO;
 
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -40,10 +43,13 @@ public class TelaDetalhes {
 	private ItemController itemController;
 	private JTextField txtQuantidade;
 	private int quantidade = 0;
+	private VendaVO vendaVO;
+	private UsuarioVO usuarioVO;
 
-	public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado) {
+	public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado, UsuarioVO usuario) {
 		initialize(idDoItemClicado);
 		exibirValores(modeloTenis, valorTenis, imagemDoTenis, idDoItemClicado);
+		usuarioVO = usuario;
 	}
 
 	private void initialize(final int idDoItemClicado) {
@@ -84,7 +90,7 @@ public class TelaDetalhes {
 		frame.getContentPane().add(lblVoltar);
 		
 		txtQuantidade = new JTextField();
-		txtQuantidade.setBounds(728, 525, 44, 35);
+		txtQuantidade.setBounds(725, 530, 22, 27);
 		frame.getContentPane().add(txtQuantidade);
 		txtQuantidade.setColumns(10);
 
@@ -93,32 +99,43 @@ public class TelaDetalhes {
 		lblAdicionarCarrinho.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				vendaVO = new VendaVO();
+				usuarioVO = new UsuarioVO();
 				painelMenuParaClientes = new PainelMenuPrincipalParaClientes();
 				itemController = new ItemController();
 				itemSelecionadoPeloCliente = new ItemVO();
 				itemSelecionadoPeloCliente = painelMenuParaClientes.getItemSelecionado();
-
 				quantidade = Integer.parseInt(txtQuantidade.getText()); 
-
+				
 				itemController.diminuirtQuantidadeController(idDoItemClicado, quantidade);
-
+				
+				//vendaVO.setIdItem(idDoItemClicado);
+				//vendaVO.setIdUsuario(usuarioVO.getId());
+				//vendaController vendaController = new vendaController();
+				//vendaController.inserirVenda(vendaVO);
 			
 			}
 		});
 
 
 		lblAdicionarCarrinho.setForeground(new Color(255, 255, 255));
-		lblAdicionarCarrinho.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblAdicionarCarrinho.setBounds(478, 530, 57, 20);
+		lblAdicionarCarrinho.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		lblAdicionarCarrinho.setBounds(473, 530, 65, 20);
 		frame.getContentPane().add(lblAdicionarCarrinho);
-
-	
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(
-		TelaDetalhes.class.getResource("/icones/textura-de-cor-ciano-escuro-grunge_469558-34227 (2) (1).png")));
-		lblNewLabel.setBounds(0, 0, 1050, 600);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblQuantidade = new JLabel("Quantidade:");
+		lblQuantidade.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		lblQuantidade.setForeground(new Color(255, 255, 255));
+		lblQuantidade.setBounds(621, 528, 94, 22);
+		frame.getContentPane().add(lblQuantidade);
+		
+			
+				
+				lblNewLabel = new JLabel("");
+				lblNewLabel.setIcon(new ImageIcon(
+				TelaDetalhes.class.getResource("/icones/textura-de-cor-ciano-escuro-grunge_469558-34227 (2) (1).png")));
+				lblNewLabel.setBounds(0, 0, 1050, 600);
+				frame.getContentPane().add(lblNewLabel);
 	}
 
 	public void exibirValores(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado) {
@@ -133,5 +150,4 @@ public class TelaDetalhes {
 	public void tornarVisivelForaDoFrame() {
 		frame.setVisible(true);
 	}
-
 }

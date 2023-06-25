@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 
 import controller.ItemController;
 import model.vo.ItemVO;
+import model.vo.UsuarioVO;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -35,6 +37,8 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 	private ItemVO itemSelecionado = null;
 
 	protected int idDoItemClicado;
+
+	private UsuarioVO usuario;
 
 	public PainelMenuPrincipalParaClientes() {
 		setBackground(new Color(0, 139, 139));
@@ -79,7 +83,8 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 							itemSelecionado = new ItemVO();							
 							itemSelecionado = item;
 							
-							telaDetalhes = new TelaDetalhes(modeloDoTenisClicado, valorDoTenisClicado,imagemDoTenisClicado, idDoItemClicado);
+							usuario = new UsuarioVO();
+							telaDetalhes = new TelaDetalhes(modeloDoTenisClicado, valorDoTenisClicado,imagemDoTenisClicado, idDoItemClicado, usuario);
 
 							telaDetalhes.tornarVisivelForaDoFrame();
 

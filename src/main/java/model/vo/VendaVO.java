@@ -1,11 +1,13 @@
 package model.vo;
 
+import java.time.LocalDate;
+
 public class VendaVO {
 
 	private int id;
 	private int idItem;
 	private int idUsuario;
-	private String dataVenda;
+	private LocalDate dataVenda;
 	
 	public VendaVO() {
 		super();
@@ -16,7 +18,7 @@ public class VendaVO {
 		this.idItem = idItem;
 	}
 
-	public VendaVO(int id, int idItem, int idUsuario, String dataVenda) {
+	public VendaVO(int id, int idItem, int idUsuario, LocalDate dataVenda) {
 		super();
 		this.id = id;
 		this.idItem = idItem;
@@ -48,11 +50,11 @@ public class VendaVO {
 		this.idUsuario = idUsuario;
 	}
 
-	public String getDataVenda() {
+	public LocalDate getDataVenda() {
 		return dataVenda;
 	}
 
-	public void setDataVenda(String dataVenda) {
+	public void setDataVenda(LocalDate dataVenda) {
 		this.dataVenda = dataVenda;
 	}
 

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import com.mysql.cj.jdbc.Blob;
 
@@ -63,8 +64,7 @@ public class ItemDAO {
 	        int atualizados = stmt.executeUpdate();
 	        atualizou = atualizados > 0;
 	  
-	        System.out.println("Erro ao diminuir quantidade do item!");
-	        System.out.println(idItem + quantidade);
+	        JOptionPane.showMessageDialog(null, "Compra feita com sucesso!");
 	    } catch (SQLException e) {
 	        System.out.println("Erro ao diminuir quantidade do item!" + "\nCausa: " + e.getMessage());
 	    } finally {
