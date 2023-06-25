@@ -46,15 +46,23 @@ public class TelaDetalhes {
 	private VendaVO vendaVO;
 	private UsuarioVO usuarioVO;
 	private int idDoItemSelecionado;
-	private int idUsuario;
 
+
+	
 	private TelaLoginUsuario telaLoginUsuario;
+	
+	private int idUsuario;
+	private JTextField txtSeuId;
+
 
 	public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado,
-			UsuarioVO usuario) {
+			UsuarioVO usuario, int idUsuario) {
+		
 		initialize(idDoItemClicado);
 		exibirValores(modeloTenis, valorTenis, imagemDoTenis, idDoItemClicado);
 		usuarioVO = usuario;
+		
+		 this.idUsuario = idUsuario;
 	}
 
 	private void initialize(final int idDoItemClicado) {
@@ -95,7 +103,7 @@ public class TelaDetalhes {
 		frame.getContentPane().add(lblVoltar);
 
 		txtQuantidade = new JTextField();
-		txtQuantidade.setBounds(432, 514, 22, 27);
+		txtQuantidade.setBounds(982, 493, 22, 27);
 		frame.getContentPane().add(txtQuantidade);
 		txtQuantidade.setColumns(10);
 
@@ -123,8 +131,12 @@ public class TelaDetalhes {
 
 				telaLoginUsuario = new TelaLoginUsuario();
 
-				idUsuario = telaLoginUsuario.getId();
+				//idUsuario = telaLoginUsuario.getId();
+				
 
+				idUsuario = telaLoginUsuario.getIdUsuario();
+				
+				
 				vendaVO.setIdItem(idDoItemClicado);
 
 				vendaVO.setIdUsuario(idUsuario);
@@ -135,23 +147,35 @@ public class TelaDetalhes {
 
 			}
 		});
+		
 
 		lblAdicionarCarrinho.setForeground(new Color(255, 255, 255));
 		lblAdicionarCarrinho.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblAdicionarCarrinho.setBounds(567, 514, 65, 20);
+		lblAdicionarCarrinho.setBounds(494, 529, 65, 20);
 		frame.getContentPane().add(lblAdicionarCarrinho);
 
 		JLabel lblQuantidade = new JLabel("Quantidade:");
 		lblQuantidade.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblQuantidade.setForeground(new Color(255, 255, 255));
-		lblQuantidade.setBounds(328, 513, 94, 22);
+		lblQuantidade.setBounds(878, 492, 94, 22);
 		frame.getContentPane().add(lblQuantidade);
-
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(
-				TelaDetalhes.class.getResource("/icones/textura-de-cor-ciano-escuro-grunge_469558-34227 (2) (1).png")));
-		lblNewLabel.setBounds(0, 0, 1050, 600);
-		frame.getContentPane().add(lblNewLabel);
+		
+		txtSeuId = new JTextField();
+		txtSeuId.setColumns(10);
+		txtSeuId.setBounds(982, 533, 22, 27);
+		frame.getContentPane().add(txtSeuId);
+		
+		JLabel lblSeuId = new JLabel("Seu ID:");
+		lblSeuId.setForeground(Color.WHITE);
+		lblSeuId.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		lblSeuId.setBounds(919, 528, 53, 22);
+		frame.getContentPane().add(lblSeuId);
+		
+				lblNewLabel = new JLabel("");
+				lblNewLabel.setIcon(new ImageIcon(
+						TelaDetalhes.class.getResource("/icones/textura-de-cor-ciano-escuro-grunge_469558-34227 (2) (1).png")));
+				lblNewLabel.setBounds(0, 0, 1050, 600);
+				frame.getContentPane().add(lblNewLabel);
 	}
 
 	public void exibirValores(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado) {
