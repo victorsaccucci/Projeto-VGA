@@ -55,9 +55,13 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 
 			if (itensComImagens.isEmpty()) {
 				JOptionPane.showMessageDialog(this, "Nenhuma imagem disponível.");
+				
 			} else {
-				int numColunas = (int) Math.ceil(Math.sqrt(itensComImagens.size()));
-				setLayout(new GridLayout((int) Math.ceil(itensComImagens.size() / (double) numColunas), numColunas));
+				
+				int numColunas = 3;
+				int numLinhas = (int) Math.ceil(itensComImagens.size() / (double) numColunas);
+				setLayout(new GridLayout(numLinhas, numColunas));
+
 
 				int espacamento = 10;
 				EmptyBorder borda = new EmptyBorder(espacamento, espacamento, espacamento, espacamento);
@@ -67,6 +71,7 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 
 					int tamanhoX = 325;
 					int tamanhoY = 350;
+					
 					label.setSize(tamanhoX, tamanhoY);
 
 					label.addMouseListener(new MouseAdapter() {

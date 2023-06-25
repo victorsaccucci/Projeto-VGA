@@ -69,7 +69,7 @@ public class TelaMenuPrincipal {
 	private TelaLoginUsuario telaLogin;
 	private TelaMenuAdm telaMenuAdm;
 	private JLabel label_1;
-	private JLabel lblVga;
+	private JLabel lblNewLabel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -92,6 +92,7 @@ public class TelaMenuPrincipal {
 		frame = new JFrame();
 		frame.setUndecorated(false);
 		frame.setBounds(100, 100, 1050, 600);
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.addMouseListener(new MouseAdapter() {
@@ -126,19 +127,22 @@ public class TelaMenuPrincipal {
 
 		scrollPane.setViewportView(painelMenu);
 
-		lblVga = new JLabel("VGA");
-		lblVga.setBackground(new Color(0, 139, 139));
-		lblVga.setForeground(new Color(255, 255, 255));
-		lblVga.setOpaque(true);
-		lblVga.setFont(new Font("Segoe UI", Font.BOLD, 52));
-		lblVga.setHorizontalAlignment(SwingConstants.CENTER);
-		scrollPane.setColumnHeaderView(lblVga);
+		label_1 = new JLabel("");
+		painelMenu.add(label_1);
+		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+		lblNewLabel = new JLabel("VGA");
+		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 40));
+		lblNewLabel.setOpaque(true);
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setBackground(new Color(0, 139, 139));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane.setColumnHeaderView(lblNewLabel);
 
 		telaLogin = new TelaLoginUsuario();
 
 		frame.validate();
 	}
-	
 
 	class CustomMenuBarUI extends BasicMenuBarUI {
 		@Override

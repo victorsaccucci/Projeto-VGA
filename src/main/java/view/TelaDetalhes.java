@@ -14,6 +14,7 @@ import model.vo.UsuarioVO;
 import model.vo.VendaVO;
 
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
@@ -53,6 +54,7 @@ public class TelaDetalhes {
 	private TelaLoginUsuario telaLoginUsuario;
 	private JTextField txtId;
 	protected int idDoItem;
+	protected Point initialClick;
 
 	public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado,
 			UsuarioVO usuario) {
@@ -68,7 +70,7 @@ public class TelaDetalhes {
 		frame.setBounds(100, 100, 1050, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
+		
 		lblModeloTenis = new JLabel("");
 		lblModeloTenis.setForeground(new Color(255, 255, 255));
 		lblModeloTenis.setFont(new Font("Segoe UI", Font.BOLD, 22));
