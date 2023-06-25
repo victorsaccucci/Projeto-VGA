@@ -45,7 +45,10 @@ public class TelaDetalhes {
 	private int quantidade = 0;
 	private VendaVO vendaVO;
 	private UsuarioVO usuarioVO;
-	protected int idDoItemSelecionado;
+	private int idDoItemSelecionado;
+	private int idUsuario;
+	
+	private TelaLoginUsuario telaLoginUsuario;
 
 	public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado,
 			UsuarioVO usuario) {
@@ -116,11 +119,17 @@ public class TelaDetalhes {
 					itemController.diminuirtQuantidadeController(idDoItemClicado, quantidade);
 					JOptionPane.showMessageDialog(null, "Compra realizada!");
 				}
+				
+				telaLoginUsuario =  new TelaLoginUsuario();
+				
+				idUsuario = telaLoginUsuario.getId();
 
-				// vendaVO.setIdItem(idDoItemClicado);
-				// vendaVO.setIdUsuario(usuarioVO.getId());
-				// vendaController vendaController = new vendaController();
-				// vendaController.inserirVenda(vendaVO);
+				 vendaVO.setIdItem(idDoItemClicado);
+				 
+				 vendaVO.setIdUsuario(idUsuario);
+				 
+				 vendaController vendaController = new vendaController();
+				 vendaController.inserirVenda(vendaVO);
 
 			}
 		});

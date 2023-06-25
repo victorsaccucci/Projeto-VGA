@@ -63,6 +63,10 @@ public class TelaLoginUsuario {
 	private JLabel lblNewLabel;
 	private JLabel lblMaximizar;
 	private JLabel lblMinizar;
+	
+	private boolean verificar = false;
+	
+	private int idUSuario = 0;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -233,12 +237,21 @@ public class TelaLoginUsuario {
 				telaMenuAdm = new TelaMenuAdm();
 				telaMenuPrincipal = new TelaMenuPrincipal();
 				usuarioAutenticado = new UsuarioVO();
+				
+				try {
+					verificar = usuarioController.realizarLoginController(email, senha).isAdm();
+				} catch (ExceptionVGA e1) {
+					e1.printStackTrace();
+				}
+			
 
 				try {
-					if (usuarioController.realizarLoginController(email, senha).isAdm() == true) {
+					if (verificar == true) {
 						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
 						telaMenuAdm.tornarVisivelForaDoFrame();
 						frame.setVisible(false);
+						
+						idUSuario = usuarioController.realizarLoginController(email, senha).getId();
 
 					} else {
 						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
@@ -324,5 +337,11 @@ public class TelaLoginUsuario {
 	public void tornarVisivelForaDoFrame() {
 		frame.setVisible(true);
 
+	}
+	public boolean getVerificarAdm() {
+		return verificar;
+	}
+	public int getId() {
+		return idUSuario;
 	}
 }
