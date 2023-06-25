@@ -85,5 +85,10 @@ public class ItemController {
 	public boolean diminuirtQuantidadeController(int idItem, int quantidade) {
 		return bo.diminuirtQuantidadeBO(idItem, quantidade);
 	}
+
+	public int verificaQuantidadePorIdItem(int idDoItemSelecionado) {
+		return bo.verificaQuantidadePorIdItem(idDoItemSelecionado);
+
+	}
 	
 }

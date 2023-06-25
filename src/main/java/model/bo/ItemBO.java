@@ -42,5 +42,10 @@ public class ItemBO {
 	public boolean diminuirtQuantidadeBO(int idItem, int quantidade) {
 		return itemDAO.diminuirQuantidade(idItem, quantidade);
 	}
+
+
+	public int verificaQuantidadePorIdItem(int idDoItemSelecionado) {
+		return itemDAO.verificaQuantidadePorIdItem(idDoItemSelecionado);
+	}
 	
 }

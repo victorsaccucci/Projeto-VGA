@@ -45,6 +45,7 @@ public class TelaDetalhes {
 	private int quantidade = 0;
 	private VendaVO vendaVO;
 	private UsuarioVO usuarioVO;
+	protected int idDoItemSelecionado;
 
 	public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado, UsuarioVO usuario) {
 		initialize(idDoItemClicado);
@@ -90,7 +91,7 @@ public class TelaDetalhes {
 		frame.getContentPane().add(lblVoltar);
 		
 		txtQuantidade = new JTextField();
-		txtQuantidade.setBounds(725, 530, 22, 27);
+		txtQuantidade.setBounds(432, 514, 22, 27);
 		frame.getContentPane().add(txtQuantidade);
 		txtQuantidade.setColumns(10);
 
@@ -107,7 +108,18 @@ public class TelaDetalhes {
 				itemSelecionadoPeloCliente = painelMenuParaClientes.getItemSelecionado();
 				quantidade = Integer.parseInt(txtQuantidade.getText()); 
 				
-				itemController.diminuirtQuantidadeController(idDoItemClicado, quantidade);
+				idDoItemSelecionado = painelMenuParaClientes.getIdSelecionado();
+				
+				
+				if(itemController.verificaQuantidadePorIdItem(idDoItemSelecionado) < 0) {
+					JOptionPane.showMessageDialog(null, "Indisponível no momento, volte mais tarde!");
+				}else {
+					itemController.diminuirtQuantidadeController(idDoItemClicado, quantidade);
+					JOptionPane.showMessageDialog(null, "Compra realizada!");
+				}
+				
+				
+				
 				
 				//vendaVO.setIdItem(idDoItemClicado);
 				//vendaVO.setIdUsuario(usuarioVO.getId());
@@ -120,13 +132,13 @@ public class TelaDetalhes {
 
 		lblAdicionarCarrinho.setForeground(new Color(255, 255, 255));
 		lblAdicionarCarrinho.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblAdicionarCarrinho.setBounds(473, 530, 65, 20);
+		lblAdicionarCarrinho.setBounds(567, 514, 65, 20);
 		frame.getContentPane().add(lblAdicionarCarrinho);
 		
 		JLabel lblQuantidade = new JLabel("Quantidade:");
 		lblQuantidade.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblQuantidade.setForeground(new Color(255, 255, 255));
-		lblQuantidade.setBounds(621, 528, 94, 22);
+		lblQuantidade.setBounds(328, 513, 94, 22);
 		frame.getContentPane().add(lblQuantidade);
 		
 			

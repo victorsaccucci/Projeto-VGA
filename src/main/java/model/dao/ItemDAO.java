@@ -52,34 +52,32 @@ public class ItemDAO {
 	}
 
 	public boolean diminuirQuantidade(int idItem, int quantidade) {
-	    boolean atualizou = false;
-	    Connection conn = Banco.getConnection();
-	    String sql = "UPDATE ITEM SET QUANTIDADE = QUANTIDADE - ? WHERE IDITEM = ?";
-	    PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
+		boolean atualizou = false;
+		Connection conn = Banco.getConnection();
+		String sql = "UPDATE ITEM SET QUANTIDADE = QUANTIDADE - ? WHERE IDITEM = ?";
+		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
 
-	    try {
-	        stmt.setInt(1, quantidade);
-	        stmt.setInt(2, idItem);
+		try {
+			stmt.setInt(1, quantidade);
+			stmt.setInt(2, idItem);
 
-	        int atualizados = stmt.executeUpdate();
-	        atualizou = atualizados > 0;
-	  
-	        JOptionPane.showMessageDialog(null, "Compra feita com sucesso!");
-	    } catch (SQLException e) {
-	        System.out.println("Erro ao diminuir quantidade do item!" + "\nCausa: " + e.getMessage());
-	    } finally {
-	        Banco.closePreparedStatement(stmt);
-	        Banco.closeConnection(conn);
-	    }
-	    return atualizou;
+			int atualizados = stmt.executeUpdate();
+			atualizou = atualizados > 0;
+
+		} catch (SQLException e) {
+			System.out.println("Erro ao diminuir quantidade do item!" + "\nCausa: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return atualizou;
 	}
-
-
 
 	public boolean atualizar(ItemVO itemVO) {
 		boolean atualizou = false;
 		Connection conn = Banco.getConnection();
-		String slq = " UPDATE ITEM SET TAMANHO=?, COR=?, QUANTIDADE=?, PRECOUNITARIO=?, IDPRODUTO=?, IMAGEM=? WHERE IDITEM= " +itemVO.getId();
+		String slq = " UPDATE ITEM SET TAMANHO=?, COR=?, QUANTIDADE=?, PRECOUNITARIO=?, IDPRODUTO=?, IMAGEM=? WHERE IDITEM= "
+				+ itemVO.getId();
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, slq);
 
 		try {
@@ -89,7 +87,7 @@ public class ItemDAO {
 			stmt.setDouble(4, itemVO.getPrecoUnitario());
 			stmt.setInt(5, itemVO.getProduto().getId());
 			stmt.setBytes(6, itemVO.getImagem());
-			
+
 			int atualizados = stmt.executeUpdate();
 			atualizou = atualizados > 0;
 
@@ -282,31 +280,31 @@ public class ItemDAO {
 
 	private String preencherFiltros(String sql, SeletorItem seletor, SeletorProduto seletorProduto) {
 		boolean primeiro = true;
-		
-		if (seletorProduto != null) {
-		    if (seletorProduto.getMarca() != null && !seletorProduto.getMarca().trim().isEmpty()) {
-		        if (primeiro) {
-		            sql += " INNER JOIN PRODUTO ON ITEM.IDPRODUTO = PRODUTO.IDPRODUTO ";
-		            sql += " WHERE ";
-		        } else {
-		            sql += " AND ";
-		        }
-		        sql += " PRODUTO.MARCA LIKE '%" + seletorProduto.getMarca() + "%'";
-		        primeiro = false;
-		    }
 
-		    if (seletorProduto.getModelo() != null && !seletorProduto.getModelo().trim().isEmpty()) {
-		        if (primeiro) {
-		            sql += " INNER JOIN PRODUTO ON ITEM.IDPRODUTO = PRODUTO.IDPRODUTO ";
-		            sql += " WHERE ";
-		        } else {
-		            sql += " AND ";
-		        }
-		        sql += " PRODUTO.MODELO LIKE '%" + seletorProduto.getModelo() + "%'";
-		        primeiro = false;
-		    }
+		if (seletorProduto != null) {
+			if (seletorProduto.getMarca() != null && !seletorProduto.getMarca().trim().isEmpty()) {
+				if (primeiro) {
+					sql += " INNER JOIN PRODUTO ON ITEM.IDPRODUTO = PRODUTO.IDPRODUTO ";
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				sql += " PRODUTO.MARCA LIKE '%" + seletorProduto.getMarca() + "%'";
+				primeiro = false;
+			}
+
+			if (seletorProduto.getModelo() != null && !seletorProduto.getModelo().trim().isEmpty()) {
+				if (primeiro) {
+					sql += " INNER JOIN PRODUTO ON ITEM.IDPRODUTO = PRODUTO.IDPRODUTO ";
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				sql += " PRODUTO.MODELO LIKE '%" + seletorProduto.getModelo() + "%'";
+				primeiro = false;
+			}
 		}
-		
+
 		if (seletor.getCor() != null && !seletor.getCor().trim().isEmpty()) {
 			if (primeiro) {
 				sql += " WHERE ";
@@ -381,5 +379,8 @@ public class ItemDAO {
 		return sql;
 	}
 
+	public int verificaQuantidadePorIdItem(int idDoItemSelecionado) {
+		return 0;
+	}
 
 }
