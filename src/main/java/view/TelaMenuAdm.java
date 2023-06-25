@@ -46,6 +46,9 @@ public class TelaMenuAdm {
 	private TelaMenuPrincipal telaMenuPrincipal;
 	
 	private TelaLoginUsuario telaLogin;
+	private TelaLoginUsuario telaLoginusuario;
+	
+	private int idUsuario;
 	
 
 	public static void main(String[] args) {

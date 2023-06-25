@@ -73,6 +73,7 @@ public class TelaMenuPrincipal {
 	private UsuarioVO usuarioVO;
 
 	private TelaLoginUsuario telaLogin;
+	private TelaMenuAdm telaMenuAdm;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -162,6 +163,9 @@ public class TelaMenuPrincipal {
 		menuVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				telaMenuAdm = new TelaMenuAdm();
+				telaMenuAdm.tornarVisivelForaDoFrame();
+				frame.setVisible(false);
 			}
 		});
 		menuVoltar.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-voltar-35.png")));
@@ -169,13 +173,10 @@ public class TelaMenuPrincipal {
 
 		telaLogin = new TelaLoginUsuario();
 
-		if (telaLogin.getVerificarAdm()) {
-			menuVoltar.setVisible(false);
-			menuVoltar.setEnabled(false);
-		} else {
+
 			menuVoltar.setVisible(true);
 			menuVoltar.setEnabled(true);
-		}
+	
 
 		mnNewMenu_1 = new JMenu(
 				"                                                                                                                                                                                                                                                                                        ");

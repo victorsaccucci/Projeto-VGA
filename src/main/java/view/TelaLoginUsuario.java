@@ -63,11 +63,11 @@ public class TelaLoginUsuario {
 	private JLabel lblNewLabel;
 	private JLabel lblMaximizar;
 	private JLabel lblMinizar;
-	
-	private boolean verificar = false;
-	
-	private int idUSuario = 0;
 
+	private boolean verificar = false;
+
+	private int idUSuario = 0;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -235,36 +235,33 @@ public class TelaLoginUsuario {
 				telaMenuPrincipal = new TelaMenuPrincipal();
 				usuarioController = new UsuarioController();
 				telaMenuAdm = new TelaMenuAdm();
-				telaMenuPrincipal = new TelaMenuPrincipal();
 				usuarioAutenticado = new UsuarioVO();
-				
-				try {
-					verificar = usuarioController.realizarLoginController(email, senha).isAdm();
-				} catch (ExceptionVGA e1) {
-					e1.printStackTrace();
-				}
-			
 
 				try {
-					if (verificar == true) {
-						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
-						telaMenuAdm.tornarVisivelForaDoFrame();
-						frame.setVisible(false);
-						
-						idUSuario = usuarioController.realizarLoginController(email, senha).getId();
-
-					} else {
-						usuarioAutenticado = usuarioController.realizarLoginController(email, senha);
-						telaMenuPrincipal.tornarVisivelForaDoFrame();
-						frame.setVisible(false);
-					}
-
+				    UsuarioVO usuario = usuarioController.realizarLoginController(email, senha);
+				    verificar = usuario.isAdm();
+				    
+				    if (verificar) {
+				        usuarioAutenticado = usuario;
+				        telaMenuAdm.tornarVisivelForaDoFrame();
+				        frame.setVisible(false);
+				    } else {
+				        usuarioAutenticado = usuario;
+				        telaMenuPrincipal.tornarVisivelForaDoFrame();
+				        frame.setVisible(false);
+				    }
+				    
+				    idUSuario = usuario.getId();
+				    System.out.print(idUSuario);
+				    
 				} catch (ExceptionVGA exception) {
-					JOptionPane.showConfirmDialog(null, exception.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+				    JOptionPane.showConfirmDialog(null, exception.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 				}
+
 
 			}
 		});
+
 		btnEntrar.setForeground(new Color(0, 139, 139));
 		btnEntrar.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnEntrar.setBounds(158, 372, 190, 30);
@@ -331,17 +328,21 @@ public class TelaLoginUsuario {
 		lblMinizar.setIcon(new ImageIcon(TelaLoginUsuario.class.getResource("/icones/icons8-minimizar-15.png")));
 		lblMinizar.setBounds(387, 3, 22, 30);
 		painelCampos.add(lblMinizar);
-
+		
 	}
 
 	public void tornarVisivelForaDoFrame() {
 		frame.setVisible(true);
 
 	}
+
 	public boolean getVerificarAdm() {
 		return verificar;
 	}
-	public int getId() {
+
+	public int getIdUsuario() {
 		return idUSuario;
 	}
+	
+
 }

@@ -33,12 +33,16 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 	private int idSelecionado = 0;
 
 	private ImageIcon imagemDoTenisClicado = null;
-	
+
 	private ItemVO itemSelecionado = null;
 
 	protected int idDoItemClicado;
 
 	private UsuarioVO usuario;
+
+	private TelaLoginUsuario telaLogin;
+
+	private int idUsuario;
 
 	public PainelMenuPrincipalParaClientes() {
 		setBackground(new Color(0, 139, 139));
@@ -77,14 +81,15 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 							valorDoTenisClicado = String.valueOf(item.getPrecoUnitario());
 							imagemDoTenisClicado = new ImageIcon(item.getImagem());
 							idDoItemClicado = item.getId();
-							
-							
-							//Item selecioando para adicionar ao carrinho;
-							itemSelecionado = new ItemVO();							
+
+							// Item selecioando para adicionar ao carrinho;
+							itemSelecionado = new ItemVO();
 							itemSelecionado = item;
-							
+							telaLogin = new TelaLoginUsuario();
+
 							usuario = new UsuarioVO();
-							telaDetalhes = new TelaDetalhes(modeloDoTenisClicado, valorDoTenisClicado,imagemDoTenisClicado, idDoItemClicado, usuario);
+							telaDetalhes = new TelaDetalhes(modeloDoTenisClicado, valorDoTenisClicado,
+									imagemDoTenisClicado, idDoItemClicado, usuario, idUsuario);
 
 							telaDetalhes.tornarVisivelForaDoFrame();
 
@@ -105,7 +110,7 @@ public class PainelMenuPrincipalParaClientes extends JPanel {
 		}
 
 	}
-	
+
 	public ItemVO getItemSelecionado() {
 		return itemSelecionado;
 	}
