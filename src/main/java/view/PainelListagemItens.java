@@ -95,19 +95,19 @@ public class PainelListagemItens extends JPanel {
 		lblMenorValor = new JLabel("Menor Valor:");
 		lblMenorValor.setForeground(new Color(255, 255, 255));
 		lblMenorValor.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblMenorValor.setBounds(33, 44, 91, 20);
+		lblMenorValor.setBounds(26, 44, 97, 20);
 		add(lblMenorValor);
 
 		lblTamanho = new JLabel("Tamanho:");
 		lblTamanho.setForeground(new Color(255, 255, 255));
 		lblTamanho.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblTamanho.setBounds(47, 87, 77, 26);
+		lblTamanho.setBounds(46, 87, 77, 26);
 		add(lblTamanho);
 
 		lblCor = new JLabel("Cor:");
 		lblCor.setForeground(new Color(255, 255, 255));
 		lblCor.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblCor.setBounds(57, 132, 53, 26);
+		lblCor.setBounds(84, 132, 39, 26);
 		add(lblCor);
 
 		txtMaiorPreco = new JTextField();
@@ -117,7 +117,7 @@ public class PainelListagemItens extends JPanel {
 
 		txtTamanho = new JTextField();
 		txtTamanho.setColumns(10);
-		txtTamanho.setBounds(134, 90, 108, 26);
+		txtTamanho.setBounds(134, 87, 108, 31);
 		add(txtTamanho);
 
 		btnBuscar = new JButton("Buscar");
@@ -224,7 +224,7 @@ public class PainelListagemItens extends JPanel {
 		btnGerarRelatorio.setForeground(new Color(0, 139, 139));
 		btnGerarRelatorio.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnGerarRelatorio.setBackground(Color.WHITE);
-		btnGerarRelatorio.setBounds(592, 380, 95, 29);
+		btnGerarRelatorio.setBounds(484, 430, 95, 29);
 		add(btnGerarRelatorio);
 		
 		btnGerarRelatorio.setForeground(new Color(0, 139, 139));
@@ -247,7 +247,7 @@ public class PainelListagemItens extends JPanel {
 		JLabel lblModelo = new JLabel("Modelo:");
 		lblModelo.setForeground(Color.WHITE);
 		lblModelo.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblModelo.setBounds(283, 132, 56, 20);
+		lblModelo.setBounds(280, 135, 56, 20);
 		add(lblModelo);
 		
 		txtModelo = new JTextField();
@@ -257,18 +257,18 @@ public class PainelListagemItens extends JPanel {
 		
 		txtCor = new JTextField();
 		txtCor.setColumns(10);
-		txtCor.setBounds(134, 138, 108, 26);
+		txtCor.setBounds(134, 132, 108, 31);
 		add(txtCor);
 		
 		txtMenorPreco = new JTextField();
 		txtMenorPreco.setColumns(10);
-		txtMenorPreco.setBounds(134, 44, 108, 26);
+		txtMenorPreco.setBounds(134, 41, 108, 31);
 		add(txtMenorPreco);
 		
 		lblMaiorValor = new JLabel("Maior Valor:");
 		lblMaiorValor.setForeground(Color.WHITE);
 		lblMaiorValor.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblMaiorValor.setBounds(252, 50, 91, 20);
+		lblMaiorValor.setBounds(252, 44, 91, 20);
 		add(lblMaiorValor);
 		
 		//Checa se os campos estão sendo preenchidos
