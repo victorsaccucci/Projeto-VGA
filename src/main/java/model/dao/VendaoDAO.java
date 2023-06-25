@@ -10,14 +10,14 @@ import model.vo.VendaVO;
 public class VendaoDAO {
 
 	
-	public VendaVO inserirVenda(VendaVO vendaVO) {
+	public VendaVO inserirVenda(VendaVO vendaVO, int idUsuario) {
 		Connection conn = Banco.getConnection();
 		String sql = " INSERT INTO VENDA(DATA_VENDA, IDITEM, IDUSUARIO) VALUES(?,?,?) ";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql);
 		try {
 			stmt.setDate(1, java.sql.Date.valueOf(vendaVO.getDataVenda()));
 			stmt.setInt(2, vendaVO.getIdItem());
-			stmt.setInt(3, vendaVO.getIdUsuario());
+			stmt.setInt(3, idUsuario);
 			
 			ResultSet resultado = stmt.getGeneratedKeys();
 			if(resultado.next()) {

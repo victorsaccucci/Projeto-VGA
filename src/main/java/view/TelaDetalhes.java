@@ -46,6 +46,7 @@ public class TelaDetalhes {
 	private VendaVO vendaVO;
 	private UsuarioVO usuarioVO;
 	protected int idDoItemSelecionado;
+	private TelaLoginUsuario telaLoginUsuario;
 
 	public TelaDetalhes(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado, UsuarioVO usuario) {
 		initialize(idDoItemClicado);
@@ -109,11 +110,9 @@ public class TelaDetalhes {
 				quantidade = Integer.parseInt(txtQuantidade.getText()); 
 				
 				idDoItemSelecionado = painelMenuParaClientes.getIdSelecionado();
-				
-				
-				if(itemController.verificaQuantidadePorIdItem(idDoItemSelecionado) < 0) {
+				if(itemController.consultarPorId(idDoItemClicado).getQuantidade() <= 0) {
 					JOptionPane.showMessageDialog(null, "Indisponível no momento, volte mais tarde!");
-				}else {
+				} else {
 					itemController.diminuirtQuantidadeController(idDoItemClicado, quantidade);
 					JOptionPane.showMessageDialog(null, "Compra realizada!");
 				}
@@ -121,10 +120,13 @@ public class TelaDetalhes {
 				
 				
 				
-				//vendaVO.setIdItem(idDoItemClicado);
-				//vendaVO.setIdUsuario(usuarioVO.getId());
-				//vendaController vendaController = new vendaController();
-				//vendaController.inserirVenda(vendaVO);
+				
+				telaLoginUsuario = new TelaLoginUsuario();
+				vendaVO.setIdItem(idDoItemClicado);
+				
+				vendaController vendaController = new vendaController();
+				
+				//vendaController.inserirVenda(vendaVO, idUsuario);
 			
 			}
 		});

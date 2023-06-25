@@ -25,6 +25,8 @@ import view.TelaMenuPrincipal;
 
 public class ItemDAO {
 
+	private ItemVO itemVO;
+
 	public ItemVO inserir(ItemVO novoItem) {
 		Connection conn = Banco.getConnection();
 		String sql = "INSERT INTO ITEM (TAMANHO, COR, QUANTIDADE, PRECOUNITARIO, IDPRODUTO, IMAGEM) VALUES (?,?,?,?,?,?)";
@@ -379,8 +381,21 @@ public class ItemDAO {
 		return sql;
 	}
 
-	public int verificaQuantidadePorIdItem(int idDoItemSelecionado) {
-		return 0;
+	public ItemVO verificaQuantidadePorIdItem(int idDoItemSelecionado) {
+		ItemVO itemVO = null;
+		Connection conexao = Banco.getConnection();
+		String sql = " select * from item "
+				   + " where id = ? ";
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			query.setInt(1, idDoItemSelecionado);
+			ResultSet resultado = query.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return itemVO;
 	}
 
 }

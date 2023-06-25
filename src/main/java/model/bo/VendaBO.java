@@ -7,8 +7,8 @@ public class VendaBO {
 
 	VendaoDAO dao = new VendaoDAO();
 	
-	public VendaVO inserirVenda(VendaVO vendaVO) {
-		return dao.inserirVenda(vendaVO);
+	public VendaVO inserirVenda(VendaVO vendaVO, int idUsuario) {
+		return dao.inserirVenda(vendaVO, idUsuario);
 	}
 
 }

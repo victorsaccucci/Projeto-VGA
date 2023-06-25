@@ -7,9 +7,9 @@ public class vendaController {
 
 	VendaBO bo = new VendaBO();
 	
-	public VendaVO inserirVenda(VendaVO vendaVO) {
+	public VendaVO inserirVenda(VendaVO vendaVO, int idUsuario) {
 		
-		return bo.inserirVenda(vendaVO);
+		return bo.inserirVenda(vendaVO, idUsuario);
 	}
 
 }
