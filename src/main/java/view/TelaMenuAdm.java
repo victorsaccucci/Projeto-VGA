@@ -44,6 +44,9 @@ public class TelaMenuAdm {
 	private ItemVO item;
 
 	private TelaMenuPrincipal telaMenuPrincipal;
+	
+	private TelaLoginUsuario telaLogin;
+	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

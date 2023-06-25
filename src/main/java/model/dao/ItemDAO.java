@@ -380,7 +380,13 @@ public class ItemDAO {
 	}
 
 	public int verificaQuantidadePorIdItem(int idDoItemSelecionado) {
-		return 0;
+		int quantidade = 0;
+		
+		Connection conn = Banco.getConnection();
+		String sql = "SELECT ITEM.QUANTIDADE FROM ITEM WHERE IDITEM = ?";
+		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
+		
+		return quantidade;
 	}
 
 }

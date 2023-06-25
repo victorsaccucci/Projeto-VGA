@@ -69,8 +69,10 @@ public class TelaMenuPrincipal {
 	private JMenu menuSair;
 	protected TelaCarrinho telaCarrinho;
 	private JMenu menuVoltar;
-	
+
 	private UsuarioVO usuarioVO;
+
+	private TelaLoginUsuario telaLogin;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -155,7 +157,7 @@ public class TelaMenuPrincipal {
 				.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-sacola-de-compras-30.png")));
 		menuCarrinho.setForeground(new Color(0, 139, 139)); // Define a cor do texto do JMenu
 		menuBar.add(menuCarrinho);
-		
+
 		menuVoltar = new JMenu("");
 		menuVoltar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -164,14 +166,15 @@ public class TelaMenuPrincipal {
 		});
 		menuVoltar.setIcon(new ImageIcon(TelaMenuPrincipal.class.getResource("/icones/icons8-voltar-35.png")));
 		menuBar.add(menuVoltar);
-		
-		usuarioVO = new UsuarioVO();
-		if(usuarioVO.isAdm()) {
-			menuVoltar.setVisible(true);
-			menuVoltar.setEnabled(true);
-		}else {
+
+		telaLogin = new TelaLoginUsuario();
+
+		if (telaLogin.getVerificarAdm()) {
 			menuVoltar.setVisible(false);
 			menuVoltar.setEnabled(false);
+		} else {
+			menuVoltar.setVisible(true);
+			menuVoltar.setEnabled(true);
 		}
 
 		mnNewMenu_1 = new JMenu(
