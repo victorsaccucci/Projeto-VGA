@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -17,7 +19,9 @@ import model.vo.ProdutoVO;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JFormattedTextField.AbstractFormatter;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JPasswordField;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -46,7 +50,6 @@ public class PainelCadastroItem extends JPanel {
 	private JTextField txtTamanho;
 	private JTextField txtCor;
 	private JTextField txtQuantidade;
-	private JTextField txtPreco;
 	private JLabel lblProduto;
 	private JLabel lblTamanho;
 	private JLabel lblCor;
@@ -55,6 +58,7 @@ public class PainelCadastroItem extends JPanel {
 	private JComboBox cbProduto;
 	private JLabel lblPreco;
 	private JLabel lblTitulo;
+	private MaskFormatter mascaraPreco;
 
 	private ItemController itemController;
 	private ProdutoController produtoController;
@@ -71,6 +75,8 @@ public class PainelCadastroItem extends JPanel {
 
 	private boolean itemTrueFalse;
 	private JButton btnCadastrarItem;
+	protected JLabel imagemLabel;
+	private JFormattedTextField txtPreco;
 
 	public PainelCadastroItem(ItemVO itemParaEditar) throws ParseException {
 		if(itemParaEditar == null) {
@@ -83,6 +89,9 @@ public class PainelCadastroItem extends JPanel {
 		
 		setBackground(new Color(0, 139, 139));
 		setLayout(null);
+		
+		mascaraPreco = new MaskFormatter("R$##,##");
+		mascaraPreco.setValueContainsLiteralCharacters(false);
 		
 		lblTitulo = new JLabel(item.getId() == 0 ? "NOVO ITEM" : "EDIÇÃO DE ITEM");
 		lblTitulo.setForeground(new Color(255, 255, 255));
@@ -116,12 +125,6 @@ public class PainelCadastroItem extends JPanel {
 		txtQuantidade.setColumns(10);
 		txtQuantidade.setBounds(305, 264, 358, 28);
 		add(txtQuantidade);
-
-		txtPreco = new JTextField();
-		txtPreco.setForeground(new Color(0, 139, 139));
-		txtPreco.setColumns(10);
-		txtPreco.setBounds(305, 324, 358, 28);
-		add(txtPreco);
 
 		lblTamanho = new JLabel("Tamanho:");
 		lblTamanho.setForeground(new Color(255, 255, 255));
@@ -160,12 +163,30 @@ public class PainelCadastroItem extends JPanel {
 				
 				telaMenuPrincipal = new TelaMenuPrincipal();
 				
+				
+				
 				JFileChooser fileChooser = new JFileChooser();
 				int result = fileChooser.showOpenDialog(frame);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					imagemSelecionada = fileChooser.getSelectedFile();
 
+					ImageIcon imagemIcone = new ImageIcon(imagemSelecionada.getAbsolutePath());
+					
+					// Definir o tamanho desejado para a imagem
+					Image imagem = imagemIcone.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+					
+					// Criar um novo ImageIcon redimensionado
+					imagemIcone = new ImageIcon(imagem);
+					 
+					// Definir o ícone do JLabel para exibir a imagem
+					imagemLabel = new JLabel();
+				    imagemLabel.setBounds(700, 180, 200, 200);
+				    add(imagemLabel);
+					imagemLabel.setIcon(imagemIcone);
+					
 				}
+				
+				
 			}
 		});
 		btnAddImagem.setBackground(new Color(255, 255, 255));
@@ -175,6 +196,8 @@ public class PainelCadastroItem extends JPanel {
 		btnAddImagem.setBounds(305, 382, 43, 28);
 		add(btnAddImagem);
 
+		  
+		
 		btnCadastrarItem = new JButton("Cadastrar");
 		btnCadastrarItem.setBackground(new Color(255, 255, 255));
 		btnCadastrarItem.addActionListener(new ActionListener() {
@@ -184,7 +207,7 @@ public class PainelCadastroItem extends JPanel {
 
 				item.setCor(txtCor.getText());
 				item.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
-				item.setPrecoUnitario(Double.parseDouble(txtPreco.getText()));
+				
 				item.setTamanho(txtTamanho.getText());
 				item.setProduto((ProdutoVO) cbProduto.getSelectedItem());
 				
@@ -195,29 +218,45 @@ public class PainelCadastroItem extends JPanel {
 					JOptionPane.showMessageDialog(null, "Erro ao converter imagem" + e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 				
-				listaDeImagens.add(item);
-
+				listaDeImagens.add(item); 
+				
+				try {
+					String cpfSemMascara = (String) mascaraPreco.stringToValue(
+							txtPreco.getText());
+					item.setPrecoUnitario(Double.parseDouble(cpfSemMascara));
+				} catch (ParseException e1) {
+			
+				}
+				
 				try {
 					//TODO verificar o id -> se tiver (atualizar), senão (cadastrar)
 					if(itemTrueFalse) {
 						itemController.inserirItem(item);
 						JOptionPane.showMessageDialog(null, "Item SALVO com sucesso!", 
 								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+						limparCamposAposCadastrar();
 					} else {
 						itemController.atualizarItem(item);
 						JOptionPane.showMessageDialog(null, "Item ATUALIZADO com sucesso!", 
 								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+						limparCamposAposCadastrar();
 					}
 
 				} catch (ExceptionVGA e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
+				
+				
 			}
 		});
 		btnCadastrarItem.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		btnCadastrarItem.setForeground(new Color(0, 139, 139));
 		btnCadastrarItem.setBounds(404, 377, 155, 39);
 		add(btnCadastrarItem);
+		
+		txtPreco = new JFormattedTextField(mascaraPreco);  
+		txtPreco.setBounds(305, 324, 358, 28);
+		add(txtPreco);
 
 		if(this.item != null) {
 			preencherCamposDaTela();
@@ -231,5 +270,12 @@ public class PainelCadastroItem extends JPanel {
 		this.txtPreco.setText(String.valueOf(this.item.getPrecoUnitario()));
 		//TODO preencher imagem (talvez tenha que mexer no ItemDAO)
 		this.btnCadastrarItem.setText("Salvar");
+	}
+	private void limparCamposAposCadastrar() {
+		this.txtCor.setText(null);
+		this.txtPreco.setText(null);
+		this.txtQuantidade.setText(null);
+		this.txtTamanho.setText(null);
+		this.cbProduto.setSelectedItem(null); 
 	}
 }

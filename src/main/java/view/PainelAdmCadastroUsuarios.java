@@ -142,10 +142,12 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 						usuarioController.cadastrarUsuarioController(usuario);
 						JOptionPane.showMessageDialog(null, "Cliente SALVO com sucesso!", 
 								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+						limparAposCadastrar();
 					} else {
 						usuarioController.atualizarUsuarioController(usuario);
 						JOptionPane.showMessageDialog(null, "Cliente ATUALIZADO com sucesso!", 
 								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+						limparAposCadastrar();
 					}
 					
 					
@@ -176,5 +178,12 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 		this.txtCpf.setText(this.usuario.getCpf());
 		this.txtSenha.setText(this.usuario.getSenha());
 		this.btnCadastrar.setText("Salvar");
+	}
+	
+	private void limparAposCadastrar() {
+		this.txtNome.setText(null);
+		this.txtEmail.setText(null);
+		this.txtCpf.setText(null);
+		this.txtSenha.setText(null);
 	}
 }

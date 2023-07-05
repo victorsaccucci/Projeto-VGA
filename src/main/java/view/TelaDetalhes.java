@@ -22,6 +22,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaDetalhes {
 
@@ -35,7 +38,6 @@ public class TelaDetalhes {
 
 	private TelaMenuPrincipal telaMenu;
 	private JLabel lblNewLabel;
-	private JLabel lblAdicionarCarrinho;
 	private ItemVO itemSelecionado;
 
 	// lista vazia que
@@ -127,11 +129,26 @@ public class TelaDetalhes {
 		frame.getContentPane().add(txtQuantidade);
 		txtQuantidade.setColumns(10);
 
-		lblAdicionarCarrinho = new JLabel("Comprar");
-		lblAdicionarCarrinho.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAdicionarCarrinho.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		JLabel lblQuantidade = new JLabel("Quantidade:");
+		lblQuantidade.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		lblQuantidade.setForeground(new Color(255, 255, 255));
+		lblQuantidade.setBounds(810, 513, 94, 22);
+		frame.getContentPane().add(lblQuantidade);
+
+		JLabel lblId = new JLabel("Seu ID:");
+		lblId.setForeground(Color.WHITE);
+		lblId.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		lblId.setBounds(810, 546, 94, 22);
+		frame.getContentPane().add(lblId);
+
+		txtId = new JTextField();
+		txtId.setColumns(10);
+		txtId.setBounds(929, 550, 22, 27);
+		frame.getContentPane().add(txtId);
+		
+		JButton btnComprar = new JButton("Comprar");
+		btnComprar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				vendaVO = new VendaVO();
 				usuarioVO = new UsuarioVO();
 				painelMenuParaClientes = new PainelMenuPrincipalParaClientes();
@@ -161,39 +178,21 @@ public class TelaDetalhes {
 
 			}
 		});
-
-		lblAdicionarCarrinho.setForeground(new Color(255, 255, 255));
-		lblAdicionarCarrinho.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblAdicionarCarrinho.setBounds(0, 514, 1050, 20);
-		frame.getContentPane().add(lblAdicionarCarrinho);
-
-		JLabel lblQuantidade = new JLabel("Quantidade:");
-		lblQuantidade.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblQuantidade.setForeground(new Color(255, 255, 255));
-		lblQuantidade.setBounds(810, 513, 94, 22);
-		frame.getContentPane().add(lblQuantidade);
-
-		JLabel lblId = new JLabel("Seu ID:");
-		lblId.setForeground(Color.WHITE);
-		lblId.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblId.setBounds(810, 546, 94, 22);
-		frame.getContentPane().add(lblId);
-
-		txtId = new JTextField();
-		txtId.setColumns(10);
-		txtId.setBounds(929, 550, 22, 27);
-		frame.getContentPane().add(txtId);
-
-		lblTenis = new JLabel("");
-		lblTenis.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTenis.setBounds(10, 118, 1030, 318);
-		frame.getContentPane().add(lblTenis);
-
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(
-				TelaDetalhes.class.getResource("/icones/textura-de-cor-ciano-escuro-grunge_469558-34227 (2) (1).png")));
-		lblNewLabel.setBounds(0, 0, 1050, 600);
-		frame.getContentPane().add(lblNewLabel);
+		btnComprar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnComprar.setForeground(new Color(1, 139, 139));
+		btnComprar.setBounds(471, 519, 107, 32);
+		frame.getContentPane().add(btnComprar);
+		
+				lblTenis = new JLabel("");
+				lblTenis.setHorizontalAlignment(SwingConstants.CENTER);
+				lblTenis.setBounds(10, 118, 1030, 318);
+				frame.getContentPane().add(lblTenis);
+				
+						lblNewLabel = new JLabel("");
+						lblNewLabel.setIcon(new ImageIcon(
+								TelaDetalhes.class.getResource("/icones/textura-de-cor-ciano-escuro-grunge_469558-34227 (2) (1).png")));
+						lblNewLabel.setBounds(0, 0, 1050, 600);
+						frame.getContentPane().add(lblNewLabel);
 	}
 
 	public void exibirValores(String modeloTenis, String valorTenis, ImageIcon imagemDoTenis, int idDoItemClicado) {
