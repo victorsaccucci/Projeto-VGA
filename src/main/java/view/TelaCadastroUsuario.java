@@ -13,6 +13,8 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
@@ -242,11 +244,37 @@ public class TelaCadastroUsuario {
 			}
 			
 			try {
-				usuarioController.cadastrarUsuarioController(novoUsuario);
-				JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!", 
-						"Sucesso", JOptionPane.INFORMATION_MESSAGE);
-				telaLogin = new TelaLoginUsuario();
-				telaLogin.tornarVisivelForaDoFrame();
+		        if (!validarEmail(novoUsuario.getEmail())) {
+		            JOptionPane.showMessageDialog(frame, "Verifique se o e-mail é válido ou se foi preenchido!", "Erro de validação",
+		                    JOptionPane.ERROR_MESSAGE);
+		        } else {
+		            StringBuilder mensagemErro = new StringBuilder();
+		            
+		            if (!novoUsuario.getSenha().matches(".*[a-z].*")) {
+		                mensagemErro.append("- A senha deve conter pelo menos uma letra minúscula.\n");
+		            }
+		            if (!novoUsuario.getSenha().matches(".*[A-Z].*")) {
+		                mensagemErro.append("- A senha deve conter pelo menos uma letra maiúscula.\n");
+		            }
+		            if (!novoUsuario.getSenha().matches(".*\\d.*")) {
+		                mensagemErro.append("- A senha deve conter pelo menos um número.\n");
+		            }
+		            if (novoUsuario.getSenha().length() < 6) {
+		                mensagemErro.append("- A senha deve ter pelo menos 6 caracteres.\n");
+		            }
+
+		            if (mensagemErro.length() > 0) {
+		                JOptionPane.showMessageDialog(frame, mensagemErro.toString(), "Erro de validação",
+		                        JOptionPane.ERROR_MESSAGE);
+		            } else {
+						usuarioController.cadastrarUsuarioController(novoUsuario);
+						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!", 
+								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+						telaLogin = new TelaLoginUsuario();
+						telaLogin.tornarVisivelForaDoFrame();
+		            }
+		        }
+
 				
 			} catch (ExceptionVGA e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage(), 
@@ -334,5 +362,12 @@ public class TelaCadastroUsuario {
 
 	public void tornarVisivelForaDoFrame() {
 		frame.setVisible(true);
+	}
+	
+	private boolean validarEmail(String email) {
+		String regex = "^(.+)@(.+)$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
 	}
 }
