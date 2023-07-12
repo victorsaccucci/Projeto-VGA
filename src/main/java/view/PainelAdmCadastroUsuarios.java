@@ -19,6 +19,8 @@ import java.awt.Checkbox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -136,28 +138,54 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 			
 				}
 				
-				try {
-					//TODO verificar o id -> se tiver (atualizar), senão (cadastrar)
-					if(novoCliente) {
-						usuarioController.cadastrarUsuarioController(usuario);
-						JOptionPane.showMessageDialog(null, "Cliente SALVO com sucesso!", 
-								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
-						limparAposCadastrar();
-					} else {
-						usuarioController.atualizarUsuarioController(usuario);
-						JOptionPane.showMessageDialog(null, "Cliente ATUALIZADO com sucesso!", 
-								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
-						limparAposCadastrar();
-					}
+			
+					 if (!validarEmail(usuario.getEmail())) {
+				            JOptionPane.showMessageDialog(null, "Verifique se o e-mail é válido ou se foi preenchido!", "Erro de validação",
+				                    JOptionPane.ERROR_MESSAGE);
+				        } else {
+				            StringBuilder mensagemErro = new StringBuilder();
+				            
+				            if (!usuario.getSenha().matches(".*[a-z].*")) {
+				                mensagemErro.append("- A senha deve conter pelo menos uma letra minúscula.\n");
+				            }
+				            if (!usuario.getSenha().matches(".*[A-Z].*")) {
+				                mensagemErro.append("- A senha deve conter pelo menos uma letra maiúscula.\n");
+				            }
+				            if (!usuario.getSenha().matches(".*\\d.*")) {
+				                mensagemErro.append("- A senha deve conter pelo menos um número.\n");
+				            }
+				            if (usuario.getSenha().length() < 6) {
+				                mensagemErro.append("- A senha deve ter pelo menos 6 caracteres.\n");
+				            }
+
+				            if (mensagemErro.length() > 0) {
+				                JOptionPane.showMessageDialog(null, mensagemErro.toString(), "Erro de validação",
+				                        JOptionPane.ERROR_MESSAGE);
+				            } else {
+				            	if(novoCliente) {
+				            		try {
+										usuarioController.cadastrarUsuarioController(usuario);
+									} catch (ExceptionVGA e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+									JOptionPane.showMessageDialog(null, "Cliente SALVO com sucesso!", 
+											"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+									limparAposCadastrar();
+				            	} else {
+				            		usuarioController.atualizarUsuarioController(usuario);
+									JOptionPane.showMessageDialog(null, "Cliente ATUALIZADO com sucesso!", 
+											"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+									limparAposCadastrar();
+				            	}
+				            }
+				        }
 					
-					
-					
-				} catch (ExceptionVGA e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), 
-							"Erro", JOptionPane.ERROR_MESSAGE);
-				}
+				} 
 				
-			}
+			
+
+			
 		});
 		btnCadastrar.setBounds(418, 349, 155, 39);
 		add(btnCadastrar);
@@ -170,6 +198,13 @@ public class PainelAdmCadastroUsuarios extends JPanel {
 			preencherCamposDaTela();
 		}
 		
+	}
+	
+	private boolean validarEmail(String email) {
+		String regex = "^(.+)@(.+)$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
 	}
 	
 	private void preencherCamposDaTela() {

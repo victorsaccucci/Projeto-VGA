@@ -21,6 +21,8 @@ import model.vo.UsuarioVO;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -236,32 +238,59 @@ public class TelaLoginUsuario {
 				usuarioController = new UsuarioController();
 				telaMenuAdm = new TelaMenuAdm();
 				usuarioAutenticado = new UsuarioVO();
+				
+				if (!validarEmail(email)) {
+		            JOptionPane.showMessageDialog(null, "Verifique se o e-mail é válido ou se foi preenchido!", "Erro de validação",
+		                    JOptionPane.ERROR_MESSAGE);
+		        } else {
+		            StringBuilder mensagemErro = new StringBuilder();
+		            
+		            if (!senha.matches(".*[a-z].*")) {
+		                mensagemErro.append("- A senha deve conter pelo menos uma letra minúscula.\n");
+		            }
+		            if (!senha.matches(".*[A-Z].*")) {
+		                mensagemErro.append("- A senha deve conter pelo menos uma letra maiúscula.\n");
+		            }
+		            if (!senha.matches(".*\\d.*")) {
+		                mensagemErro.append("- A senha deve conter pelo menos um número.\n");
+		            }
+		            if (senha.length() < 6) {
+		                mensagemErro.append("- A senha deve ter pelo menos 6 caracteres.\n");
+		            }
 
-				try {
-				    UsuarioVO usuario = usuarioController.realizarLoginController(email, senha);
-				    verificar = usuario.isAdm();
-				    
-				    if (verificar) {
-				        usuarioAutenticado = usuario;
-				        telaMenuAdm.tornarVisivelForaDoFrame();
-				        frame.setVisible(false);
-				    } else {
-				    	
-				        usuarioAutenticado = usuario;
-				        JOptionPane.showMessageDialog(null, "Seu ID �:" + usuario.getId());
-				        telaMenuPrincipal.tornarVisivelForaDoFrame();
-				        frame.setVisible(false);
-				    }
-				    
-				    idUSuario = usuario.getId();
-				    System.out.print(idUSuario);
-				    
-				} catch (ExceptionVGA exception) {
-				    JOptionPane.showConfirmDialog(null, exception.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
-				}
+		            if (mensagemErro.length() > 0) {
+		                JOptionPane.showMessageDialog(null, mensagemErro.toString(), "Erro de validação",
+		                        JOptionPane.ERROR_MESSAGE);
+		            }  else {
+		            	try {
+		            		 UsuarioVO usuario = usuarioController.realizarLoginController(email, senha);
+		 				    verificar = usuario.isAdm();
+		 				    
+		 				    if (verificar) {
+		 				        usuarioAutenticado = usuario;
+		 				        telaMenuAdm.tornarVisivelForaDoFrame();
+		 				        frame.setVisible(false);
+		 				    } else {
+		 				    	
+		 				        usuarioAutenticado = usuario;
+		 				        JOptionPane.showMessageDialog(null, "Seu ID �:" + usuario.getId());
+		 				        telaMenuPrincipal.tornarVisivelForaDoFrame();
+		 				        frame.setVisible(false);
+		 				    }
+		 				    
+		 				    idUSuario = usuario.getId();
+		 				    System.out.print(idUSuario);
+		 				   
+		            	} catch (ExceptionVGA exception){
+		            		JOptionPane.showConfirmDialog(null, exception.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+		            	}
+
 
 
 			}
+		        }
+			}
+			
 		});
 
 		btnEntrar.setForeground(new Color(0, 139, 139));
@@ -345,6 +374,14 @@ public class TelaLoginUsuario {
 	public int getIdUsuario() {
 		return idUSuario;
 	}
+	
+	private boolean validarEmail(String email) {
+		String regex = "^(.+)@(.+)$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
+	
 	
 
 }
