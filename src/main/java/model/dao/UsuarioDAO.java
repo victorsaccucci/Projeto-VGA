@@ -116,7 +116,7 @@ public class UsuarioDAO {
 	public ArrayList<UsuarioVO> consultarTodos() {
 		ArrayList<UsuarioVO> usuarios = new ArrayList<UsuarioVO>();
 		Connection conn = Banco.getConnection();
-		String sql = " select * from usuario ";
+		String sql = " select * from usuario order by nome, email ";
 
 		PreparedStatement query = Banco.getPreparedStatement(conn, sql);
 		try {

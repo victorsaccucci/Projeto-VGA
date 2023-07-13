@@ -138,7 +138,9 @@ public class ItemDAO {
 		List<ItemVO> consultados = new ArrayList<ItemVO>();
 
 		Connection conn = Banco.getConnection();
-		String sql = " SELECT * FROM ITEM";
+		String sql = " select * from item "
+				+ " left join produto on item.idproduto = produto.idproduto "
+				+ " order by produto.marca ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
 
 		try {

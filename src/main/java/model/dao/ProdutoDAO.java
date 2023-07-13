@@ -88,7 +88,7 @@ public class ProdutoDAO {
 	public List<ProdutoVO> consultarTodos(){
 		List<ProdutoVO> produtos = new ArrayList<ProdutoVO>();
 		Connection conexao = Banco.getConnection();
-		String sql = " select * from produto";
+		String sql = " select * from produto order by modelo, marca";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 		
 		try {
